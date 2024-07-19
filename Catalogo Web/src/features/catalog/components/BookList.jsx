@@ -1,25 +1,16 @@
-// src/features/book-catalog/components/BookList.js
+// BookList.jsx
 import React, { useState } from 'react';
 import { useBookList } from '../hooks/useBookList';
-
-const initialBooks = [
-  { title: 'The Pale Blue Dot', author: 'Carl Sagan', isbn: '978-0345376596' },
-  { title: '1984', author: 'George Orwell', isbn: '978-0451524935' },
-  { title: 'Brave New World', author: 'Aldous Huxley', isbn: '978-0060850524' },
-  { title: 'Fahrenheit 451', author: 'Ray Bradbury', isbn: '978-1451673319' },
-  { title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0060935467' },
-];
+import BookCover from './BookCover';
 
 const BookList = () => {
-  const [books, setBooks] = useState(initialBooks);
-  const { loading, error } = useBookList(books);
-
+  const { books, getBook, removeBook, loading, error } = useBookList();
   const [bookTitle, setBookTitle] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [isbn, setIsbn] = useState('');
 
-  const handleAddBook = () => {
-    setBooks([...books, { title: bookTitle, author: authorName, isbn }]);
+  const handleAddBook = async () => {
+    await getBook({ title: bookTitle, author: authorName, isbn });
     setBookTitle('');
     setAuthorName('');
     setIsbn('');
@@ -47,17 +38,19 @@ const BookList = () => {
           value={isbn} 
           onChange={(e) => setIsbn(e.target.value)} 
         />
-        <button onClick={handleAddBook}>Add Book</button>
+        <button onClick={handleAddBook} disabled={loading}>
+          {loading ? 'Loading...' : 'Add Book'}
+        </button>
       </div>
-      {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       <ul>
         {books.map(book => (
           <li key={book.isbn}>
             <div>
               <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn})
-              {book.coverUrl && <img src={book.coverUrl} alt="Book Cover" style={{ width: '100px', height: 'auto' }} />}
+              <BookCover url={book.coverUrl} />
             </div>
+            <button onClick={() => removeBook(book.isbn)}>Remove</button>
           </li>
         ))}
       </ul>
