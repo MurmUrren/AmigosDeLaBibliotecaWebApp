@@ -6,14 +6,11 @@ const BookSearch = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [ISBN, setISBN] = useState("");
-  const { getBook, loading, error  } = useBookList();
+  const { books, getBook, loading, error  } = useBookList();
 
-  const handleSearchByISBN = async () => {
-    await getBook();
-  };
-
-  const handleSearchByTitleAndAuthor = async () => {
-    await getBook({ title, author });
+  const handleSearch = async () => {
+    var book = {title: title, author: author, isbn: ISBN};
+    await getBook(book);
   };
 
   return (
@@ -32,7 +29,7 @@ const BookSearch = () => {
           value={author} 
           onChange={(e) => setAuthor(e.target.value)} 
         />
-        <button onClick={handleSearchByTitleAndAuthor} disabled={loading}>
+        <button onClick={handleSearch} disabled={loading}>
           {loading ? 'Loading...' : 'Search by Title and Author'}
         </button>
       </div>
@@ -43,12 +40,20 @@ const BookSearch = () => {
           value={ISBN} 
           onChange={(e) => setISBN(e.target.value)} 
         />
-        <button onClick={handleSearchByISBN} disabled={loading}>
+        <button onClick={handleSearch} disabled={loading}>
           {loading ? 'Loading...' : 'Search by ISBN'}
         </button>
       </div>
       {error && <p>Error: {error.message}</p>}
-      <BookCover  />
+      {books.map(book => (
+          <li key={book.isbn}>
+            <div>
+              <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn})
+              <BookCover url={book.coverUrl} />
+            </div>
+            <button onClick={() => removeBook(book.isbn)}>Remove</button>
+          </li>
+        ))}
     </div>
   );
 };
