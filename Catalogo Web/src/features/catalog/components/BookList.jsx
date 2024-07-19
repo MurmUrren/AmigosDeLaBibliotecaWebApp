@@ -1,4 +1,3 @@
-// BookList.jsx
 import React, { useState } from 'react';
 import { useBookList } from '../hooks/useBookList';
 import BookCover from './BookCover';
@@ -16,28 +15,22 @@ const BookList = () => {
     setIsbn('');
   };
 
+  const renderInput = (value, onChange, placeholder) => (
+    <input 
+      type="text" 
+      placeholder={placeholder} 
+      value={value} 
+      onChange={e => onChange(e.target.value)} 
+    />
+  );
+
   return (
     <div>
       <h2>Book List</h2>
       <div>
-        <input 
-          type="text" 
-          placeholder="Book Title" 
-          value={bookTitle} 
-          onChange={(e) => setBookTitle(e.target.value)} 
-        />
-        <input 
-          type="text" 
-          placeholder="Author Name" 
-          value={authorName} 
-          onChange={(e) => setAuthorName(e.target.value)} 
-        />
-        <input 
-          type="text" 
-          placeholder="ISBN" 
-          value={isbn} 
-          onChange={(e) => setIsbn(e.target.value)} 
-        />
+        {renderInput(bookTitle, setBookTitle, "Book Title")}
+        {renderInput(authorName, setAuthorName, "Author Name")}
+        {renderInput(isbn, setIsbn, "ISBN")}
         <button onClick={handleAddBook} disabled={loading}>
           {loading ? 'Loading...' : 'Add Book'}
         </button>

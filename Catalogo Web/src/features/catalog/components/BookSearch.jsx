@@ -6,54 +6,48 @@ const BookSearch = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [ISBN, setISBN] = useState("");
-  const { books, getBook, loading, error  } = useBookList();
+  const { books, getBook, loading, error, removeBook } = useBookList();
 
   const handleSearch = async () => {
-    var book = {title: title, author: author, isbn: ISBN};
+    const book = { title, author, isbn: ISBN };
     await getBook(book);
   };
+
+  const renderInput = (value, onChange, placeholder) => (
+    <input 
+      type="text" 
+      placeholder={placeholder} 
+      value={value} 
+      onChange={e => onChange(e.target.value)} 
+    />
+  );
 
   return (
     <div>
       <h2>Search Book Cover</h2>
       <div>
-        <input 
-          type="text" 
-          placeholder="Book Title" 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
-        />
-        <input 
-          type="text" 
-          placeholder="Author Name" 
-          value={author} 
-          onChange={(e) => setAuthor(e.target.value)} 
-        />
+        {renderInput(title, setTitle, "Book Title")}
+        {renderInput(author, setAuthor, "Author Name")}
         <button onClick={handleSearch} disabled={loading}>
           {loading ? 'Loading...' : 'Search by Title and Author'}
         </button>
       </div>
       <div>
-        <input 
-          type="text" 
-          placeholder="ISBN" 
-          value={ISBN} 
-          onChange={(e) => setISBN(e.target.value)} 
-        />
+        {renderInput(ISBN, setISBN, "ISBN")}
         <button onClick={handleSearch} disabled={loading}>
           {loading ? 'Loading...' : 'Search by ISBN'}
         </button>
       </div>
       {error && <p>Error: {error.message}</p>}
       {books.map(book => (
-          <li key={book.isbn}>
-            <div>
-              <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn})
-              <BookCover url={book.coverUrl} />
-            </div>
-            <button onClick={() => removeBook(book.isbn)}>Remove</button>
-          </li>
-        ))}
+        <li key={book.isbn}>
+          <div>
+            <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn})
+            <BookCover url={book.coverUrl} />
+          </div>
+          <button onClick={() => removeBook(book.isbn)}>Remove</button>
+        </li>
+      ))}
     </div>
   );
 };
