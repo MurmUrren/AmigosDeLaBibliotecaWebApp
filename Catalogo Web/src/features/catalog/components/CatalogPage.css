@@ -1,0 +1,10 @@
+/* CatalogPage.css */
+.catalog-page {
+    padding: 20px;
+  }
+  
+  .book-list-container {
+    display: flex;
+    justify-content: center;
+  }
+  
