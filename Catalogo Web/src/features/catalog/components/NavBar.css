@@ -1,0 +1,28 @@
+  .library-catalog {
+    text-align: center;
+  }
+  
+  .navbar {
+    display: flex;
+    background-color: #282c34;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .navbar-links a:hover {
+    text-decoration: underline;
+  }
+  
