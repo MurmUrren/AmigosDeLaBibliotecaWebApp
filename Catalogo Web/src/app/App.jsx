@@ -1,13 +1,15 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import NavBar from '../features/catalog/components/navBar/NavBar.jsx'
 import CatalogRoutes from '../features/catalog/routes/CatalogRoutes.jsx';
+import CatalogPage from '../features/catalog/components/catalogPage/CatalogPage.jsx';
+import NavBar from '../features/catalog/components/navBar/NavBar.jsx';
 
 function App() {
 
   return (
     <>
+      <NavBar />
       <Routes>
         <Route
           path="/*"
@@ -19,17 +21,11 @@ function App() {
         <Route
           path="/home"
           element={
-            <NavBar />
+            <CatalogPage />
           }
         />
       </Routes>
     </>
-    // <div className='library-catalog'>
-    //    <NavBar/>
-    //   <h1>Library Catalog</h1>
-    //   {/* <BookSearch />
-    //   <BookList /> */}
-    // </div>
   )
 }
 

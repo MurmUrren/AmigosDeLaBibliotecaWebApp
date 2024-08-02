@@ -1,3 +1,13 @@
+.manage-books-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .modal-title {
+    text-align: center;
+    align-self: center;
+  }
+}
+
 .book-card {
     background: #f5f5f5;
     border: 1px solid #ddd;
@@ -6,13 +16,8 @@
     text-align: center;
   }
   
-  .book-list {
-    width: 100%;
-    margin: auto;
-  }
   
   .slick-prev:before,
   .slick-next:before {
     color: black;
   }
-  

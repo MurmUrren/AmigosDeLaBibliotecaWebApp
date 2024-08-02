@@ -21,7 +21,7 @@ const fetchBookData = async (query, isbn) => {
     const book = data.items?.[0];
     
     if (book) {
-      const coverUrl = book.volumeInfo.imageLinks?.thumbnail || await fetchCoverFromLongitood(isbn);
+      const coverUrl = await fetchCoverFromLongitood(isbn) || book.volumeInfo.imageLinks?.thumbnail;
       return {
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors?.[0] || 'Desconocido',

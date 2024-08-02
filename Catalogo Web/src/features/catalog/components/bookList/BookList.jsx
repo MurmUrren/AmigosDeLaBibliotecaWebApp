@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useBookList } from '../../hooks/useBookList';
 import BookCover from '../bookCover/BookCover';
-import NavBar from '../navBar/NavBar';
 
 const BookList = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();
@@ -26,11 +25,8 @@ const BookList = () => {
   );
 
   return (
-    <div>
-      <div>
-        <NavBar />
-      </div>
-      <h2>Book List</h2>
+    <div className='manage-books-wrapper' id="navbar">
+      <h2 className='modal-title'>Book List</h2>
       <div>
         {renderInput(bookTitle, setBookTitle, "Book Title")}
         {renderInput(authorName, setAuthorName, "Author Name")}
