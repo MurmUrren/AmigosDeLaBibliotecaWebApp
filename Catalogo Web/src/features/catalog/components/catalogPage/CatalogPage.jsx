@@ -1,6 +1,6 @@
 import React from 'react';
 import './CatalogPage.css';
-import BookList from './BookList';
+import BookList from '../bookList/BookList.jsx';
 
 
 const CatalogPage = () => {

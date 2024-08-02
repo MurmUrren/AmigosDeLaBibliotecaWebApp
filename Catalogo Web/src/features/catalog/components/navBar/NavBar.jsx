@@ -9,9 +9,8 @@ function NavBar() {
 
         </div>
         <ul className='navbar-links'>
-          <li><Link to='/home'>Home</Link></li>
-          <li><Link to='/search'>Search</Link></li>
-          <li><Link to='/books'>Books</Link></li>
+          <li className='list-style'><Link to='/home'>Home</Link></li>
+          <li className='list-style'><Link to='/manage'>Books</Link></li>
         </ul>
       </nav>
     );

@@ -1,10 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import BookList from '../features/catalog/components/BookList.jsx'
-import BookSearch from '../features/catalog/components/BookSearch.jsx'
-import NavBar from '../features/catalog/components/NavBar.jsx'
-import CatalogRoutes from '../features/catalog/routes/CatalogRoutes.jsx'
+import NavBar from '../features/catalog/components/navBar/NavBar.jsx'
+import CatalogRoutes from '../features/catalog/routes/CatalogRoutes.jsx';
 
 function App() {
 
@@ -19,7 +17,7 @@ function App() {
         />
 
         <Route
-          path="/"
+          path="/home"
           element={
             <NavBar />
           }

@@ -10,6 +10,9 @@
     width: 100%;
   }
 
+  .list-style {
+    list-style: none;
+  }
   
   .navbar-links {
     display: flex;
