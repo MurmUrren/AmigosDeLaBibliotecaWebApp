@@ -1,0 +1,222 @@
+[
+    {
+        "id": 1,
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "genre": "Classics",
+        "year_published": 1925,
+        "ISBN": "9780743273565",
+        "price": 10.99,
+        "stock": 12,
+        "genres": ["lol", "messi"]
+    },
+    {
+        "id": 2,
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "genre": "Classics",
+        "year_published": 1960,
+        "ISBN": "9780061120084",
+        "price": 7.99,
+        "stock": 8,
+        "genres": ["lol", "cr7"]
+    },
+    {
+        "id": 3,
+        "title": "1984",
+        "author": "George Orwell",
+        "genre": "Dystopian",
+        "year_published": 1949,
+        "ISBN": "9780451524935",
+        "price": 9.99,
+        "stock": 15,
+        "genres": ["lol", "pepe"]
+    },
+    {
+        "id": 4,
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "genre": "Romance",
+        "year_published": 1813,
+        "ISBN": "9781503290563",
+        "price": 6.99,
+        "stock": 20,
+        "genres": ["lol"]
+    },
+    {
+        "id": 5,
+        "title": "The Catcher in the Rye",
+        "author": "J.D. Salinger",
+        "genre": "Classics",
+        "year_published": 1951,
+        "ISBN": "9780316769488",
+        "price": 8.99,
+        "stock": 10,
+        "genres": ["messi"]
+    },
+    {
+        "id": 6,
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien",
+        "genre": "Fantasy",
+        "year_published": 1937,
+        "ISBN": "9780547928227",
+        "price": 14.99,
+        "stock": 5,
+        "genres": ["casa"]
+    },
+    {
+        "id": 7,
+        "title": "Moby Dick",
+        "author": "Herman Melville",
+        "genre": "Adventure",
+        "year_published": 1851,
+        "ISBN": "9781503280786",
+        "price": 11.99,
+        "stock": 7,
+        "genres": ["casa"]
+    },
+    {
+        "id": 8,
+        "title": "War and Peace",
+        "author": "Leo Tolstoy",
+        "genre": "Historical",
+        "year_published": 1869,
+        "ISBN": "9781400079988",
+        "price": 12.99,
+        "stock": 6,
+        "genres": ["casa"]
+    },
+    {
+        "id": 9,
+        "title": "The Alchemist",
+        "author": "Paulo Coelho",
+        "genre": "Fiction",
+        "year_published": 1988,
+        "ISBN": "9780061122415",
+        "price": 13.99,
+        "stock": 11,
+        "genres": ["casa"]
+    },
+    {
+        "id": 10,
+        "title": "The Da Vinci Code",
+        "author": "Dan Brown",
+        "genre": "Thriller",
+        "year_published": 2003,
+        "ISBN": "9780307474278",
+        "price": 9.99,
+        "stock": 9,
+        "genres": ["casa"]
+    },
+    {
+        "id": 11,
+        "title": "The Catch-22",
+        "author": "Joseph Heller",
+        "genre": "Satire",
+        "year_published": 1961,
+        "ISBN": "9781451626650",
+        "price": 10.99,
+        "stock": 13,
+        "genres": ["casa"]
+    },
+    {
+        "id": 12,
+        "title": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky",
+        "genre": "Psychological",
+        "year_published": 1866,
+        "ISBN": "9780486415871",
+        "price": 8.99,
+        "stock": 14,
+        "genres": ["casa"]
+    },
+    {
+        "id": 13,
+        "title": "Brave New World",
+        "author": "Aldous Huxley",
+        "genre": "Dystopian",
+        "year_published": 1932,
+        "ISBN": "9780060850524",
+        "price": 9.99,
+        "stock": 12,
+        "genres": ["casa"]
+    },
+    {
+        "id": 14,
+        "title": "The Odyssey",
+        "author": "Homer",
+        "genre": "Epic",
+        "year_published": -800,
+        "ISBN": "9780140268867",
+        "price": 12.99,
+        "stock": 10,
+        "genres": ["casa"]
+    },
+    {
+        "id": 15,
+        "title": "Harry Potter and the Sorcerer's Stone",
+        "author": "J.K. Rowling",
+        "genre": "Fantasy",
+        "year_published": 1997,
+        "ISBN": "9780590353427",
+        "price": 10.99,
+        "stock": 20,
+        "genres": ["messi"]
+    },
+    {
+        "id": 16,
+        "title": "The Hunger Games",
+        "author": "Suzanne Collins",
+        "genre": "Dystopian",
+        "year_published": 2008,
+        "ISBN": "9780439023481",
+        "price": 10.99,
+        "stock": 17,
+        "genres": ["casa"]
+    },
+    {
+        "id": 17,
+        "title": "The Road",
+        "author": "Cormac McCarthy",
+        "genre": "Post-Apocalyptic",
+        "year_published": 2006,
+        "ISBN": "9780307387899",
+        "price": 9.99,
+        "stock": 13,
+        "genres": ["cr7"]
+    },
+    {
+        "id": 18,
+        "title": "The Shining",
+        "author": "Stephen King",
+        "genre": "Horror",
+        "year_published": 1977,
+        "ISBN": "9780307743657",
+        "price": 11.99,
+        "stock": 10,
+        "genres": ["pepe"]
+    },
+    {
+        "id": 19,
+        "title": "The Fault in Our Stars",
+        "author": "John Green",
+        "genre": "Young Adult",
+        "year_published": 2012,
+        "ISBN": "9780142424179",
+        "price": 8.99,
+        "stock": 18,
+        "genres": ["casa"]
+    },
+    {
+        "id": 20,
+        "title": "Gone Girl",
+        "author": "Gillian Flynn",
+        "genre": "Thriller",
+        "year_published": 2012,
+        "ISBN": "9780307588371",
+        "price": 12.99,
+        "stock": 9,
+        "genres": ["casa"]
+    }
+]
