@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
 import './CatalogPage.css';
 import books from '../../../../mockData/books.json';
-import BookCover from '../bookCover/BookCover';
 
 import { getBookCoverByISBN } from '../../api/bookApi';
+import BookCard from '../bookCard/BookCard';
 
 const CatalogPage = () => {
   const [bookCovers, setBookCovers] = useState({});
@@ -61,48 +60,38 @@ const CatalogPage = () => {
           </div>
         ))}
       </div>
-      <div className='book-list'>
+      <div className="book-list-container">
         {selectedGenres.length > 0 ? (
           selectedGenres.map(genre => (
-            <div className="book-list-genre-container" key={genre}>
-              <div className='book-genre-title'>
+            <div className="book-list-genre" key={genre}>
+              <div className="book-genre-title">
                 <h1>{genre}</h1>
               </div>
-              <div className="book-list-genre" key={genre}>
+              <div className="book-list">
                 {books
                   .filter(book => book.genres.includes(genre))
                   .map(book => (
-                    <div className="book-item" key={book.ISBN}>
-                        <BookCover url={bookCovers[book.ISBN]} />
-                      <h2>{book.title}</h2>
-                      <h3>{book.author}</h3>
-                      <p>{book.description}</p>
-                    </div>
+                    <BookCard key={book.ISBN} book={book} bookCoverURL={bookCovers[book.ISBN]} />
                   ))}
               </div>
             </div>
           ))
         ) : (
           GENRES.map(genre => (
-            <div className="book-list-all-container" key={genre}>
-              <div className='book-genre-title'>
+            <div className="book-list-genre" key={genre}>
+              <div className="book-genre-title">
                 <h1>{genre}</h1>
               </div>
-              <div className='book-list-all'>
+              <div className="book-list">
                 {books
                   .filter(book => book.genres.includes(genre))
                   .map(book => (
-                    <div className="book-item" key={book.ISBN}>
-                        <BookCover url={bookCovers[book.ISBN]} />
-                      <h2>{book.title}</h2>
-                      <h3>{book.author}</h3>
-                      <p>{book.description}</p>
-                    </div>
+                    <BookCard key={book.ISBN} book={book} bookCoverURL={bookCovers[book.ISBN]} />
                   ))}
               </div>
             </div>
-          )))
-        }
+          ))
+        )}
       </div>
     </div>
   );
