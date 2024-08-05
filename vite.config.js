@@ -14,7 +14,10 @@ export default defineConfig(({ mode}) => {
     plugins: [react()],
     resolve: {
       alias: {
-        "components": path.resolve(__dirname, "/src/features/catalog/components"),
+        "@components": path.resolve(__dirname, "src/features/catalog/components"),
+        "@pages": path.resolve(__dirname, "src/features/catalog/pages"),
+        "@routes": path.resolve(__dirname, "src/features/catalog/routes"),
+        "@data": path.resolve(__dirname, "src/data")
       }
     }
   }

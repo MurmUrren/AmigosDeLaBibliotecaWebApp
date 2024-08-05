@@ -1,5 +1,5 @@
 import React from "react";
-import CollectionCard from "../collectionCard/CollectionCard";
+import CollectionCard from "@components/collectionCard/CollectionCard";
 import { useParams } from 'react-router-dom';
 import './GenresPage.css';
 
