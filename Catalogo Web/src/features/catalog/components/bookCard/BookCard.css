@@ -1,0 +1,82 @@
+.book-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 250px;
+  }
+  
+  .book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .book-cover {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .book-title {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .book-author {
+    font-size: 1em;
+    margin: 5px 0;
+    color: #777;
+  }
+  
+  .book-description {
+    font-size: 0.9em;
+    margin: 10px 0;
+    color: #555;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 1024px) {
+    .book-item, .book-title, .book-author, .book-description {
+      max-width: 150px;
+    }
+    .book-cover {
+        max-width: 150px;
+        height: 250px;
+      }
+  }
+  
+  @media (max-width: 768px) {
+    .book-item, .book-title, .book-author, .book-description {
+      max-width: 150px;
+    }
+    .book-cover {
+        max-width: 120px;
+        height: 200px;
+      }
+  }
+  
+  @media (max-width: 480px) {
+    .book-item, .book-title, .book-author, .book-description {
+      max-width: 100%;
+    }
+    .book-item {
+      padding: 20px;
+    }
+    .book-cover {
+        max-width: 100px;
+        height: 150px;
+      }
+  }

@@ -1,0 +1,23 @@
+.collections-header {
+    display: flex;
+    justify-content: center;
+
+}
+
+.collection-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.collection-box {
+    width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    
+}
