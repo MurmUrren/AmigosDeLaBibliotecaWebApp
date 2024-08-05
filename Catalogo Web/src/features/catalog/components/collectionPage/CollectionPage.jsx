@@ -1,15 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CollectionCard from "../collectionCard/CollectionCard";
+import supabase from "../../../../config/supabaseClient";
+import { useNavigate } from 'react-router-dom';
 import './CollectionPage.css';
 
 function CollectionPage() {
-    const collections = [
-        { title: 'Messi', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
-        { title: 'CR7', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
-        { title: 'Pepe', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
-        { title: 'Casa', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
-        { title: 'Lol', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' }
-    ];
+    const navigate = useNavigate();
+    const [collections, setCollections] = useState([]);
+    const [collectionImages, setCollectionImages] = useState({});
+
+    useEffect(() => {
+        const fetchCollectionData = async () => {
+            const { data, error } = await supabase
+                .from('Collections')
+                .select()
+
+            if (error) {
+                console.error('error fetching collections', error)
+            }
+            if (data) {
+                setCollections(data)
+            }
+        }
+        fetchCollectionData();
+    }, []);
+
+    useEffect(() => {
+        const fetchCollectionImages = async () => {
+            if (collections.length === 0) return;
+
+            const promises = collections.map(async (collection) => {
+                const { data, error } = await supabase.storage
+                    .from('collectionsimgbucket')
+                    .getPublicUrl(`${collection.Title}.jpeg`);
+
+                if (error) {
+                    console.error('error fetching collection images', error);
+                    return null;
+                }
+                return { title: collection.Title, url: data.publicUrl };
+            });
+
+            const results = await Promise.all(promises);
+            const images = results.reduce((acc, result) => {
+                if (result) {
+                    acc[result.title] = result.url;
+                }
+                return acc;
+            }, {});
+
+            setCollectionImages(images);
+        };
+        fetchCollectionImages();
+    }, [collections]);
+
+    console.log(collectionImages);
 
     return (
         <div className="collection-wrapper">
@@ -17,9 +62,13 @@ function CollectionPage() {
                 <h1>Colecciones</h1>
             </div>
             <div className="collection-list">
-                    {Object.entries(collections).map(([key, collection]) => (
-                        <div classname="collection-box" key={key}>
-                            <CollectionCard title={collection.title} img={collection.img} />
+                    {collections?.map((collection, index) => (
+                        <div classname="collection-box" key={index}>
+                            <CollectionCard 
+                                title={collection.Title} 
+                                img={collectionImages[collection.Title]}
+                                onClick={() => navigate(`/collection/${collection.Title}`)}
+                            />
                         </div>
                     ))}
             </div>
