@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import BookList from '../components/bookList/BookList.jsx';
-import CatalogPage from '../components/catalogPage/CatalogPage.jsx';
-import GenresPage from '../components/genresPage/GenresPage.jsx';
+import BookList from '@pages/bookList/BookList.jsx';
+import CatalogPage from '@pages/catalogPage/CatalogPage.jsx';
+import GenresPage from '@pages/genresPage/GenresPage.jsx';
 
 const CatalogRoutes = () => {
     return (

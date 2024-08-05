@@ -2,9 +2,9 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 
-import CatalogRoutes from '../features/catalog/routes/CatalogRoutes.jsx';
-import CollectionPage from '../features/catalog/components/collectionPage/CollectionPage.jsx';
-import NavBar from '../features/catalog/components/navBar/NavBar.jsx';
+import CatalogRoutes from '@routes/CatalogRoutes.jsx';
+import CollectionPage from '@pages/collectionPage/CollectionPage.jsx';
+import NavBar from '@components/navBar/NavBar.jsx';
 
 function App() {
   return (

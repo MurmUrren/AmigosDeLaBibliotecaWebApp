@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useBookList } from '../../hooks/useBookList';
-import BookCover from '../bookCover/BookCover';
+import BookCover from '../../components/bookCover/BookCover';
 
 const BookList = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CollectionCard from "../collectionCard/CollectionCard";
+import CollectionCard from "@components/collectionCard/CollectionCard";
 import supabase from "../../../../config/supabaseClient";
 import { useNavigate } from 'react-router-dom';
 import './CollectionPage.css';

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './CatalogPage.css';
-import books from '../../../../mockData/books.json';
+// import books from '@data/books.json';
 
 import { getBookCoverByISBN } from '../../api/bookApi';
-import BookCard from '../bookCard/BookCard';
+import BookCard from '@components/bookCard/BookCard';
 
 const CatalogPage = () => {
   const [bookCovers, setBookCovers] = useState({});
