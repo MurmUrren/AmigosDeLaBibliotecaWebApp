@@ -1,8 +1,11 @@
 import React from "react";
 import CollectionCard from "../collectionCard/CollectionCard";
+import { useNavigate } from 'react-router-dom';
 import './CollectionPage.css';
 
 function CollectionPage() {
+    const navigate = useNavigate();
+    
     const collections = [
         { title: 'Messi', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
         { title: 'CR7', img: 'https://th.bing.com/th/id/OIP.AWX4OdiKNkWcQw80HEUh7gAAAA?rs=1&pid=ImgDetMain' },
@@ -19,7 +22,11 @@ function CollectionPage() {
             <div className="collection-list">
                     {Object.entries(collections).map(([key, collection]) => (
                         <div classname="collection-box" key={key}>
-                            <CollectionCard title={collection.title} img={collection.img} />
+                            <CollectionCard 
+                                title={collection.title} 
+                                img={collection.img}
+                                onClick={() => navigate(`/collection/${collection.title}`)}
+                            />
                         </div>
                     ))}
             </div>
