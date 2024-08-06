@@ -61,7 +61,7 @@ function CollectionPage() {
             </div>
             <div className="collection-list">
                     {collections?.map((collection, index) => (
-                        <div classname="collection-box" key={index}>
+                        <div className="collection-box" key={index}>
                             <CollectionCard 
                                 title={collection.Title} 
                                 img={collectionImages[collection.Title]}

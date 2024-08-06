@@ -32,6 +32,10 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+.collection-card-container-img{
+    width: 252px;
+    height: 252px;
+}
 
 /* @media screen and (max-width: 768px) {
     .collection-card-container img{
