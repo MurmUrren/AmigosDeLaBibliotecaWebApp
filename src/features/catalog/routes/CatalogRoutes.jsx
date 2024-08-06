@@ -8,7 +8,7 @@ const CatalogRoutes = () => {
     return (
         <Routes>
             <Route
-                path="/home"
+                path="/catalog/:genreId"
                 element={
                     <CatalogPage />
                 }
@@ -20,7 +20,7 @@ const CatalogRoutes = () => {
                 }
             />
             <Route
-                path="/collection/:collectionName"
+                path="/collection/:title/:collectionId"
                 element={
                     <GenresPage />
                 }

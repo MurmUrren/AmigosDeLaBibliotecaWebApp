@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CollectionCard from "@components/collectionCard/CollectionCard";
+import supabase from "../../../../config/supabaseClient";
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './GenresPage.css';
 
 function GenresPage() {
-    const { collectionName } = useParams();
+    const navigate = useNavigate();
+    const { collectionId } = useParams();
+    const [genres, setGenres] = useState([]);
+    
+    useEffect(() => {
+        const fetchGenresData = async () => {
+            if (!collectionId) return;
 
-    const genres = [
-        { title: 'Messi', img: 'https://th.bing.com/th/id/R.0068d486c0720727ff24d5ef0ffce53b?rik=VP4ZV3h2yv079g&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f10500000%2fBowser-bowser-10504156-968-984.jpg&ehk=XDIMRRETmKvR7M93N0ptKcquyIZmKT8rLWJikGCfunM%3d&risl=&pid=ImgRaw&r=0' },
-        { title: 'CR7', img: 'https://th.bing.com/th/id/R.0068d486c0720727ff24d5ef0ffce53b?rik=VP4ZV3h2yv079g&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f10500000%2fBowser-bowser-10504156-968-984.jpg&ehk=XDIMRRETmKvR7M93N0ptKcquyIZmKT8rLWJikGCfunM%3d&risl=&pid=ImgRaw&r=0' },
-        { title: 'Pepe', img: 'https://th.bing.com/th/id/R.0068d486c0720727ff24d5ef0ffce53b?rik=VP4ZV3h2yv079g&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f10500000%2fBowser-bowser-10504156-968-984.jpg&ehk=XDIMRRETmKvR7M93N0ptKcquyIZmKT8rLWJikGCfunM%3d&risl=&pid=ImgRaw&r=0' },
-        { title: 'Casa', img: 'https://th.bing.com/th/id/R.0068d486c0720727ff24d5ef0ffce53b?rik=VP4ZV3h2yv079g&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f10500000%2fBowser-bowser-10504156-968-984.jpg&ehk=XDIMRRETmKvR7M93N0ptKcquyIZmKT8rLWJikGCfunM%3d&risl=&pid=ImgRaw&r=0' },
-        { title: 'Lol', img: 'https://th.bing.com/th/id/R.0068d486c0720727ff24d5ef0ffce53b?rik=VP4ZV3h2yv079g&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f10500000%2fBowser-bowser-10504156-968-984.jpg&ehk=XDIMRRETmKvR7M93N0ptKcquyIZmKT8rLWJikGCfunM%3d&risl=&pid=ImgRaw&r=0' }
-    ];
+            const { data, error } = await supabase
+                .from('Genres')
+                .select()
+                .eq('Collection_Id', collectionId)
+
+            if (error) {
+                console.error('error fetching genres', error)
+            }
+            if (data) {
+                setGenres(data)
+            }
+        }
+        fetchGenresData();
+    }, []);
 
     return (
         <div className="genresP-wrapper">
@@ -20,11 +35,12 @@ function GenresPage() {
                 <h1>Generos</h1>
             </div>
             <div className="genresP-list">
-                    {Object.entries(genres).map(([key, genre]) => (
-                        <div classname="genresP-box" key={key}>
+                    {genres?.map((genre, index) => (
+                        <div classname="genresP-box" key={index}>
                             <CollectionCard 
-                                title={genre.title} 
-                                img={genre.img}
+                                title={genre.Title} 
+                                // img={genre.img}
+                                onClick={() => navigate(`/catalog/${genre.id}`)}
                             />
                         </div>
                     ))}
