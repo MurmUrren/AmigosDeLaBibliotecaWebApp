@@ -57,7 +57,7 @@ function CollectionPage() {
     return (
         <div className="collection-wrapper">
             <div className="collections-header">
-                <h1>Colecciones</h1>
+                <h3>Bienvenido a nuestro catalogo, explora nuestra variedad de libros.</h3>
             </div>
             <div className="collection-list">
                     {collections?.map((collection, index) => (

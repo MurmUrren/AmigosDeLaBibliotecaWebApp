@@ -1,16 +1,15 @@
-/* .library-catalog {
-  text-align: center;
-} */
-
 .navbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #282c34;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* para que no se le encimen las cosas */
+  z-index: 1000;
   box-sizing: border-box;
+  padding: 0 20px;
 }
 
 .list-style {
@@ -35,4 +34,3 @@
 .navbar-links a:hover {
   text-decoration: underline;
 }
-  

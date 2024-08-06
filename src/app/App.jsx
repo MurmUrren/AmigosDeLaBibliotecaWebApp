@@ -1,6 +1,6 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import './App.css'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import './App.css';
 
 import CatalogRoutes from '@routes/CatalogRoutes.jsx';
 import CollectionPage from '@pages/collectionPage/CollectionPage.jsx';
@@ -12,23 +12,13 @@ function App() {
       <NavBar />
       <div className='main-content'>
         <Routes>
-          <Route
-            path="/*"
-            element={
-              <CatalogRoutes />
-            }
-          />
-
-          <Route
-            path="/home"
-            element={
-              <CollectionPage />
-            }
-          />
+          <Route path="/" element={<Navigate to="/inicio" />} />
+          <Route path="/inicio" element={<CollectionPage />} />
+          <Route path="/*" element={<CatalogRoutes />} />
         </Routes>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
