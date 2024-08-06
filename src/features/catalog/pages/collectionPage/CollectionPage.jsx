@@ -54,8 +54,6 @@ function CollectionPage() {
         fetchCollectionImages();
     }, [collections]);
 
-    console.log(collectionImages);
-
     return (
         <div className="collection-wrapper">
             <div className="collections-header">
@@ -67,7 +65,10 @@ function CollectionPage() {
                             <CollectionCard 
                                 title={collection.Title} 
                                 img={collectionImages[collection.Title]}
-                                onClick={() => navigate(`/collection/${collection.Title}`)}
+                                onClick={() => {
+                                    const title = collection.Title.replace(/\s+/g, '-').toLowerCase();
+                                    navigate(`/collection/${title}/${collection.id}`);
+                                  }}
                             />
                         </div>
                     ))}
