@@ -1,0 +1,229 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+.details-wrapper {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px; 
+  width: 80%; /* Occupies 80% of the screen width */
+  max-width: 800px; /* Maximum width for larger screens */
+  height: 60%; /* Occupies 80% of the screen height */
+  position: relative;
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for modal effect */
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+} 
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.details-container h2,
+.details-container h3,
+.details-container p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.details-container p {
+  font-size: 1em;
+  color: #555;
+}
+
+.details-cover{
+  margin-top: 15px;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+    align-items: center;
+    width: 90%; /* Adjust width for smaller screens */
+    height: 85%; /* Adjust height for smaller screens */
+  }
+
+  .book-info {
+    align-items: center;
+  }
+
+  .book-info h2, .book-info h3, .book-info p {
+    text-align: center;
+  }
+
+  .details-cover {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Make the cover image take full width */
+  }
+
+  .details-cover img {
+    width: 90%; /* Increase the size of the image on smaller screens */
+  }
+
+  .close-button {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-container {
+    width: 95%; /* Further adjust width for mobile devices */
+    height: 90%; /* Further adjust height for mobile devices */
+  }
+
+  .details-cover img {
+    width: 100%; /* Make the image larger on very small screens */
+  }
+
+  .close-button {
+    font-size: 18px;
+  }
+}.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+.details-wrapper {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px; 
+  width: 80%; /* Occupies 80% of the screen width */
+  max-width: 800px; /* Maximum width for larger screens */
+  height: 60%; /* Occupies 80% of the screen height */
+  position: relative;
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for modal effect */
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+} 
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.details-container h2,
+.details-container h3,
+.details-container p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.details-container p {
+  font-size: 1em;
+  color: #555;
+}
+
+.details-cover{
+  margin-top: 15px;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+    align-items: center;
+    width: 90%; /* Adjust width for smaller screens */
+    height: 85%; /* Adjust height for smaller screens */
+  }
+
+  .book-info {
+    align-items: center;
+  }
+
+  .book-info h2, .book-info h3, .book-info p {
+    text-align: center;
+  }
+
+  .details-cover {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Make the cover image take full width */
+  }
+
+  .details-cover img {
+    width: 90%; /* Increase the size of the image on smaller screens */
+  }
+
+  .close-button {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-container {
+    width: 95%; /* Further adjust width for mobile devices */
+    height: 90%; /* Further adjust height for mobile devices */
+  }
+
+  .details-cover img {
+    width: 100%; /* Make the image larger on very small screens */
+  }
+
+  .close-button {
+    font-size: 18px;
+  }
+}

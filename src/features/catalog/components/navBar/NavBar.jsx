@@ -11,7 +11,6 @@ function NavBar() {
       <ul className='navbar-links'>
         <li className='list-style'><Link to='/inicio'>Inicio</Link></li>
         <li className='list-style'><Link to='/manage'>Manage Books</Link></li>
-        <li className='list-style'><Link to='/contactanos'>Contáctanos</Link></li>
       </ul>
     </nav>
   );

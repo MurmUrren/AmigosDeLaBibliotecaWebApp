@@ -10,10 +10,7 @@ const useBooks = (genreId) => {
             .from('BookGenres')
             .select(`
                 Books (
-                    id,
-                    Title,
-                    Creators,
-                    Description
+                    *
                 )
             `)
             .eq('Genre_Id', genreId)
