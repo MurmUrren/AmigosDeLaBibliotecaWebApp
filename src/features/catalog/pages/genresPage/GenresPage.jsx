@@ -29,6 +29,8 @@ function GenresPage() {
         fetchGenresData();
     }, []);
 
+    console.log(genres);
+
     return (
         <div className="genresP-wrapper">
             <div className="genresP-header">
@@ -39,7 +41,7 @@ function GenresPage() {
                         <div classname="genresP-box" key={index}>
                             <CollectionCard 
                                 title={genre.Title} 
-                                // img={genre.img}
+                                img={genre.Img}
                                 onClick={() => navigate(`/catalog/${genre.id}`)}
                             />
                         </div>
