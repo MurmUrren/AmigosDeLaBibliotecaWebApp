@@ -1,11 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './BookCard.css';
-import noCover from '../../../../assets/imgs/noCover.jpeg';
-import BookDetails from '../bookDetails/BookDetails';
+import BookCover from '@components/bookCover/BookCover';
+import BookDetails from '@components/bookDetails/BookDetails';
+import useBookCover from '@hooks/useBookCover';
+import noCover from '../../../../assets/imgs/noCover.jpeg'; // Ensure this path is correct
 
-function BookCard({ book, bookCoverURL }) {
+function BookCard({ book }) {
   const [showDetails, setShowDetails] = useState(false);
+  const { bookCoverURL, loading } = useBookCover(book);
 
   const handleCardClick = () => {
     setShowDetails(true);
@@ -16,14 +18,16 @@ function BookCard({ book, bookCoverURL }) {
   };
 
   return (
-    console.log("Book: ", book),
     <>
       {showDetails && <BookDetails book={book} img={bookCoverURL} onClose={handleCloseDetails} />}
       <div className="book-item" onClick={handleCardClick}>
-        <img src={bookCoverURL || noCover} alt={`${book.Title} cover`} className="book-cover" />
+        {loading ? (
+          <p>Loading cover...</p>
+        ) : (
+          <BookCover url={bookCoverURL || noCover} />
+        )}
         <h2 className="book-title">{book.Title}</h2>
         <h3 className="book-author">{book.Creators}</h3>
-        
       </div>
     </>
   );

@@ -1,11 +1,9 @@
-// src/components/BookCover.jsx
 import React from 'react';
+import noCover from '../../../../assets/imgs/noCover.jpeg';
 
 const BookCover = ({ url }) => {
-  if (!url || url === 'No disponible') return <p>No cover available</p>;
-
   return (
-      <img src={url} alt="Book Cover" />
+    <img src={url || noCover} alt="Book Cover" />
   );
 };
 

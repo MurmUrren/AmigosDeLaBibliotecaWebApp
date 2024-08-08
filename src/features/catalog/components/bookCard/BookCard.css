@@ -11,6 +11,15 @@
     transition: transform 0.2s, box-shadow 0.2s;
     max-width: 250px;
   }
+
+  .book-item img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
   
   .book-item:hover {
     transform: translateY(-5px);
