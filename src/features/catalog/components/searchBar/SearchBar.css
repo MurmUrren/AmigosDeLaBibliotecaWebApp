@@ -1,0 +1,40 @@
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px 10px 40px; /* Espacio para el ícono */
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Bordes redondeados */
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #ccc;
+}
+
+/* Puedes usar una fuente de íconos como FontAwesome para el ícono de la lupa */
+.search-icon::before {
+  content: '\f002'; /* Código Unicode para el ícono de lupa en FontAwesome */
+  font-family: 'FontAwesome';
+}
