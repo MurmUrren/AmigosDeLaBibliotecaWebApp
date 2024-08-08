@@ -3,7 +3,7 @@ import useBooks from '@hooks/useBooks';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import './CatalogPage.css';
-
+import SearchBar from '../../components/searchBar/SearchBar';
 import { getBookCoverByISBN } from '../../api/bookApi';
 import BookCard from '@components/bookCard/BookCard';
 import Pagination from '@components/pagination/Pagination';
@@ -12,67 +12,61 @@ const CatalogPage = () => {
   const navigate = useNavigate();
   const { genreId } = useParams();
   const books = useBooks(genreId);
+  
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 15;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-};
+  };
+
+  const filteredBooks = useMemo(() => {
+    if (!searchTerm) {
+      return books;
+    }
+    return books.filter(book => 
+      book.Title && book.Title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [books, searchTerm]);
 
   const currentBooks = useMemo(() => {
     const indexOfLastBook = currentPage * booksPerPage;
     const indexOfFirstBook = indexOfLastBook - booksPerPage;
-    return books.slice(indexOfFirstBook, indexOfLastBook);
-}, [currentPage, books]);
+    return filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  }, [currentPage, filteredBooks]);
 
-  // THIS METHOD IS TEMPORARY, DATA MUST BE RETRIEVED FROM A DATABASE
-  // useEffect(() => {
-  //   const storedBooks = localStorage.getItem('books');
-  //   if (storedBooks === null) {
-  //     books.forEach(async book => {
-  //       const bookCoverURL = await getBookCoverByISBN(book.ISBN);
-  //       setBookCovers(prevState => {
-  //         const newState = {
-  //           ...prevState,
-  //           [book.ISBN]: bookCoverURL.coverUrl
-  //         };
-  //         localStorage.setItem('books', JSON.stringify(newState));
-  //         return newState;
-  //       });
-  //     });
-  //   } else {
-  //     setBookCovers(JSON.parse(storedBooks));
-  //   }
-  // }, [books]);
-
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    setCurrentPage(1); // Reset to the first page whenever a search is performed
+  };
+  
   return (
     <div className="book-list-container" id="navbar">
-      {/* filters */}
+      <SearchBar onSearch={handleSearch} />
       <Pagination
         currentPage={currentPage}
-        totalCount={books.length}
+        totalCount={filteredBooks.length}
         pageSize={booksPerPage}
         onPageChange={handlePageChange}
       />
       <div className="book-list-container">
         <div className="book-list">
-          {books.length > 0 ?
-            currentBooks?.map(book => (
-              <BookCard key={book.id} book={book} />
-            )
+          {filteredBooks.length > 0 ? (
+            currentBooks.map((book) => <BookCard key={book.id} book={book} />)
           ) : (
-              <h1>No se encontraron libros</h1>
+            <h1>No se encontraron libros</h1>
           )}
         </div>
       </div>
       <Pagination
         currentPage={currentPage}
-        totalCount={books.length}
+        totalCount={filteredBooks.length}
         pageSize={booksPerPage}
         onPageChange={handlePageChange}
       />
     </div>
   );
-};
+}
 
 export default CatalogPage;
