@@ -1,20 +1,21 @@
 .search-bar-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin: 20px 0;
 }
 
 .search-bar {
   position: relative;
+  display: flex;
   width: 100%;
   max-width: 400px;
 }
 
 .search-bar input {
   width: 100%;
-  padding: 10px 15px 10px 40px; /* Espacio para el ícono */
+  padding: 10px 15px 10px 40px; /* Space for the icon */
   border: 1px solid #ccc;
-  border-radius: 25px; /* Bordes redondeados */
+  border-radius: 25px; /* Rounded borders */
   font-size: 16px;
   transition: border-color 0.3s ease;
 }
@@ -33,8 +34,65 @@
   color: #ccc;
 }
 
-/* Puedes usar una fuente de íconos como FontAwesome para el ícono de la lupa */
+/* Use a font icon library like FontAwesome for the search icon */
 .search-icon::before {
-  content: '\f002'; /* Código Unicode para el ícono de lupa en FontAwesome */
+  content: '\f002'; /* Unicode for the search icon in FontAwesome */
   font-family: 'FontAwesome';
+}
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .search-bar input {
+    font-size: 30px;
+    padding: 12px 15px 12px 40px; /* Increase padding for better touch experience */
+    height: 44px; /* Increase height for better touch experience */
+  }
+
+  .search-icon {
+    font-size: 16px;
+    left: 12px;
+  }
+}
+
+
+/* Responsive styles for tablets in landscape mode */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .search-bar input {
+    font-size: 30px;
+    padding: 10px 15px 10px 40px; /* Adjust padding for landscape mode */
+    height: 40px; /* Adjust height for landscape mode */
+  }
+
+  .search-icon {
+    font-size: 16px;
+    left: 12px;
+  }
+}
+
+
+/* Responsive styles for mobile devices */
+@media (max-width: 480px) {
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .search-bar input {
+    font-size: 16px;
+    padding: 14px 20px 14px 48px; /* Further increase padding for better touch experience */
+    border-radius: 30px; /* Larger rounded borders */
+    height: 48px; /* Increase height for better touch experience */
+  }
+
+  .search-icon {
+    font-size: 18px;
+    left: 16px; /* Adjust icon position for better alignment */
+  }
 }
