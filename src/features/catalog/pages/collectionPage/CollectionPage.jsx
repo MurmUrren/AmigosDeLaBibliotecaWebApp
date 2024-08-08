@@ -13,22 +13,25 @@ function CollectionPage() {
 
     return (
         <div className="collection-wrapper">
-            <div className="collections-header">
-                <h3>Bienvenido a nuestro catalogo, explora nuestra variedad de libros.</h3>
-            </div>
-            <div className="collection-list">
-                    {collections?.map((collection, index) => (
-                        <div className="collection-box" key={index}>
-                            <CollectionCard 
-                                title={collection.Title} 
-                                img={collectionImages[collection.Title]}
-                                onClick={() => {
-                                    const title = collection.Title.replace(/\s+/g, '-').toLowerCase();
-                                    navigate(`/collection/${title}/${collection.id}`);
-                                }}
-                            />
-                        </div>
-                    ))}
+
+            <div className="collections-container">
+                <div className="collections-header">
+                    <h3>Bienvenido a nuestro catalogo, explora nuestra variedad de libros.</h3>
+                </div>
+                <div className="collection-list">
+                        {collections?.map((collection, index) => (
+                            <div className="collection-box" key={index}>
+                                <CollectionCard 
+                                    title={collection.Title} 
+                                    img={collectionImages[collection.Title]}
+                                    onClick={() => {
+                                        const title = collection.Title.replace(/\s+/g, '-').toLowerCase();
+                                        navigate(`/collection/${title}/${collection.id}`);
+                                    }}
+                                />
+                            </div>
+                        ))}
+                </div>
             </div>
         </div>
 
