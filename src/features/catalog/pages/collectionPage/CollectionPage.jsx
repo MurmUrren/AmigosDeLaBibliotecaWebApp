@@ -1,58 +1,15 @@
-import React, { useState, useEffect } from "react";
-import CollectionCard from "@components/collectionCard/CollectionCard";
-import supabase from "../../../../config/supabaseClient";
+import React from "react";
+import useStorageImages from "@hooks/useStorageImages";
+import useCollections from "@hooks/useCollections";
 import { useNavigate } from 'react-router-dom';
 import './CollectionPage.css';
 
+import CollectionCard from "@components/collectionCard/CollectionCard";
+
 function CollectionPage() {
     const navigate = useNavigate();
-    const [collections, setCollections] = useState([]);
-    const [collectionImages, setCollectionImages] = useState({});
-
-    useEffect(() => {
-        const fetchCollectionData = async () => {
-            const { data, error } = await supabase
-                .from('Collections')
-                .select()
-
-            if (error) {
-                console.error('error fetching collections', error)
-            }
-            if (data) {
-                setCollections(data)
-            }
-        }
-        fetchCollectionData();
-    }, []);
-
-    useEffect(() => {
-        const fetchCollectionImages = async () => {
-            if (collections.length === 0) return;
-
-            const promises = collections.map(async (collection) => {
-                const { data, error } = await supabase.storage
-                    .from('collectionsimgbucket')
-                    .getPublicUrl(`${collection.Title}.jpeg`);
-
-                if (error) {
-                    console.error('error fetching collection images', error);
-                    return null;
-                }
-                return { title: collection.Title, url: data.publicUrl };
-            });
-
-            const results = await Promise.all(promises);
-            const images = results.reduce((acc, result) => {
-                if (result) {
-                    acc[result.title] = result.url;
-                }
-                return acc;
-            }, {});
-
-            setCollectionImages(images);
-        };
-        fetchCollectionImages();
-    }, [collections]);
+    const collections = useCollections();
+    const collectionImages = useStorageImages(collections); // DEBERIAMOS DE NO USAR EL STORAGE PARA LAS IMAGENES
 
     return (
         <div className="collection-wrapper">
@@ -68,7 +25,7 @@ function CollectionPage() {
                                 onClick={() => {
                                     const title = collection.Title.replace(/\s+/g, '-').toLowerCase();
                                     navigate(`/collection/${title}/${collection.id}`);
-                                  }}
+                                }}
                             />
                         </div>
                     ))}
