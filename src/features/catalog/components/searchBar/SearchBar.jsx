@@ -12,12 +12,15 @@ function SearchBar({ onSearch }) {
 
   return (
     <div className="search-bar-container">
-      <input 
-        type="text" 
-        value={inputValue} 
-        onChange={handleInputChange} 
-        placeholder="Buscar libros por título..."
-      />
+      <div className="search-bar">
+        <i className="search-icon"></i>
+        <input 
+          type="text" 
+          value={inputValue} 
+          onChange={handleInputChange} 
+          placeholder="Buscar libros por título..."
+        />
+      </div>
     </div>
   );
 }
