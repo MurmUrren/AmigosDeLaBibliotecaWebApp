@@ -1,6 +1,8 @@
 #root{
   background-image: url("/img-banner.png");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .main-content {

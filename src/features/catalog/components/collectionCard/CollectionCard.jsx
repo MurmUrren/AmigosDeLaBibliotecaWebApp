@@ -1,12 +1,13 @@
 import React from 'react';
 import './CollectionCard.css'
 
-function CollectionCard ({ genre, onClick } ) {
+function CollectionCard ({ genre, img, onClick } ) {
     console.log(genre)
+    console.log(img)
     return(
-        <div id={genre.id} className='collection-card-container' onClick={onClick}>
-            <img className='collection-card-container-img' src={genre.Img} alt={`Catalogo o coleccion de ${genre.Title}`}/>
-            <p>{genre.Descripction}</p>
+        genre &&
+        <div id={genre?.id} className='collection-card-container' onClick={onClick}>
+            <img className='collection-card-container-img' src={genre.Img || img} alt={`Catalogo o coleccion de ${genre.Title}`}/>
             <h1>{genre.Title}</h1>
         </div>
     );

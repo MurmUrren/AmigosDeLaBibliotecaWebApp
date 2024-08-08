@@ -9,13 +9,20 @@ import CollectionCard from "@components/collectionCard/CollectionCard";
 function GenresPage() {
     const navigate = useNavigate();
     const { title, collectionId } = useParams();
-    const genres = useGenres(collectionId);
+    const genres = useGenres.useGenres(collectionId);
+
+    const handleClick = async (event) => {
+        let id = event.currentTarget.id;
+        //with supabase increment the views of the genre
+        await useGenres.updateViews(id);
+        navigate(`/catalog/${id}`)
+    }
 
     return (
         <div className="genresP-wrapper">
             <div className="genresP-header">
-                <h1>{title}</h1>
                 <h1>Generos</h1>
+                <h1>{title}</h1>
             </div>
             <div className="genresP-list">
                 {genres?.length > 0 ?
@@ -24,7 +31,8 @@ function GenresPage() {
                             <CollectionCard
                                 title={genre.Title}
                                 img={genre.Img}
-                                onClick={() => navigate(`/catalog/${genre.id}`)}
+                                genre={genre}
+                                onClick={handleClick}
                             />
                         </div>
                     )) : (

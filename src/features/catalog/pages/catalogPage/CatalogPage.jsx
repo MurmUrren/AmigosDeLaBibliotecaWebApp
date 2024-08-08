@@ -15,7 +15,7 @@ const CatalogPage = () => {
   
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 16;
+  const booksPerPage = 12;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

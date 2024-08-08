@@ -1,7 +1,9 @@
 .genresP-header {
     display: flex;
-    justify-content: center;
-
+    justify-content: space-between;
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .genresP-list {
