@@ -1,8 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import BookList from '@pages/bookList/BookList.jsx';
+import ManagementPage from '@pages/managementPage/ManagementPage';
 import CatalogPage from '@pages/catalogPage/CatalogPage.jsx';
 import GenresPage from '@pages/genresPage/GenresPage.jsx';
+import BookList from '@pages/bookList/BookList.jsx';
 
 const CatalogRoutes = () => {
     return (
@@ -16,13 +17,19 @@ const CatalogRoutes = () => {
             <Route
                 path="/manage"
                 element={
-                    <BookList />
+                    <ManagementPage />
                 }
             />
             <Route
                 path="/collection/:title/:collectionId"
                 element={
                     <GenresPage />
+                }
+            />
+            <Route
+                path="manage/books"
+                element={
+                    <BookList />
                 }
             />
         </Routes>
