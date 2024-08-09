@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import useBooks from '@hooks/useBooks';
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
 import './CatalogPage.css';
 import SearchBar from '../../components/searchBar/SearchBar';
-import { getBookCoverByISBN } from '../../api/bookApi';
 import BookCard from '@components/bookCard/BookCard';
 import Pagination from '@components/pagination/Pagination';
 
 const CatalogPage = () => {
-  const navigate = useNavigate();
   const { genreId } = useParams();
   const books = useBooks(genreId);
   
@@ -38,7 +35,7 @@ const CatalogPage = () => {
 
   const handleSearch = (term) => {
     setSearchTerm(term);
-    setCurrentPage(1); // Reset to the first page whenever a search is performed
+    setCurrentPage(1);
   };
   
   return (
