@@ -32,6 +32,12 @@ const fetchBookData = async (query, isbn) => {
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors?.[0] || 'Desconocido',
         coverUrl: coverUrl || null,
+        isbn13: book.volumeInfo.industryIdentifiers[0]?.identifier,
+        isbn10: book.volumeInfo.industryIdentifiers[1]?.identifier,
+        description: book.volumeInfo.description || 'Sin descripción',
+        publisher: book.volumeInfo.publisher || 'Desconocido',
+        publishedDate: book.volumeInfo.publishedDate || 'Desconocido',
+        length_b: book.volumeInfo.pageCount || 'Desconocido'
       };
     }
     throw new Error('No se encontró el libro');
