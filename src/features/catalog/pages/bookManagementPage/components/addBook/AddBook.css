@@ -1,0 +1,107 @@
+/* AddBook.css */
+.manage-books-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items */
+  padding: 20px;
+}
+
+.book-item {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px; /* Ensure max-width for book items */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
+.add-book-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra los elementos horizontalmente */
+  margin: 20px;
+  width: 100%;
+  max-width: 400px; /* Ensure max-width for inputs container */
+}
+
+.add-book-inputs input {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Rounded borders */
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.add-book-inputs input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Focus shadow */
+}
+
+.add-book-button {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 25px; /* Rounded borders */
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.add-book-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+}
+
+.add-book-button:disabled {
+  background-color: #cccccc; /* Gray background for disabled state */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .manage-books-wrapper {
+    padding: 10px;
+  }
+
+  .add-book-inputs {
+    margin: 10px;
+    max-width: 100%; /* Ensure full width on smaller screens */
+  }
+
+  .add-book-button {
+    max-width: 100%; /* Ensure full width on smaller screens */
+  }
+
+  .book-item {
+    padding: 15px;
+    margin: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-book-inputs input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .add-book-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}

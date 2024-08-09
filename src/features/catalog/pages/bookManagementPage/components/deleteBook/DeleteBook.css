@@ -1,0 +1,103 @@
+.delete-book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items */
+  }
+
+  .delete-book-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+    .delete-book-input:focus {
+        border-color: #007bff; /* Color azul al enfocar */
+        outline: none;
+    }
+  
+
+.delete-book-input-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+    margin: 20px;
+    width: 100%;
+    max-width: 400px; /* Ensure max-width for inputs container */
+  }
+  
+  .delete-book-input {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Bordes redondeados */
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  .delete-book-input:focus {
+    border-color: #007bff; /* Color azul al enfocar */
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Sombra al enfocar */
+}
+  .delete-book-button {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff; /* Color rojo para el botón de eliminar */
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  .delete-book-button:hover {
+    background-color: #0056b3; /* Rojo más oscuro al pasar el cursor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el cursor */
+  }
+  
+  .delete-book-button:disabled {
+    background-color: #cccccc; /* Fondo gris para el estado deshabilitado */
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  @media (max-width: 768px) {
+    .delete-book-container {
+      padding: 10px;
+    }
+  
+    .delete-book-input {
+      margin: 10px;
+      max-width: 100%; /* Asegura el ancho completo en pantallas más pequeñas */
+    }
+  
+    .delete-book-button {
+      max-width: 100%; /* Asegura el ancho completo en pantallas más pequeñas */
+    }
+  
+    .book-item {
+      padding: 15px;
+      margin: 5px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .delete-book-input {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  
+    .delete-book-button {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  }

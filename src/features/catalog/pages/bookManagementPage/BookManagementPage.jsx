@@ -1,4 +1,4 @@
-import BookList from "../bookList/components/BookList";
+import AddBook from "./components/addBook/AddBook";
 import DeleteBook from "./components/deleteBook/DeleteBook";
 
 function BookManagementPage() {
@@ -6,7 +6,7 @@ function BookManagementPage() {
     return (
         <div>
             <div>
-                <BookList />
+                <AddBook />
             </div>
             <div>
                 <DeleteBook />
