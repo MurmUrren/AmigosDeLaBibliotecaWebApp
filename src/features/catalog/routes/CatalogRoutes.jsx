@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ManagementPage from '@pages/managementPage/ManagementPage';
 import CatalogPage from '@pages/catalogPage/CatalogPage.jsx';
 import GenresPage from '@pages/genresPage/GenresPage.jsx';
-import BookList from '@pages/bookList/BookList.jsx';
+import BookManagementPage from '../pages/bookManagementPage/BookManagementPage';
 
 const CatalogRoutes = () => {
     return (
@@ -29,7 +29,7 @@ const CatalogRoutes = () => {
             <Route
                 path="manage/books"
                 element={
-                    <BookList />
+                    <BookManagementPage />
                 }
             />
         </Routes>
