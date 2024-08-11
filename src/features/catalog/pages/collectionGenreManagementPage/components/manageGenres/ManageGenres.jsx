@@ -7,11 +7,11 @@ const ManageGenres = () => {
     const genres = useAllGenres();
     const collections = useCollections();
     const [newGenres, setNewGenres] = useState([]);
-    const [existingGenres, setExistingGenres] = useState([]);
+    const [updateGenres, setUpdateGenres] = useState([]);
 
     useEffect(() => {
-        setExistingGenres(genres);
-    }, [genres]);
+        console.log("up: ", updateGenres);
+    }, [updateGenres]);
 
     const handleNewGenre = () => {
         setNewGenres([...newGenres, { Title: '', Collection_Id: '' }]);
@@ -30,13 +30,11 @@ const ManageGenres = () => {
         for (const genre of newGenres) {
             await createGenre(genre);
         }
-        for (const genre of existingGenres) {
-            if (genre.isUpdated) {
-                await updateGenre(genre.id, genre);
-            }
+        for (const genre of updateGenres) {
+            await updateGenre(genre.id, genre);
         }
         console.log("New Genres:", newGenres);
-        console.log("Updated Existing Genres:", existingGenres);
+        console.log("Updated Existing Genres:", updateGenres);
     };
 
     const handleInputChange = (e, id, isNew) => {
@@ -48,23 +46,42 @@ const ManageGenres = () => {
                 setNewGenres(updated);
             }
         } else {
-            const updated = [...existingGenres];
-            const index = updated.findIndex(g => g.id === id);
-            if (index !== -1) {
-                updated[index].Title = e.target.value;
-                updated[index].isUpdated = true;
-                setExistingGenres(updated);
+            const updatedGenre = genres.find(g => g.id === id);
+
+            if (updatedGenre !== null) {
+                const updatedGenreWithChanges = { ...updatedGenre, Collection_Id: e.target.value };
+
+                const genreExists = updateGenres.find(g => g.id === id);
+
+                if (genreExists) {
+                    const updatedGenresList = updateGenres.map(genre =>
+                        genre.id === id ? updatedGenreWithChanges : genre
+                    );
+                    setUpdateGenres(updatedGenresList);
+                } else {
+                    setUpdateGenres([...updateGenres, updatedGenreWithChanges]);
+                }
             }
         }
     };
 
     const handleSelectChange = (e, id) => {
-        const updated = [...existingGenres];
-        const index = updated.findIndex(g => g.id === id);
-        if (index !== -1) {
-            updated[index].Collection_Id = e.target.value;
-            updated[index].isUpdated = true;
-            setExistingGenres(updated);
+        const updatedGenre = genres.find(g => g.id === id);
+        console.log("updated: ", updatedGenre, "id: ", id);
+
+        if (updatedGenre !== null) {
+            const updatedGenreWithChanges = { ...updatedGenre, Collection_Id: e.target.value };
+
+            const genreExists = updateGenres.find(g => g.id === id);
+
+            if (genreExists) {
+                const updatedGenresList = updateGenres.map(genre =>
+                    genre.id === id ? updatedGenreWithChanges : genre
+                );
+                setUpdateGenres(updatedGenresList);
+            } else {
+                setUpdateGenres([...updateGenres, updatedGenreWithChanges]);
+            }
         }
     };
 
@@ -75,71 +92,80 @@ const ManageGenres = () => {
                     <tr>
                         <th>Genre Name</th>
                         <th>Collection</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {existingGenres.map(genre => (
-                        <tr key={genre.id}>
-                            <td>
-                                <input
-                                    type="text"
-                                    value={genre.Title}
-                                    onChange={e => handleInputChange(e, genre.id, false)}
-                                />
-                            </td>
-                            <td>
-                                <select
-                                    value={genre.Collection_Id}
-                                    onChange={e => handleSelectChange(e, genre.id)}
-                                >
-                                    <option value="">Select Collection</option>
-                                    {collections.map(collection => (
-                                        <option key={collection.id} value={collection.id}>
-                                            {collection.Title}
-                                        </option>
-                                    ))}
-                                </select>
-                            </td>
-                            <td>
-                                <button onClick={() => handleDeleteGenre(genre.id, false)}>Delete</button>
-                            </td>
+                    {collections.length === 0 && genres.length === 0 ? (
+                        <tr>
+                            <td colSpan="3">No collections or genres found</td>
                         </tr>
-                    ))}
-                    {newGenres.map(genre => (
-                        <tr key={genre.id}>
-                            <td>
-                                <input
-                                    type="text"
-                                    value={genre.Title}
-                                    onChange={e => handleInputChange(e, genre.id, true)}
-                                />
-                            </td>
-                            <td>
-                                <select
-                                    value={genre.Collection_Id}
-                                    onChange={e => {
-                                        const updated = [...newGenres];
-                                        const index = updated.findIndex(g => g.id === genre.id);
-                                        if (index !== -1) {
-                                            updated[index].Collection_Id = e.target.value;
-                                            setNewGenres(updated);
-                                        }
-                                    }}
-                                >
-                                    <option value="">Select Collection</option>
-                                    {collections.map(collection => (
-                                        <option key={collection.id} value={collection.id}>
-                                            {collection.Title}
-                                        </option>
-                                    ))}
-                                </select>
-                            </td>
-                            <td>
-                                <button onClick={() => handleDeleteGenre(genre.id, true)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
+                    ) : (
+                        <>
+                            {genres.length > 0 && genres.map(genre => (
+                                <tr key={genre.id}>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            defaultValue={genre.Title}
+                                            onChange={e => handleInputChange(e, genre.id, false)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <select
+                                            defaultValue={genre.Collection_Id}
+                                            onChange={e => handleSelectChange(e, genre.id)}
+                                            required={true}
+                                        >
+                                            <option value="">Sin Coleccion</option>
+                                            {collections.map(collection => (
+                                                <option key={collection.id} value={collection.id}>
+                                                    {collection.Title}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDeleteGenre(genre.id, false)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {newGenres.length > 0 && newGenres.map(genre => (
+                                <tr key={genre.id}>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={genre.Title}
+                                            onChange={e => handleInputChange(e, genre.id, true)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <select
+                                            value={genre.Collection_Id}
+                                            onChange={e => {
+                                                const updated = [...newGenres];
+                                                const index = updated.findIndex(g => g.id === genre.id);
+                                                if (index !== -1) {
+                                                    updated[index].Collection_Id = e.target.value;
+                                                    setNewGenres(updated);
+                                                }
+                                            }}
+                                        >
+                                            <option value="">Select Collection</option>
+                                            {collections.map(collection => (
+                                                <option key={collection.id} value={collection.id}>
+                                                    {collection.Title}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDeleteGenre(genre.id, true)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </>
+                    )}
                     <tr>
                         <td colSpan="3">
                             <button onClick={handleNewGenre}>Create Genre</button>

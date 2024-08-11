@@ -65,8 +65,8 @@ function ManageCollections() {
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre de Colección</th>
-                        <th>Acciones</th>
+                        <th>Nombre de la Colección</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
