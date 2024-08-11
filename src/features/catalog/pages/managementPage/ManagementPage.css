@@ -1,0 +1,77 @@
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .admin-header {
+    text-align: center;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    font-size: 24px; /* Tamaño de fuente del título */
+    color: #333; /* Color del texto */
+  }
+
+.manage-options {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    max-width: 600px; /* Ancho máximo para el contenedor */
+  }
+  
+  .manage-option {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .manage-option button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff; /* Color azul para el botón */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  
+  .manage-option button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el cursor */
+  }
+  
+  .manage-option button:disabled {
+    background-color: #cccccc; /* Fondo gris para el estado deshabilitado */
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  /* Media Queries para Responsividad */
+  @media (max-width: 768px) {
+    .manage-options {
+      padding: 10px;
+      margin: 10px auto; /* Ajusta el margen para pantallas más pequeñas */
+    }
+  
+    .manage-option button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .manage-options {
+      padding: 5px;
+      margin: 5px auto; /* Ajusta el margen para pantallas aún más pequeñas */
+    }
+  
+    .manage-option button {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }

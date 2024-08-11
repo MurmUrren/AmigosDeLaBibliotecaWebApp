@@ -34,6 +34,10 @@ const AddBook = () => {
   }, [books]);
 
   const handleAddBook = async () => {
+    if (!isbn) {
+      console.log('Please fill out all fields(isbn) before adding a book.');
+      return;
+    }
     await getBook({ title: bookTitle, author: authorName, isbn });
     setBookTitle('');
     setAuthorName('');
@@ -156,39 +160,40 @@ const AddBook = () => {
         </button>
       </div>
       {error && <p>Error: {error.message}</p>}
-      <ul>
         {books?.map(book => (
-          <li key={book.isbn13} className='book-item'>
+          <div key={book.isbn13} className='genres-container'>
             <div>
               <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn13})
             </div>
             <div>
-              <select
-                multiple
-                value={booksToAdd[book.isbn13] || []}
-                onChange={event => handleGenreChange(book.isbn13, event)}
-              >
-                {allGenres.map(genre => (
-                  <option key={genre.id} value={genre.id}>
-                    {genre.Title}
-                  </option>
-                ))}
-              </select>
+            <select
+              multiple
+              value={booksToAdd[book.isbn13] || []}
+              onChange={event => handleGenreChange(book.isbn13, event)}
+              className="select-multiple"
+            >
+              {allGenres.map(genre => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.Title}
+                </option>
+              ))}
+            </select>
               {booksToAdd[book.isbn13]?.length > 0 && (
-                <div>
-                  Generos Seleccionados:
+                <div className='selected-genres'>
+                Generos Seleccionados:
+                <ul className='genre-list'>
                   {booksToAdd[book.isbn13].map(genreId => {
                     const genre = allGenres.find(genre => genre.id === genreId);
-                    return <span key={genre.id}>{genre.Title}</span>;
+                    return <li key={genre.id} className='genre-item'>{genre.Title}</li>;
                   })}
-                </div>
+                </ul>
+              </div>
               )}
             </div>
-            <button onClick={() => removeBook(book.isbn13)}>Remover</button>
-            <button onClick={() => saveBook(book)}>Guardar Libro</button>
-          </li>
+            <button className='remove-book-button' onClick={() => removeBook(book.isbn13)}>Remover</button>
+            <button className='save-book-button' onClick={() => saveBook(book)}>Guardar Libro</button>
+          </div>
         ))}
-      </ul>
     </div>
   );
 };
