@@ -7,6 +7,7 @@ function ManagementPage() {
     const managmentOptions = [
         {title: 'Administrar Libros', path: '/manage/books'},
         {title: 'Administrar Collecciones/Generos', path: '/manage/co_ge'},
+        {title: 'Libros sin generos', path: '/manage/books-no-genre'},
         {title: 'Agregar proximas visitas', path: '/manage/add-visits'},
         {title: 'Estadisticas', path: '/stats'}
     ]

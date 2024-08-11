@@ -3,6 +3,7 @@ import useGenres from "@hooks/useGenres";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './GenresPage.css';
+import CarrouselTopGenRes from "@components/CarrouselTopGenRes/CarrouselTopGenRes";
 
 import CollectionCard from "@components/collectionCard/CollectionCard";
 
@@ -24,6 +25,16 @@ function GenresPage() {
                 <h1>Generos</h1>
                 <h1>{title}</h1>
             </div>
+
+            <div className="collections-header">
+                <h3>Mas vistos de {title}</h3>
+            </div>
+            <div className="collection-carrousel">
+                {
+                    <CarrouselTopGenRes id={collectionId} />
+                }
+            </div>
+
             <div className="genresP-list">
                 {genres?.length > 0 ?
                     genres.map((genre, index) => (
