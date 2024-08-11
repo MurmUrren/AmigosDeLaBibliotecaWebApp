@@ -53,38 +53,49 @@ const useCollectionTop = () => {
 };
 
 const useAllViewsCollections = () => {
-    const [topCollection, setTopCollection] = useState(null);
+    const [collectionsViews, setCollectionsViews] = useState([]);
 
     useEffect(() => {
         const fetchCollectionData = async () => {
             let tc = [];
-           //get all collections from supabase and check in the table Genres which one has the most views on the sum of all the genres
-            const { data, error } = await supabase
-                .from('Collections')
-                .select()
 
-            data.map(async (collection) => {
+            // Obtener todas las colecciones
+            const { data: collections, error: collectionsError } = await supabase
+                .from('Collections')
+                .select();
+
+            if (collectionsError) {
+                console.error('Error fetching collections:', collectionsError);
+                return;
+            }
+
+            // Obtener las vistas de los géneros y calcular el total de vistas por colección
+            const promises = collections.map(async (collection) => {
                 const { data: genres, error: genresError } = await supabase
                     .from('Genres')
-                    .select("Views", { count: 'exact' })
-                    .eq('Collection_Id', collection.id)
+                    .select("Views")
+                    .eq('Collection_Id', collection.id);
 
-                let sumTotalViews = genres.reduce((acc, genre) => acc + genre.Views, 0)
-                tc.push({ id: collection.id, title: collection.Title, TotalViews: sumTotalViews })
-            })
+                if (genresError) {
+                    console.error(`Error fetching genres for collection ${collection.id}:`, genresError);
+                    return null;
+                }
 
-            if (error) {
-                console.error('error fetching collections', error)
-            }
-            if (data) {
-                //find the collection with the most views
-                setTopCollection(tc)
-            }
-        }
+                const sumTotalViews = genres.reduce((acc, genre) => acc + genre.Views, 0);
+                return { id: collection.id, title: collection.Title, TotalViews: sumTotalViews };
+            });
+
+            const results = await Promise.all(promises);
+            const validResults = results.filter(result => result !== null);
+
+            // Establecer todas las colecciones con sus vistas totales
+            setCollectionsViews(validResults);
+        };
+
         fetchCollectionData();
     }, []);
 
-    return topCollection;
+    return collectionsViews;
 };
 
 export default useCollectionTop;
