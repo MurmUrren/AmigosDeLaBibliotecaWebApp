@@ -44,12 +44,12 @@ const CatalogRoutes = () => {
                 }
             />
             <Route
-                path="manage/collection-genres"
+                path="manage/co_ge"
                 element={
                     <CollectionGenreManagementPage />
                 }
             />
-            
+
             <Route
                 path="manage/books-no-genre"
                 element={
