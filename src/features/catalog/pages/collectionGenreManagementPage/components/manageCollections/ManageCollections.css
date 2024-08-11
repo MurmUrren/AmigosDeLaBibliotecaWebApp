@@ -1,0 +1,55 @@
+.collections-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  .collections-table th, .collections-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .collections-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .collection-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  .collection-button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .delete-collection-button {
+    background-color: #ff0000; /* Color rojo */
+  }
+  
+  .collection-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .collection-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .delete-collection-button:hover {
+    background-color: #b30000; /* Rojo más oscuro al pasar el cursor */
+  }
