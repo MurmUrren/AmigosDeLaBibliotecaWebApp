@@ -53,7 +53,7 @@ function DeleteBook() {
                     placeholder="ISBN13"
 
                 />
-                <button onClick={fetchBook} className="delete-book-button">Buscar Libro</button>
+                <button onClick={fetchBook} className="search-book-button">Buscar Libro</button>
             </div>
             <div className="delete-book-result">
                 {book && Object.keys(book).length > 0 ? (
