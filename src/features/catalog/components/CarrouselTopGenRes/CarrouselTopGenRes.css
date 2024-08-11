@@ -2,12 +2,13 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 70dvw;
+    width: 75dvw;
     height: 100%;
     margin: auto;
     padding: 0 2rem;
     overflow: scroll;
     position: relative;
+    gap: 1rem;
 }
 
 .Carrousel::-webkit-scrollbar {
