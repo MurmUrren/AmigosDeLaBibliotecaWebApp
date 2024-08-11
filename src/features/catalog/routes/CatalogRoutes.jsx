@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import ManagementPage from '@pages/managementPage/ManagementPage';
 import CatalogPage from '@pages/catalogPage/CatalogPage.jsx';
 import GenresPage from '@pages/genresPage/GenresPage.jsx';
-import BookManagementPage from '../pages/bookManagementPage/BookManagementPage';
+import BookManagementPage from '@pages/bookManagementPage/BookManagementPage';
+import CollectionGenreManagementPage from '@pages/collectionGenreManagementPage/CollectionGenreManagementPage';
 
 const CatalogRoutes = () => {
     return (
@@ -30,6 +31,12 @@ const CatalogRoutes = () => {
                 path="manage/books"
                 element={
                     <BookManagementPage />
+                }
+            />
+            <Route
+                path="manage/co_ge"
+                element={
+                    <CollectionGenreManagementPage />
                 }
             />
         </Routes>

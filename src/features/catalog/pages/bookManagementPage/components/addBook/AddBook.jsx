@@ -34,6 +34,10 @@ const AddBook = () => {
   }, [books]);
 
   const handleAddBook = async () => {
+    if (!isbn) {
+      console.log('Please fill out all fields(isbn) before adding a book.');
+      return;
+    }
     await getBook({ title: bookTitle, author: authorName, isbn });
     setBookTitle('');
     setAuthorName('');
