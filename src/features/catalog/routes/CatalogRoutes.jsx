@@ -4,7 +4,6 @@ import ManagementPage from '@pages/managementPage/ManagementPage';
 import CatalogPage from '@pages/catalogPage/CatalogPage.jsx';
 import GenresPage from '@pages/genresPage/GenresPage.jsx';
 
-import BookManagementPage from '../pages/bookManagementPage/BookManagementPage';
 import Stats from '@pages/stats/Stats';
 import BookManagementPage from '@pages/bookManagementPage/BookManagementPage';
 import CollectionGenreManagementPage from '@pages/collectionGenreManagementPage/CollectionGenreManagementPage';
@@ -42,12 +41,15 @@ const CatalogRoutes = () => {
                 path="/stats"
                 element={
                     <Stats/>
-
-                path="manage/co_ge"
+                }
+            />
+            <Route
+                path="manage/collection-genres"
                 element={
                     <CollectionGenreManagementPage />
                 }
             />
+            
             <Route
                 path="manage/books-no-genre"
                 element={

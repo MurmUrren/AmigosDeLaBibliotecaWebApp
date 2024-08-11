@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useCollectionTop, { useAllViewsCollections } from '@hooks/useCollectionTop';
-import * as d3 from "d3";
-import { select, saveAs } from 'file-saver';
+// import * as d3 from "d3";
+// import { select, saveAs } from 'file-saver';
 
 const Stats = () => {
     const [chartType, setChartType] = useState('bar'); // Estado para seleccionar tipo de gráfico
