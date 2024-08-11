@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useBookList } from '@hooks/useBookList';
 import useAllGenres from '@hooks/useAllGenres';
-import supabase from '../../../../../config/supabaseClient';
+import supabase from '../../../../../../config/supabaseClient';
+import './AddBook.css';
 
-const BookList = () => {
+const AddBook = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();
   const [bookTitle, setBookTitle] = useState('');
   const [authorName, setAuthorName] = useState('');
@@ -39,6 +40,16 @@ const BookList = () => {
     setIsbn('');
   };
 
+  const removeGenreFromBook = async (isbn, genreId) => {
+    setBooksToAdd(prevBooksToAdd => {
+      const updatedGenres = prevBooksToAdd[isbn] || [];
+      return {
+        ...prevBooksToAdd,
+        [isbn]: updatedGenres.filter(genre => genre !== genreId)
+      }
+    });
+  };
+
   const saveBookGenres = async (bookId, genreId, isbn13) => {
     const { data, error } = await supabase
       .from('BookGenres')
@@ -56,6 +67,7 @@ const BookList = () => {
 
     if (data) {
       console.log('Book genres inserted successfully: ', data);
+      removeGenreFromBook(isbn13, genreId);
     }
   };
 
@@ -91,11 +103,15 @@ const BookList = () => {
         await saveBookGenres(data[0].id, genreId, book.isbn13);
       });
 
-      setBooksToAdd(current => {
-        const copy = { ...current };
-        delete copy[book.isbn13];
-        return copy;
-      })
+      setBooksToAdd(prevBooksToAdd => {
+        const updatedGenres = prevBooksToAdd[book.isbn13] || [];
+        if (updatedGenres.length === 0) {
+          const { [book.isbn13]: value, ...rest } = prevBooksToAdd;
+          return rest;
+        }
+        return prevBooksToAdd;
+      });
+
       removeBook(book.isbn13)
     }
   };
@@ -120,29 +136,29 @@ const BookList = () => {
   };
 
   const renderInput = (value, onChange, placeholder) => (
-    <input
+      <input
       type="text"
       placeholder={placeholder}
       value={value}
       onChange={e => onChange(e.target.value)}
-    />
+      />
   );
 
   return (
     <div className='manage-books-wrapper' id="navbar">
       <h2 className='modal-title'>Agregar Libro</h2>
-      <div>
+      <div className='add-book-inputs'>
         {renderInput(bookTitle, setBookTitle, "Titulo del Libro")}
         {renderInput(authorName, setAuthorName, "Nombre del Autor")}
         {renderInput(isbn, setIsbn, "ISBN13")}
-        <button onClick={handleAddBook} disabled={loading}>
+        <button className='add-book-button' onClick={handleAddBook} disabled={loading}>
           {loading ? 'Cargando...' : 'Agregar Libro'}
         </button>
       </div>
       {error && <p>Error: {error.message}</p>}
       <ul>
         {books?.map(book => (
-          <li key={book.isbn13}>
+          <li key={book.isbn13} className='book-item'>
             <div>
               <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn13})
             </div>
@@ -177,4 +193,4 @@ const BookList = () => {
   );
 };
 
-export default BookList;
+export default AddBook;
