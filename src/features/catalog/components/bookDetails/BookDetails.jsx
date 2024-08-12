@@ -4,7 +4,7 @@ import BookCover from '../bookCover/BookCover';
 import noCover from '../../../../assets/imgs/noCover.jpeg';
 import useClickOutside from '../../hooks/useClickOutside';
 
-function BookDetails({ book, onClose }) {
+function BookDetails({ book, imgUrl, onClose }) {
   const wrapperRef = useClickOutside(onClose);
 
   return (
@@ -15,7 +15,7 @@ function BookDetails({ book, onClose }) {
         </button>
         <div className="details-container">
           <div className='details-cover'>
-            <img src={book.Cover || noCover} className="book-cover" />
+            <img src={imgUrl || noCover} className="book-cover" />
           </div>
           <div className="book-info">
             <h2>{book.Title}</h2>

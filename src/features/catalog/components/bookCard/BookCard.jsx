@@ -19,7 +19,7 @@ function BookCard({ book }) {
 
   return (
     <>
-      {showDetails && <BookDetails book={book} img={bookCoverURL} onClose={handleCloseDetails} />}
+      {showDetails && <BookDetails book={book} imgUrl={bookCoverURL} onClose={handleCloseDetails} />}
       <div className="book-item" onClick={handleCardClick}>
         {loading ? (
           <p>Loading cover...</p>
