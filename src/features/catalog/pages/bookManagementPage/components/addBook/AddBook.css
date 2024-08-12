@@ -6,14 +6,15 @@
   padding: 20px;
 }
 
-.book-item {
+.genres-container{
   background: #f5f5f5;
   border: 1px solid #ddd;
   padding: 20px;
   margin: 10px;
   text-align: center;
   width: 100%;
-  max-width: 600px; /* Ensure max-width for book items */
+  max-width: 400px; /* Ensure max-width for book items */
+  align-items: center;
 }
 
 .slick-prev:before,
@@ -47,7 +48,7 @@
   box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Focus shadow */
 }
 
-.add-book-button {
+.add-book-button, .save-book-button {
   width: 100%;
   padding: 10px 15px;
   margin: 10px 0;
@@ -62,7 +63,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.add-book-button:hover {
+.add-book-button:hover, .save-book-button:hover{
   background-color: #0056b3; /* Darker blue on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
 }
@@ -71,6 +72,74 @@
   background-color: #cccccc; /* Gray background for disabled state */
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.remove-book-button {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff004c; /* Color rojo para el botón de eliminar */
+  border: none;
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.remove-book-button:hover {
+  background-color: #b30000; /* Rojo más oscuro al pasar el cursor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el cursor */
+}
+
+.selected-genres {
+  margin-top: 10px;
+}
+
+.genre-list {
+  list-style-type: none; /* Elimina los puntos de la lista */
+  padding: 0;
+  margin: 0;
+}
+
+.genre-item {
+  padding: 5px 0; /* Espaciado entre los elementos de la lista */
+  border-bottom: 1px solid #ccc; /* Línea separadora entre los elementos */
+}
+
+.genre-item:last-child {
+  border-bottom: none; /* Elimina la línea del último elemento */
+}
+
+.select-multiple {
+  width: 100%;
+  max-width: 400px; /* Ancho máximo para el select */
+  height: 150px; /* Altura del select */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  overflow-y: auto; /* Habilita el scroll vertical */
+}
+
+.select-multiple option {
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+.select-multiple option:hover {
+  background-color: #f1f1f1; /* Fondo gris claro al pasar el cursor */
+}
+
+.select-multiple option:checked {
+  background-color: #007bff; /* Fondo azul para las opciones seleccionadas */
+  color: #fff; /* Texto blanco para las opciones seleccionadas */
 }
 
 /* Media Queries for Responsiveness */
@@ -88,9 +157,14 @@
     max-width: 100%; /* Ensure full width on smaller screens */
   }
 
-  .book-item {
+  .gentes-container{
     padding: 15px;
     margin: 5px;
+  }
+
+  .select-multiple {
+    max-width: 100%; /* Asegura el ancho completo en pantallas más pequeñas */
+    height: 120px; /* Ajusta la altura en pantallas más pequeñas */
   }
 }
 
@@ -104,4 +178,7 @@
     padding: 8px 12px;
     font-size: 14px;
   }
+
+  
 }
+

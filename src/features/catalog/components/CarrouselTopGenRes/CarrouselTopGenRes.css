@@ -1,13 +1,12 @@
 .Carrousel {
     display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    width: 70vw;
+    justify-content: start;
+    align-items: center;
+    width: 75dvw;
     height: 100%;
     margin: auto;
     position: relative;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    gap: 1rem;
 }
 
 .Carrousel-container {
