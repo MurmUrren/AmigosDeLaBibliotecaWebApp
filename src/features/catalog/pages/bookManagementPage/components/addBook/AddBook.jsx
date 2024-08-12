@@ -4,7 +4,7 @@ import useAllGenres from '@hooks/useAllGenres';
 import supabase from '@config/supabaseClient';
 import './AddBook.css';
 import ManualAddBook from '../manualAddBook/ManualAddBook';
-
+import BarcodeScanner from '../barcodeScanner/BarcodeScanner';
 
 const AddBook = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();
@@ -150,8 +150,13 @@ const AddBook = () => {
       />
   );
 
+  const getScannerISBN = (isbn) => {
+    setIsbn(isbn);
+  };
+
   return (
     <div className='manage-books-wrapper' id="navbar">
+      <BarcodeScanner getScannerISBN={getScannerISBN}/>
       <h2 className='modal-title'>Agregar Libro</h2>
       <div className='add-book-inputs'>
         {renderInput(isbn, setIsbn, "ISBN13")}
