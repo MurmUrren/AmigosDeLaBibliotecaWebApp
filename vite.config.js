@@ -20,6 +20,7 @@ export default defineConfig(({ mode}) => {
         "@data": path.resolve(__dirname, "src/data"),
         "@hooks": path.resolve(__dirname, "src/features/catalog/hooks"),
         "@config": path.resolve(__dirname, "src/config"),
+        "@assets": path.resolve(__dirname, "src/assets"),
       }
     }
   }
