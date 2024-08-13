@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import useAllGenres from "@hooks/useAllGenres";
 import supabase from "@config/supabaseClient";
 import BookCard from "@components/bookCard/BookCard";
-import "./DeleteBook.css";
+import "./ManageBook.css";
 import GenreList from "../genreList/GenreList";
 
-function DeleteBook() {
+function ManageBook() {
     const allGenres = useAllGenres();
     const [isbn13, setIsbn13] = useState('');
     const [book, setBook] = useState({});
@@ -144,7 +144,7 @@ function DeleteBook() {
 
     return (
         <div className="delete-book-container">
-            <h1>Eliminar libro</h1>
+            <h1>Modificar libro</h1>
             <div className="delete-book-input-group">
                 <input
                     type="text"
@@ -186,4 +186,4 @@ function DeleteBook() {
     );
 }
 
-export default DeleteBook;
+export default ManageBook;

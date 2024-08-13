@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./GenreList.css";
 
 const GenreList = ({ allGenres, bookGenres, handleSelectGenre }) => {
