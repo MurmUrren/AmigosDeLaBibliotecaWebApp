@@ -1,5 +1,5 @@
 import AddBook from "./components/addBook/AddBook";
-import DeleteBook from "./components/deleteBook/DeleteBook";
+import ManageBook from "./components/manageBook/ManageBook";
 
 function BookManagementPage() {
 
@@ -9,7 +9,7 @@ function BookManagementPage() {
                 <AddBook />
             </div>
             <div>
-                <DeleteBook />
+                <ManageBook />
             </div>
         </div>
     );
