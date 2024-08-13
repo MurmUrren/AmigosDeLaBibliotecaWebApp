@@ -1,12 +1,43 @@
 import { useState, useEffect } from "react";
+import useAllGenres from "@hooks/useAllGenres";
 import supabase from "@config/supabaseClient";
 import BookCard from "@components/bookCard/BookCard";
 import "./DeleteBook.css";
+import GenreList from "../genreList/GenreList";
 
 function DeleteBook() {
+    const allGenres = useAllGenres();
     const [isbn13, setIsbn13] = useState('');
     const [book, setBook] = useState({});
-    const [enableDelete, setEnableDelete] = useState(false);
+    const [bookGenres, setBookGenres] = useState([]);
+    const [enableButtons, setEnableButtons] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+
+    useEffect(() => {
+        console.log('selected genres', selectedGenres)
+    }, [selectedGenres])
+
+    const fetchBookGenres = async (bookId) => {
+        console.log('fetching book genres ', bookId)
+        const { data, error } = await supabase
+            .from('BookGenres')
+            .select(`
+                Genres (
+                    *
+                )
+            `)
+            .eq('Book_Id', bookId)
+
+        if (error) {
+            console.error('error fetching book genres', error)
+        }
+        if (data) {
+            console.log('book genres', data)
+            const genresForSet = data.map(entry => entry.Genres)
+            setBookGenres(genresForSet.map(genre => genre.id))
+            setSelectedGenres(genresForSet.map(genre => genre.id))
+        }
+    }
 
     const fetchBook = async () => {
         const { data, error } = await supabase
@@ -20,13 +51,83 @@ function DeleteBook() {
         if (data) {
             if (data.length !== 0) {
                 setBook(data[0])
-                setEnableDelete(true)
+                setEnableButtons(true)
             }
+            fetchBookGenres(data[0].id)
         }
     };
 
+    const handleSelectGenre = (genreId) => {
+        let gId = Number(genreId);
+        setSelectedGenres((prevSelected) =>
+            prevSelected.includes(gId)
+                ? prevSelected.filter(id => id !== gId)
+                : [...prevSelected, gId]
+        );
+    };
+
+    const removeGenreFromBook = async (genreId) => {
+        const { data, error } = await supabase
+            .from('BookGenres')
+            .delete()
+            .eq('Book_Id', book.id)
+            .eq('Genre_Id', genreId)
+            .select()
+
+        if (error) {
+            console.error('error removing genre from book', error)
+        }
+        if (data) {
+            console.log('genre removed from book', data)
+        }
+    };
+
+    const addGenreToBook = async (genreId) => {
+        console.log('ggg ', genreId, ' bbb ', book.id)
+        const { data, error } = await supabase
+            .from('BookGenres')
+            .insert([
+                {
+                    Book_Id: book.id,
+                    Genre_Id: genreId
+                }
+            ])
+            .select()
+        
+        if (error) {
+            console.error('error adding genre to book', error)
+        }
+        if (data) {
+            console.log('genre added to book', data)
+        }
+    };
+
+    const saveBookGenres = async () => {
+        // remove genres that were deselected
+        bookGenres.map(genreId => {
+            if (!selectedGenres.includes(genreId)) {
+                removeGenreFromBook(genreId)
+                console.log('este no pls ')
+            }
+        });
+
+        // add genres that were selected
+        selectedGenres.map(genreId => {
+            if (!bookGenres.includes(genreId)) {
+                addGenreToBook(genreId)
+                console.log('ucddsiuiu ')
+            }
+        });
+    };
+
+    const saveBook = async () => {
+        setEnableButtons(false)
+        saveBookGenres()
+        setEnableButtons(true)
+    };
+
     const deleteBook = async () => {
-        setEnableDelete(false)
+        setEnableButtons(false)
         const { data, error } = await supabase
             .from('Books')
             .delete()
@@ -38,7 +139,7 @@ function DeleteBook() {
         if (data) {
             console.log('book deleted successfully', data)
         }
-        setEnableDelete(true)
+        setEnableButtons(true)
     };
 
     return (
@@ -57,15 +158,25 @@ function DeleteBook() {
             </div>
             <div className="delete-book-result">
                 {book && Object.keys(book).length > 0 ? (
-                    <BookCard book={book} />
+                    <>
+                        <BookCard book={book} />
+                        <GenreList allGenres={allGenres} bookGenres={selectedGenres} handleSelectGenre={handleSelectGenre} />
+                    </>
                 ) : (
                     <h2>No book found</h2>
                 )}
             </div>
             <div className="delete-book-action">
-                <button 
+                <button
+                    onClick={saveBook}
+                    disabled={!enableButtons}
+                    className="save-book-button"
+                >
+                    Guardar
+                </button>
+                <button
                     onClick={deleteBook}
-                    disabled={!enableDelete}
+                    disabled={!enableButtons}
                     className="delete-book-button"
                 >
                     Delete Book
