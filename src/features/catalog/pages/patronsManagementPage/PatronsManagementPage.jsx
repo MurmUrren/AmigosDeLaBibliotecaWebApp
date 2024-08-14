@@ -1,36 +1,74 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import usePatrons from "@hooks/usePatrons";
 import Pagination from "@components/pagination/Pagination";
 import { useNavigate } from "react-router-dom";
+import { deletePatron } from "./functs/patronFuncts";
+import SearchBar from "@components/searchBar/SearchBar";
 
 const PatronsManagementPage = () => {
     const navigate = useNavigate();
     const { patrons, loading } = usePatrons();
+    const [patronList, setPatronList] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const patronsPerPage = 20;
+
+    useEffect(() => {
+        if (patrons) {
+            setPatronList(patrons);
+        }
+    }, [patrons]);
+
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
 
+    const filteredPatrons = useMemo(() => {
+        if (!searchTerm) {
+            return patronList;
+        }
+        return patronList.filter(patron =>
+            patron.first_name && patron.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [patronList, searchTerm]);
+
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+        setCurrentPage(1);
+      };
+
     const currentPatrons = useMemo(() => {
         const indexOfLastPatron = currentPage * patronsPerPage;
         const indexOfFirstPatron = indexOfLastPatron - patronsPerPage;
-        return patrons.slice(indexOfFirstPatron, indexOfLastPatron);
-    }, [currentPage, patrons]);
+        return filteredPatrons.slice(indexOfFirstPatron, indexOfLastPatron);
+    }, [currentPage, filteredPatrons]);
+
+    const handleDelete = async (id) => {
+        const status = await deletePatron(id);
+
+        if (status) {
+            console.log('patron deleted');
+        }
+        else {
+            console.error('error deleting patron');
+        }
+        setPatronList(patronList.filter(patron => patron.id !== id));
+    };
 
     return (
         <div>
             <h1>Patrons Management Page</h1>
+            <SearchBar onSearch={handleSearch} />
             <Pagination
                 currentPage={currentPage}
-                totalCount={patrons.length}
+                totalCount={filteredPatrons.length}
                 pageSize={patronsPerPage}
                 onPageChange={handlePageChange}
             />
             <div>
                 <button
-                    onClick={() => {navigate("/home")}}
+                    onClick={() => {navigate("/create_patron")}}
                 >
                     Agregar Patron
                 </button>
@@ -73,15 +111,15 @@ const PatronsManagementPage = () => {
                                 <td>{patron.patron_id}</td>
                                 <td>
                                     <button 
-                                        onClick={() => {navigate("/home")}}
+                                        onClick={() => {navigate(`/edit/patron/${patron.id}`)}}
                                     >
                                         Editar
                                     </button>
-                                    <button
-                                        onClick={() => {navigate("/")}}
+                                    {/* <button
+                                        onClick={() => {handleDelete(patron.id)}}
                                     >
                                         Eliminar
-                                    </button>
+                                    </button> */}
                                 </td>
                             </tr>
                         ))}
@@ -90,7 +128,7 @@ const PatronsManagementPage = () => {
             </div>
             <Pagination
                 currentPage={currentPage}
-                totalCount={patrons.length}
+                totalCount={filteredPatrons.length}
                 pageSize={patronsPerPage}
                 onPageChange={handlePageChange}
             />

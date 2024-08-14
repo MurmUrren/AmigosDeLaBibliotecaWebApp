@@ -9,6 +9,8 @@ import BookManagementPage from '@pages/bookManagementPage/BookManagementPage';
 import CollectionGenreManagementPage from '@pages/collectionGenreManagementPage/CollectionGenreManagementPage';
 import NoGenreBooksPage from '@pages/noGenreBooksPage/NoGenreBooksPage';
 import PatronsManagementPage from '@pages/patronsManagementPage/PatronsManagementPage';
+import PatronEditPage from '@pages/patronEditPage/PatronEditPage';
+import CreatePatronPage from '@pages/createPatronPage/CreatePatronPage';
 
 const CatalogRoutes = () => {
     return (
@@ -62,6 +64,18 @@ const CatalogRoutes = () => {
                 path="manage/patrons"
                 element={
                     <PatronsManagementPage />
+                }
+            />
+            <Route
+                path="edit/patron/:patron_id"
+                element={
+                    <PatronEditPage />
+                }
+            />
+            <Route
+                path="create_patron"
+                element={
+                    <CreatePatronPage />
                 }
             />
         </Routes>
