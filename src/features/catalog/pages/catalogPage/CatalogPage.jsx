@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import useBooks from '@hooks/useBooks';
 import { useParams } from 'react-router';
 import './CatalogPage.css';
-import SearchBar from '../../components/searchBar/SearchBar';
+import SearchBar from '@components/searchBar/SearchBar';
 import BookCard from '@components/bookCard/BookCard';
 import Pagination from '@components/pagination/Pagination';
 
