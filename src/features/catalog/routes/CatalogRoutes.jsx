@@ -11,6 +11,7 @@ import NoGenreBooksPage from '@pages/noGenreBooksPage/NoGenreBooksPage';
 import PatronsManagementPage from '@pages/patronsManagementPage/PatronsManagementPage';
 import PatronEditPage from '@pages/patronEditPage/PatronEditPage';
 import CreatePatronPage from '@pages/createPatronPage/CreatePatronPage';
+import BarcodesPage from '../pages/barcodesPage/BarcodesPage';
 
 const CatalogRoutes = () => {
     return (
@@ -27,6 +28,13 @@ const CatalogRoutes = () => {
                     <ManagementPage />
                 }
             />
+            <Route
+                path="/barcodes"
+                element={
+                    <BarcodesPage />
+                }
+            />
+
             <Route
                 path="/collection/:title/:collectionId"
                 element={
