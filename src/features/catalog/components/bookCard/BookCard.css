@@ -10,6 +10,7 @@
     background-color: #fff;
     transition: transform 0.2s, box-shadow 0.2s;
     max-width: 250px;
+    cursor: pointer;
   }
 
   .book-item img {

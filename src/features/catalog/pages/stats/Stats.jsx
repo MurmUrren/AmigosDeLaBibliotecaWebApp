@@ -13,6 +13,24 @@ const Stats = () => {
                 <ViewsCollections />
                 <Charts/>
             </div>
+            <div className='stats-flex'>
+                <h1>
+                    Estadísticas de libros
+                </h1>
+                <div>
+                    <ul>
+                        <li>
+                            <span>Libros mas vistos:</span> 100
+                        </li>
+                        <li>
+                            <span>Libros totales en x:</span> 50
+                        </li>
+                        <li>
+                            <span>Libros sin categorias:</span> 50
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };

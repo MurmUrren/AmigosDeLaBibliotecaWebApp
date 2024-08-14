@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAllViewsCollections } from '@hooks/useCollectionTop';
 import * as d3 from "d3";
 import { saveAs } from 'file-saver';
+import './Charts.css';
 
 const Charts = () => {
 
@@ -75,8 +76,8 @@ const Charts = () => {
         const data = allViewsCollections;
 
         // Configuración del SVG
-        const width = 450;
-        const height = 450;
+        const width = 300;
+        const height = 300;
         const radius = Math.min(width, height) / 2;
 
         // Crear SVG
@@ -91,11 +92,6 @@ const Charts = () => {
         const arc = d3.arc()
             .outerRadius(radius - 10)
             .innerRadius(0);
-
-        // Crear el generador de etiquetas de arco
-        const labelArc = d3.arc()
-            .outerRadius(radius - 40)
-            .innerRadius(radius - 40);
 
         // Crear el generador de pastel
         const pie = d3.pie()
@@ -114,8 +110,9 @@ const Charts = () => {
 
         // Añadir las etiquetas
         arcs.append("text")
-            .attr("transform", d => `translate(${labelArc.centroid(d)})`)
+            .attr("transform", d => `translate(${arc.centroid(d)})`)
             .attr("dy", ".35em")
+            .style("text-anchor", "middle")
             .text(d => d.data.title);
     };
 
@@ -133,17 +130,17 @@ const Charts = () => {
     }, [allViewsCollections, chartType]);
 
     return (
-        <div>
-                    <div>
-                        <label>Tipo de gráfico: </label>
-                        <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
-                            <option value="bar">Gráfico de Barras</option>
-                            <option value="pie">Gráfico de Pastel</option>
-                        </select>
-                    </div>
-                    <div id="chart"></div>
-                    <button onClick={downloadChart}>Descargar Imagen</button>
-                </div>
+        <div className="charts-container">
+            <div>
+                <label className="charts-label">Tipo de gráfico: </label>
+                <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
+                    <option value="bar">Gráfico de Barras</option>
+                    <option value="pie">Gráfico de Pastel</option>
+                </select>
+            </div>
+            <div id="chart"></div>
+            <button className="download-image" onClick={downloadChart}>Descargar Imagen</button>
+        </div>
     );
 }
 
