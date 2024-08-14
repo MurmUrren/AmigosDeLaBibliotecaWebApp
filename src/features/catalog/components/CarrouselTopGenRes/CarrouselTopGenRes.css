@@ -1,25 +1,44 @@
-.Carrousel{
+.Carrousel {
     display: flex;
     justify-content: start;
     align-items: center;
     width: 75dvw;
     height: 100%;
     margin: auto;
-    padding: 0 2rem;
-    overflow: scroll;
     position: relative;
     gap: 1rem;
 }
 
-.Carrousel::-webkit-scrollbar {
-    display: none;
+.Carrousel-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    flex: 1;
 }
 
-.Carrousel .Carrousel-box:nth-child(2n+1){
-    border-bottom: 2px solid;
-    border-image: linear-gradient(90deg, #fbff00 90%, #7bff00) 1;
+.Carrousel-box {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    background-color: #ddd;
 }
-.Carrousel .Carrousel-box:nth-child(2n){
-    border-bottom: 2px solid;
-    border-image: linear-gradient(90deg, #7bff00 90%, #fbff00) 1;
+
+.Carrousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.Carrousel-button-left {
+    left: 0;
+}
+
+.Carrousel-button-right {
+    right: 0;
 }

@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import useCollections from "@hooks/useCollections";
 import { createCollection, deleteCollection, updateCollection } from "./functs/collectionFunctions";
+import "./ManageCollections.css";
 
 function ManageCollections() {
     const collections = useCollections();
@@ -62,7 +63,14 @@ function ManageCollections() {
 
     return (
         <div>
-            <table>
+            <tr>
+                <td colSpan="2">
+                    <button onClick={handleNewCollection} className="collection-button">Crear Colección</button>
+                    <button onClick={handleSaveCollections} className="collection-button">Guardar Cambios</button>
+                </td>
+            </tr>
+            
+            <table className="collections-table">
                 <thead>
                     <tr>
                         <th>Nombre de la Colección</th>
@@ -77,10 +85,11 @@ function ManageCollections() {
                                     type="text"
                                     value={collection.Title}
                                     onChange={e => handleInputChange(e, collection.id, false)}
+                                    className="collection-input"
                                 />
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteCollection(collection.id, false)}>Delete</button>
+                                <button onClick={() => handleDeleteCollection(collection.id, false)} className="collection-button delete-collection-button">Eliminar</button>
                             </td>
                         </tr>
                     ))}
@@ -91,19 +100,14 @@ function ManageCollections() {
                                     type="text"
                                     value={collection.Title}
                                     onChange={e => handleInputChange(e, collection.id, true)}
+                                    className="collection-input"
                                 />
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteCollection(collection.id, true)}>Delete</button>
+                                <button onClick={() => handleDeleteCollection(collection.id, true)} className="collection-button delete-collection-button">Eliminar</button>
                             </td>
                         </tr>
                     ))}
-                    <tr>
-                        <td colSpan="2">
-                            <button onClick={handleNewCollection}>Crear Colección</button>
-                            <button onClick={handleSaveCollections}>Save</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
