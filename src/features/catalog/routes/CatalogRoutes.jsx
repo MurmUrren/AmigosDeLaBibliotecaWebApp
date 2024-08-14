@@ -8,6 +8,7 @@ import Stats from '@pages/stats/Stats';
 import BookManagementPage from '@pages/bookManagementPage/BookManagementPage';
 import CollectionGenreManagementPage from '@pages/collectionGenreManagementPage/CollectionGenreManagementPage';
 import NoGenreBooksPage from '@pages/noGenreBooksPage/NoGenreBooksPage';
+import BarcodesPage from '../pages/barcodesPage/BarcodesPage';
 
 const CatalogRoutes = () => {
     return (
@@ -24,6 +25,13 @@ const CatalogRoutes = () => {
                     <ManagementPage />
                 }
             />
+            <Route
+                path="/barcodes"
+                element={
+                    <BarcodesPage />
+                }
+            />
+
             <Route
                 path="/collection/:title/:collectionId"
                 element={
