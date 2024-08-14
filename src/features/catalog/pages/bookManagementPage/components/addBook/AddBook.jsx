@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useBookList } from '@hooks/useBookList';
 import useAllGenres from '@hooks/useAllGenres';
-import supabase from '../../../../../../config/supabaseClient';
+import supabase from '@config/supabaseClient';
 import './AddBook.css';
+import ManualAddBook from '../manualAddBook/ManualAddBook';
+import BarcodeScanner from '../barcodeScanner/BarcodeScanner';
 
 const AddBook = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();
@@ -148,12 +150,15 @@ const AddBook = () => {
       />
   );
 
+  const getScannerISBN = (isbn) => {
+    setIsbn(isbn);
+  };
+
   return (
     <div className='manage-books-wrapper' id="navbar">
+      <BarcodeScanner getScannerISBN={getScannerISBN}/>
       <h2 className='modal-title'>Agregar Libro</h2>
       <div className='add-book-inputs'>
-        {renderInput(bookTitle, setBookTitle, "Titulo del Libro")}
-        {renderInput(authorName, setAuthorName, "Nombre del Autor")}
         {renderInput(isbn, setIsbn, "ISBN13")}
         <button className='add-book-button' onClick={handleAddBook} disabled={loading}>
           {loading ? 'Cargando...' : 'Agregar Libro'}
@@ -161,38 +166,8 @@ const AddBook = () => {
       </div>
       {error && <p>Error: {error.message}</p>}
         {books?.map(book => (
-          <div key={book.isbn13} className='genres-container'>
-            <div>
-              <strong>{book.title}</strong> by {book.author} (ISBN: {book.isbn13})
-            </div>
-            <div>
-            <select
-              multiple
-              value={booksToAdd[book.isbn13] || []}
-              onChange={event => handleGenreChange(book.isbn13, event)}
-              className="select-multiple"
-            >
-              {allGenres.map(genre => (
-                <option key={genre.id} value={genre.id}>
-                  {genre.Title}
-                </option>
-              ))}
-            </select>
-              {booksToAdd[book.isbn13]?.length > 0 && (
-                <div className='selected-genres'>
-                Generos Seleccionados:
-                <ul className='genre-list'>
-                  {booksToAdd[book.isbn13].map(genreId => {
-                    const genre = allGenres.find(genre => genre.id === genreId);
-                    return <li key={genre.id} className='genre-item'>{genre.Title}</li>;
-                  })}
-                </ul>
-              </div>
-              )}
-            </div>
-            <button className='remove-book-button' onClick={() => removeBook(book.isbn13)}>Remover</button>
-            <button className='save-book-button' onClick={() => saveBook(book)}>Guardar Libro</button>
-          </div>
+          console.log("Book sexooo: ", book),
+          <ManualAddBook bookData={book} saveBookGenres={saveBookGenres}/>
         ))}
     </div>
   );

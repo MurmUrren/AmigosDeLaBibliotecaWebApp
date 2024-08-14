@@ -28,12 +28,19 @@ const fetchBookData = async (query, isbn) => {
 
     if (book) {
       const coverUrl = await fetchCoverFromLongitood(isbn) || book.volumeInfo.imageLinks?.thumbnail;
+
+      // Mapping over industryIdentifiers to find ISBN_10 and ISBN_13
+      const isbn10 = book.volumeInfo.industryIdentifiers
+        ?.find(identifier => identifier.type === 'ISBN_10')?.identifier || null;
+      const isbn13 = book.volumeInfo.industryIdentifiers
+        ?.find(identifier => identifier.type === 'ISBN_13')?.identifier || isbn;
+
       return {
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors?.[0] || 'Desconocido',
         coverUrl: coverUrl || null,
-        isbn13: book.volumeInfo.industryIdentifiers[0]?.identifier,
-        isbn10: book.volumeInfo.industryIdentifiers[1]?.identifier,
+        isbn13: isbn13,
+        isbn10: isbn10,
         description: book.volumeInfo.description || 'Sin descripción',
         publisher: book.volumeInfo.publisher || 'Desconocido',
         publishedDate: book.volumeInfo.publishedDate || 'Desconocido',
