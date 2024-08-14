@@ -4,22 +4,27 @@ import supabase from "../../../config/supabaseClient";
 const useAllBarCodes = () => {
     const [barcodes, setBarCodes] = useState([]);
 
-    useEffect(() => {
-        const fetchBarCodes = async () => {
-            const { data, error } = await supabase
+    const fetchBarCodes = async () => {
+        const { data, error } = await supabase
             .from('Barcodes')
-            .select('*')
+            .select('*');
 
-            if (error) {
-                console.error('error fetching barCodes', error)
-            }
-            if (data) {
-                setBarCodes(data)
-            }
+        if (error) {
+            console.error('Error fetching barcodes', error);
         }
+        if (data) {
+            setBarCodes(data);
+        }
+    };
+
+    useEffect(() => {
         fetchBarCodes();
     }, []);
-    return barcodes;
+
+    return {
+        barcodes,
+        refetch: fetchBarCodes, // Return the refetch function
+    };
 };
 
 export default useAllBarCodes;

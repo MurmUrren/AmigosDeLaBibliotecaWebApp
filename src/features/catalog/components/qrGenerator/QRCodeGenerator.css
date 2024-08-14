@@ -17,6 +17,8 @@
     height: 1in;
     border: 1px solid transparent;
     overflow: hidden;
+    page-break-inside: avoid; /* Avoid breaking the label between pages */
+    break-inside: avoid-column; /* This helps in modern browsers */
 }
 
 .book-info {
@@ -26,4 +28,27 @@
 
 .book-info p{
     margin: 2px;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .labels-sheet {
+        display: grid;
+        grid-template-columns: repeat(3, 2.625in);
+        grid-template-rows: repeat(10, 1in);
+        gap: 0.125in;
+        width: 8.5in;
+        height: 11in;
+        padding: 0.5in;
+        box-sizing: border-box;
+    }
+
+    .label {
+        margin: 5mm; /* Margin to avoid cutting off content */
+        page-break-inside: avoid; /* Avoid breaking the label between pages */
+    }
 }
