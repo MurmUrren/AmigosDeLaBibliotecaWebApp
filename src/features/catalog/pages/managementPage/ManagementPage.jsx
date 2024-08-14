@@ -8,7 +8,8 @@ function ManagementPage() {
         {title: 'Administrar Libros', path: '/manage/books'},
         {title: 'Administrar Collecciones/Generos', path: '/manage/co_ge'},
         {title: 'Libros sin generos', path: '/manage/books-no-genre'},
-        {title: 'Agregar proximas visitas', path: '/manage/add-visits'},
+        // {title: 'Agregar proximas visitas', path: '/manage/add-visits'},
+        {title: 'Administrar Patrons', path: '/manage/patrons'},
         {title: 'Estadisticas', path: '/stats'}
     ]
 
