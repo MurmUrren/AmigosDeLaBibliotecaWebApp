@@ -98,7 +98,11 @@ const PatronEditPage = () => {
                 </div>
                 <div className="form-group">
                     <label>Country</label>
-                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
+                    <select className="country-select" value={country} onChange={(e) => setCountry(e.target.value)}>
+                        <option value="MX">México</option>
+                        <option value="US">Estados Unidos</option>
+                        <option value="CA">Canadá</option>
+                    </select>
                 </div>
                 <div className="form-group">
                     <label>Zip Code</label>
