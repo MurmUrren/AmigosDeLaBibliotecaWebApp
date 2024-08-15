@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import useBarcode from '@hooks/useBarcode';
 import usePatronBarcode from '@hooks/usePatronBarcode';
-import { registerLending } from './functs/registerLendingFuncts'
+import { registerLending } from './functs/registerLendingFuncts';
+import useBookCover from '@hooks/useBookCover';
+import noCover from '@assets/imgs/noCover.jpeg';
+import BookCover from '@components/bookCover/BookCover';
 import './LendingBook.css';
 
 const LendingBook = () => {
@@ -14,7 +17,15 @@ const LendingBook = () => {
     const { bookData, loading: bookLoading } = useBarcode(bookBarcode);
     const { patronData, loading: patronLoading } = usePatronBarcode(patronBarcode);
 
-    const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const checkoutDate = formatDate(current);
+    const dueDate = formatDate(new Date(current.setDate(current.getDate() + 14))); // Example due date: 1 day after checkout
 
     const handleAddBook = () => {
         if (bookData && bookData.barcode) {
@@ -32,16 +43,14 @@ const LendingBook = () => {
     const handleCheckout = async () => {
         console.log('Books to Checkout:', books);
         console.log('Patron Data:', patronData);
-    
-        const dueDate = ''; // Set the due date as needed
-    
+
         const lendingArray = books.map((book) => ({
             patron_barcode: patronData.barcode,
             book_barcode: book.barcode,
-            // checked_out: dueDate,
-            // due_date: dueDate,
+            checked_out: checkoutDate,
+            due_date: dueDate,
         }));
-    
+
         // Assuming registerLending can handle an array of lending objects
         for (let lending of lendingArray) {
             let status = await registerLending(lending);
@@ -60,16 +69,18 @@ const LendingBook = () => {
                     placeholder="Enter book barcode"
                     className="input"
                 />
-                <button onClick={handleAddBook} disabled={bookLoading || !bookBarcode || !isPatronAdded}>
+                <button id="lending" onClick={handleAddBook} disabled={bookLoading || !bookBarcode}>
                     {bookLoading ? 'Loading...' : 'Add Book'}
                 </button>
-                <ul>
+                <div>
                     {books.map((book, index) => (
-                        <li key={index}>
-                            {book.title} by {book.creators} (ISBN: {book.ean_isbn13})
-                        </li>
+                        <div key={index} className="card" id="book">
+                            {/* <BookCover url={book.coverURL || noCover} /> */}
+                            <p>{book.title} by {book.creators}</p>
+                            <p>ISBN: {book.ean_isbn13}</p>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
             <div>
                 <h3>Patron Barcode</h3>
@@ -81,11 +92,11 @@ const LendingBook = () => {
                     className="input"
                     disabled={isPatronAdded}
                 />
-                <button onClick={handleAddPatron} disabled={patronLoading || !patronBarcode || isPatronAdded}>
+                <button id="lending" onClick={handleAddPatron} disabled={patronLoading || !patronBarcode || isPatronAdded}>
                     {patronLoading ? 'Loading...' : 'Add Patron'}
                 </button>
                 {isPatronAdded && (
-                    <div>
+                    <div className="card" id="patron">
                         <p>{patronData.first_name} {patronData.last_name}</p>
                         <p>Email: {patronData.email || 'N/A'}</p>
                         <p>Barcode: {patronData.barcode}</p>
@@ -94,14 +105,14 @@ const LendingBook = () => {
             </div>
             <div>
                 <h3>Checkout Date</h3>
-                {date}
+                {checkoutDate}
             </div>
             <div>
                 <h3>Due Date</h3>
-                <h5>Manana</h5>
+                {dueDate}
             </div>
             <div className="align-center">
-                <button onClick={handleCheckout} disabled={!isPatronAdded || books.length === 0}>
+                <button id="lending" onClick={handleCheckout} disabled={!isPatronAdded || books.length === 0}>
                     Checkout
                 </button>
             </div>
