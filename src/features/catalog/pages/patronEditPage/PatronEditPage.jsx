@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import usePatron from "@hooks/usePatron";
 import { useParams } from "react-router-dom";
 import { savePatron } from "./functs/editPatronFuncts"
+import "./PatronEditPage.css";
 
 const PatronEditPage = () => {
     const { patron_id } = useParams();
@@ -60,65 +61,57 @@ const PatronEditPage = () => {
     };
 
     return (
-        <div>
-            Modificar datos de Patron
-            <div>
-                <div>
+        <div className="patron-edit-container">
+            <h2>Modificar datos de Patron</h2>
+            <form className="patron-edit-form">
+                <div className="form-group">
                     <label>First Name</label>
                     <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Last Name</label>
                     <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Email</label>
                     <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Phone Number</label>
                     <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                 </div>
-                <div>
-                    <div>
-                        <label>Address 1</label>
-                        <input type="text" value={address1} onChange={(e) => setAddress1(e.target.value)} />
-                    </div>
-                    <div>
-                        <label>Address 2</label>
-                        <input type="text" value={address2} onChange={(e) => setAddress2(e.target.value)} />
-                    </div>
+                <div className="form-group">
+                    <label>Address 1</label>
+                    <input type="text" value={address1} onChange={(e) => setAddress1(e.target.value)} />
                 </div>
-                <div>
-                    <div>
-                        <label>City</label>
-                        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
-                    </div>
-                    <div>
-                        <label>State</label>
-                        <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
-                    </div>
-                    <div>
-                        <label>Country</label>
-                        <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
-                    </div>
+                <div className="form-group">
+                    <label>Address 2</label>
+                    <input type="text" value={address2} onChange={(e) => setAddress2(e.target.value)} />
                 </div>
-                <div>
-                    <div>
-                        <label>Zip Code</label>
-                        <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
-                    </div>
+                <div className="form-group">
+                    <label>City</label>
+                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                 </div>
-                <div>
-                    <div>
-                        <label>Patron Id</label>
-                        <input type="text" value={patronId} onChange={(e) => setPatronId(e.target.value)} />
-                    </div>
+                <div className="form-group">
+                    <label>State</label>
+                    <input type="text" value={state} onChange={(e) => setState(e.target.value)} />
                 </div>
-            </div>
-            <div>
-                <button onClick={handleSubmission}>Guardar</button>
-            </div>
+                <div className="form-group">
+                    <label>Country</label>
+                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
+                </div>
+                <div className="form-group">
+                    <label>Zip Code</label>
+                    <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+                </div>
+                <div className="form-group">
+                    <label>Patron Id</label>
+                    <input type="text" value={patronId} onChange={(e) => setPatronId(e.target.value)} />
+                </div>
+                <div className="form-actions">
+                    <button type="button" onClick={handleSubmission}>Guardar</button>
+                </div>
+            </form>
         </div>
     );
 };
