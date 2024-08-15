@@ -14,13 +14,6 @@
     border-bottom: 2px solid #ddd;
   }
   
-  .genre-table tbody tr {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .genre-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
   
   .genre-table td {
     padding: 10px;
