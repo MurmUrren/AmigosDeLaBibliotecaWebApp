@@ -40,7 +40,7 @@ const CatalogPage = () => {
   
   return (
     <div className="book-list-container" id="navbar">
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} message="Buscar libros por titulo..."/>
       <Pagination
         currentPage={currentPage}
         totalCount={filteredBooks.length}

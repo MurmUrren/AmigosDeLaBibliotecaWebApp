@@ -60,7 +60,7 @@ const PatronsManagementPage = () => {
     return (
         <div>
             <h1>Patrons Management Page</h1>
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar onSearch={handleSearch} message="Buscar patron"/>
             <Pagination
                 currentPage={currentPage}
                 totalCount={filteredPatrons.length}

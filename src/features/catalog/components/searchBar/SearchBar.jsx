@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SearchBar.css';
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, message }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e) => {
@@ -18,7 +18,7 @@ function SearchBar({ onSearch }) {
           type="text" 
           value={inputValue} 
           onChange={handleInputChange} 
-          placeholder="Buscar libros por título..."
+          placeholder={message}
         />
       </div>
     </div>
