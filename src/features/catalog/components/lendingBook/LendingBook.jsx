@@ -38,8 +38,8 @@ const LendingBook = () => {
         const lendingArray = books.map((book) => ({
             patron_barcode: patronData.barcode,
             book_barcode: book.barcode,
-            checked_out: date,
-            due_date: dueDate,
+            // checked_out: dueDate,
+            // due_date: dueDate,
         }));
     
         // Assuming registerLending can handle an array of lending objects
