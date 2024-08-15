@@ -4,6 +4,7 @@ import Pagination from "@components/pagination/Pagination";
 import { useNavigate } from "react-router-dom";
 import { deletePatron } from "./functs/patronFuncts";
 import SearchBar from "@components/searchBar/SearchBar";
+import "./PatronsManagementPage.css";
 
 const PatronsManagementPage = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const PatronsManagementPage = () => {
     const handleSearch = (term) => {
         setSearchTerm(term);
         setCurrentPage(1);
-      };
+    };
 
     const currentPatrons = useMemo(() => {
         const indexOfLastPatron = currentPage * patronsPerPage;
@@ -68,13 +69,14 @@ const PatronsManagementPage = () => {
             />
             <div>
                 <button
-                    onClick={() => {navigate("/create_patron")}}
+                    onClick={() => { navigate("/create_patron") }}
+                    className="add-patron-button"
                 >
                     Agregar Patron
                 </button>
             </div>
             <div>
-                <table>
+                <table className="patrons-table">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -94,29 +96,31 @@ const PatronsManagementPage = () => {
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="10">Loading...</td>
+                                <td colSpan="11">Loading...</td>
                             </tr>
                         ) : currentPatrons?.map(patron => (
                             <tr key={patron.id}>
-                                <td>{patron.first_name}</td>
-                                <td>{patron.last_name}</td>
-                                <td>{patron.email}</td>
-                                <td>{patron.phone}</td>
-                                <td>{patron.address1}</td>
-                                <td>{patron.address2}</td>
-                                <td>{patron.city}</td>
-                                <td>{patron.state}</td>
-                                <td>{patron.country}</td>
-                                <td>{patron.zip}</td>
-                                <td>{patron.patron_id}</td>
+                                <td>{patron.first_name ? patron.first_name : <span className="thick-line"></span>}</td>
+                                <td>{patron.last_name ? patron.last_name : <span className="thick-line"></span>}</td>
+                                <td>{patron.email ? patron.email : <span className="thick-line"></span>}</td>
+                                <td>{patron.phone ? patron.phone : <span className="thick-line"></span>}</td>
+                                <td>{patron.address1 ? patron.address1 : <span className="thick-line"></span>}</td>
+                                <td>{patron.address2 ? patron.address2 : <span className="thick-line"></span>}</td>
+                                <td>{patron.city ? patron.city : <span className="thick-line"></span>}</td>
+                                <td>{patron.state ? patron.state : <span className="thick-line"></span>}</td>
+                                <td>{patron.country ? patron.country : <span className="thick-line"></span>}</td>
+                                <td>{patron.zip ? patron.zip : <span className="thick-line"></span>}</td>
+                                <td>{patron.patron_id ? patron.patron_id : <span className="thick-line"></span>}</td>
                                 <td>
-                                    <button 
-                                        onClick={() => {navigate(`/edit/patron/${patron.id}`)}}
+                                    <button
+                                        onClick={() => { navigate(`/edit/patron/${patron.id}`) }}
+                                        className="edit-patron-button"
                                     >
                                         Editar
                                     </button>
                                     {/* <button
                                         onClick={() => {handleDelete(patron.id)}}
+                                        className="delete-patron-button"
                                     >
                                         Eliminar
                                     </button> */}

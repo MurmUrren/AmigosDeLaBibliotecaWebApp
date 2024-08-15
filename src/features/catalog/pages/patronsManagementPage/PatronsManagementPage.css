@@ -1,0 +1,68 @@
+.patrons-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  .patrons-table th, .patrons-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+
+  .patrons-table td {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  .patrons-table th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  
+  .patrons-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .add-patron-button, .edit-patron-button, .delete-patron-button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .add-patron-button:hover, .edit-patron-button:hover, .delete-patron-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .delete-patron-button {
+    background-color: #ff0000; /* Red color */
+  }
+  
+  .delete-patron-button:hover {
+    background-color: #cc0000;
+  }
+  
+  .add-patron-button:disabled, .edit-patron-button:disabled, .delete-patron-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .thick-line {
+    display: flex;
+    width: 15px;
+    height: 2px; 
+    background-color: #000; 
+    text-align: center;
+    margin: auto;
+  }
