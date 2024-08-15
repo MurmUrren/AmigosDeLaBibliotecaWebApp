@@ -11,7 +11,7 @@ const GenreList = ({ allGenres, bookGenres, handleSelectGenre }) => {
                 ) : (
                     <select
                         multiple
-                        className="genre-select"
+                        className="genre-select-container"
                         value={bookGenres}
                         onChange={event => handleSelectGenre(event.target.value)}
                     >

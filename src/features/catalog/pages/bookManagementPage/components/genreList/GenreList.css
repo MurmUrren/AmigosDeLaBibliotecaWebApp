@@ -1,4 +1,4 @@
-.genre-select {
+.genre-select-container {
     width: 100%;
     max-width: 400px;
     height: auto;
@@ -14,13 +14,13 @@
     overflow-y: auto;
   }
   
-  .genre-select option {
+  .genre-select-container option {
     padding: 8px;
     background-color: #fff;
     color: #333;
   }
 
-  .genre-select option:checked {
+  .genre-select-container option:checked {
     background-color: #007bff;
     color: #fff;
   }
