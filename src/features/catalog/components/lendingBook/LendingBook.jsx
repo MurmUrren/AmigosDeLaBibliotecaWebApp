@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import useBarcode from '@hooks/useBarcode';
 import usePatronBarcode from '@hooks/usePatronBarcode';
-import { registerLending } from './functs/registerLendingFuncts';
-import useBookCover from '@hooks/useBookCover';
-import noCover from '@assets/imgs/noCover.jpeg';
-import BookCover from '@components/bookCover/BookCover';
+import { registerLending, isBookAvailable } from './functs/registerLendingFuncts';
+// import useBookCover from '@hooks/useBookCover';
+// import noCover from '@assets/imgs/noCover.jpeg';
+// import BookCover from '@components/bookCover/BookCover';
 import './LendingBook.css';
 
 const LendingBook = () => {
@@ -27,7 +27,13 @@ const LendingBook = () => {
     const checkoutDate = formatDate(current);
     const dueDate = formatDate(new Date(current.setDate(current.getDate() + 14))); // Example due date: 1 day after checkout
 
-    const handleAddBook = () => {
+    const handleAddBook = async () => {
+        let availability = isBookAvailable(bookData);
+        if (availability === false) {
+            alert('Book is not available');
+            setBookBarcode('');
+            return
+        }
         if (bookData && bookData.barcode) {
             setBooks([...books, bookData]);
             setBookBarcode('');
