@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useBarcode from '@hooks/useBarcode';
 import usePatronBarcode from '@hooks/usePatronBarcode';
-import { registerLending, isBookAvailable } from './functs/registerLendingFuncts';
+import { registerLending, isBookAvailable, getBook, getPatron } from './functs/registerLendingFuncts';
 // import useBookCover from '@hooks/useBookCover';
 // import noCover from '@assets/imgs/noCover.jpeg';
 // import BookCover from '@components/bookCover/BookCover';
@@ -13,9 +13,12 @@ const LendingBook = () => {
     const [books, setBooks] = useState([]);
     const [patronBarcode, setPatronBarcode] = useState('');
     const [isPatronAdded, setIsPatronAdded] = useState(false);
+    const [bookLoading, setBookLoading] = useState(false);
+    const [patronData, setPatronData] = useState({});
+    const [patronLoading, setPatronLoading] = useState(false);
 
-    const { bookData, loading: bookLoading } = useBarcode(bookBarcode);
-    const { patronData, loading: patronLoading } = usePatronBarcode(patronBarcode);
+    // const { bookData, loading: bookLoading } = useBarcode(bookBarcode);
+    // const { patronData, loading: patronLoading } = usePatronBarcode(patronBarcode);
 
     const formatDate = (date) => {
         const year = date.getFullYear();
@@ -28,21 +31,31 @@ const LendingBook = () => {
     const dueDate = formatDate(new Date(current.setDate(current.getDate() + 14))); // Example due date: 1 day after checkout
 
     const handleAddBook = async () => {
-        let availability = isBookAvailable(bookData);
-        if (availability === false) {
+        setBookLoading(true);
+        let availability = await isBookAvailable(bookBarcode);
+        if (!availability) {
             alert('Book is not available');
             setBookBarcode('');
+            setBookLoading(false);
             return
         }
-        if (bookData && bookData.barcode) {
-            setBooks([...books, bookData]);
+        const fetchedBookData = await getBook(bookBarcode);
+        console.log('Fetched Book Data:', fetchedBookData);
+        if (fetchedBookData && fetchedBookData.barcode) {
+            setBooks([...books, fetchedBookData]);
             setBookBarcode('');
         }
+        setBookLoading(false);
     };
 
-    const handleAddPatron = () => {
-        if (patronData && patronData.barcode) {
+    const handleAddPatron = async () => {
+        const fetchedPatronData = await getPatron(patronBarcode);
+        // console.log('Fetched Patron Data:', fetchedPatronData);
+        if (Object.keys(fetchedPatronData).length > 0) {
+            setPatronData(fetchedPatronData);
             setIsPatronAdded(true);
+        } else {
+            alert('Patron not found');
         }
     };
 
@@ -75,7 +88,7 @@ const LendingBook = () => {
                     placeholder="Enter book barcode"
                     className="input"
                 />
-                <button id="lending" onClick={handleAddBook} disabled={bookLoading || !bookBarcode}>
+                <button id="lending" onClick={handleAddBook} disabled={!bookBarcode}>
                     {bookLoading ? 'Loading...' : 'Add Book'}
                 </button>
                 <div>
@@ -98,7 +111,7 @@ const LendingBook = () => {
                     className="input"
                     disabled={isPatronAdded}
                 />
-                <button id="lending" onClick={handleAddPatron} disabled={patronLoading || !patronBarcode || isPatronAdded}>
+                <button id="lending" onClick={handleAddPatron} disabled={!patronBarcode || isPatronAdded || patronLoading}>
                     {patronLoading ? 'Loading...' : 'Add Patron'}
                 </button>
                 {isPatronAdded && (

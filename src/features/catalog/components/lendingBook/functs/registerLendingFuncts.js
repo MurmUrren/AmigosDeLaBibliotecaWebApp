@@ -1,28 +1,27 @@
-import { useState, useEffect } from "react";
 import supabase from "@config/supabaseClient";
 
-export const getBook = async () => {
-    const [bookData, setBookData] = useState({});
-    const [loading, setLoading] = useState(true);
-
+export const getBook = async (bookBarcode) => {
     try {
         const { data, error } = await supabase
             .from('Barcodes')
             .select('*')
             .eq('barcode', bookBarcode);
 
+            console.log('data:', data)
+
         if (error) {
             console.error('Error fetching book data based on barcode', error);
         } else if (data && data.length > 0) {
-            setBookData(data[0]);
+            return data[0];
         } else {
             console.warn('No data found for the given barcode');
+            return [];
         }
     } catch (err) {
         console.error('Unexpected error fetching book data', err);
     }
+    return [];
 
-    return { bookData, loading };
 };
 
 export const registerLending = async (lending) => {
@@ -42,23 +41,47 @@ export const registerLending = async (lending) => {
 };
 
 export const isBookAvailable = async (bookBarcode) => {
+    console.log('bookBarcodehhh :', bookBarcode)
     const { data, error } = await supabase
         .from("Checkouts")
-        .select()
+        .select('*')
         .eq('book_barcode', bookBarcode)
 
-
-    console.log('data:', data)
+    // console.log('data:', data)
     if (error) {
         console.error('error checking book availability', error)
         return false;
     }
     if (data) {
+        console.log('datinha :', data)
         if (data.length === 0) {
+            console.log('Book is available')
             return true;
         }
         else {
+            console.log('Book is not available')
             return false;
         }
     }
+};
+
+export const getPatron = async (patronBarcode) => {
+    try {
+        const { data, error } = await supabase
+            .from('Patrons')
+            .select('*')
+            .eq('barcode', patronBarcode);
+
+        if (error) {
+            console.error('Error fetching patron data based on barcode', error);
+        } else if (data && data.length > 0) {
+            return data[0];
+        } else {
+            console.warn('No data found for the given barcode');
+            return {};
+        }
+    } catch (err) {
+        console.error('Unexpected error fetching patron data', err);
+    }
+    return {};
 };
