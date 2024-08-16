@@ -13,6 +13,7 @@ import PatronEditPage from '@pages/patronEditPage/PatronEditPage';
 import CreatePatronPage from '@pages/createPatronPage/CreatePatronPage';
 import BarcodesPage from '@pages/barcodesPage/BarcodesPage';
 import LendingPage from '@pages/lendingPage/LendingPage';
+import CheckinsPage from '@pages/checkinsPage/CheckinsPage';
 
 const CatalogRoutes = () => {
     return (
@@ -94,6 +95,13 @@ const CatalogRoutes = () => {
                     <CreatePatronPage />
                 }
             />
+            <Route
+                path="/checkins"
+                element={
+                    <CheckinsPage />
+                }
+            />
+
         </Routes>
 
     );
