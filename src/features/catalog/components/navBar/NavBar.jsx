@@ -1,23 +1,41 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from "@assets/imgs/logo.png";
 import './NavBar.css'
 
 // NavBar.jsx
 function NavBar() {
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   return (
     <nav className='navbar'>
       <div className='navbar-logo-title'>
         <div className='navbar-logo'>
-          <Link to='/inicio'>
+          {currentPath === '/inicio' ? (
             <img src={logo} alt='logo' />
-          </Link>
+          ) : (
+            <Link to='/inicio'>
+              <img src={logo} alt='logo' />
+            </Link>
+          )}
         </div>
         <h4 className='navbar-title'>Amigos de la Biblioteca de Rosarito</h4>
       </div>
       <ul className='navbar-links'>
-        <li className='list-style'><Link to='/inicio'>Inicio</Link></li>
-        <li className='list-style'><Link to='/manage'>Manage Books</Link></li>
+        <li className='list-style'>
+          {currentPath === '/inicio' ? (
+            <span style={{ color: '#ffff' }}>Inicio</span>
+          ) : (
+            <Link to='/inicio'>Inicio</Link>
+          )}
+        </li>
+        <li className='list-style'>
+          {currentPath === '/manage' ? (
+            <span style={{ color: '#ffff' }}>Manage Books</span>
+          ) : (
+            <Link to='/manage'>Manage Books</Link>
+          )}
+        </li>
       </ul>
     </nav>
   );

@@ -51,7 +51,7 @@ const CatalogRoutes = () => {
                 }
             />
             <Route
-                path="manage/books"
+                path="/manage/books"
                 element={
                     <BookManagementPage />
                 }
@@ -64,33 +64,33 @@ const CatalogRoutes = () => {
                 }
             />
             <Route
-                path="manage/co_ge"
+                path="/manage/co_ge"
                 element={
                     <CollectionGenreManagementPage />
                 }
             />
 
             <Route
-                path="manage/books-no-genre"
+                path="/manage/books-no-genre"
                 element={
                     <NoGenreBooksPage />
 
                 }
             />
             <Route
-                path="manage/patrons"
+                path="/manage/patrons"
                 element={
                     <PatronsManagementPage />
                 }
             />
             <Route
-                path="edit/patron/:patron_id"
+                path="/edit/patron/:patron_id"
                 element={
                     <PatronEditPage />
                 }
             />
             <Route
-                path="create_patron"
+                path="/create_patron"
                 element={
                     <CreatePatronPage />
                 }
@@ -103,7 +103,6 @@ const CatalogRoutes = () => {
             />
 
         </Routes>
-
     );
 };
 
