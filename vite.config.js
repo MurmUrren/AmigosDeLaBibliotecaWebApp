@@ -12,6 +12,7 @@ export default defineConfig(({ mode}) => {
       'process.env': env
     },
     plugins: [react()],
+    base: "/AmigosDeLaBibliotecaWebApp",
     resolve: {
       alias: {
         "@components": path.resolve(__dirname, "src/features/catalog/components"),
