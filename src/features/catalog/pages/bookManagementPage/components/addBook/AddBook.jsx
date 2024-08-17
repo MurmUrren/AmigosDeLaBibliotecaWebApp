@@ -12,6 +12,7 @@ const AddBook = () => {
   const [authorName, setAuthorName] = useState('');
   const [isbn, setIsbn] = useState('');
   const [booksToAdd, setBooksToAdd] = useState({});
+  const [qrScannerActive, setQrScannerActive] = useState(false);
 
   const allGenres = useAllGenres();
 
@@ -142,12 +143,12 @@ const AddBook = () => {
   };
 
   const renderInput = (value, onChange, placeholder) => (
-      <input
+    <input
       type="text"
       placeholder={placeholder}
       value={value}
       onChange={e => onChange(e.target.value)}
-      />
+    />
   );
 
   const getScannerISBN = (isbn) => {
@@ -156,7 +157,12 @@ const AddBook = () => {
 
   return (
     <div className='manage-books-wrapper' id="navbar">
-      <BarcodeScanner getScannerISBN={getScannerISBN}/>
+      {qrScannerActive &&
+        <BarcodeScanner getScannerISBN={getScannerISBN}/>
+      }
+      <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
+        {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
+      </button>
       <h2 className='modal-title'>Agregar Libro</h2>
       <div className='add-book-inputs'>
         {renderInput(isbn, setIsbn, "ISBN13")}
