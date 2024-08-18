@@ -13,7 +13,7 @@ const constraints = {
 
 const BarcodeScanner = ({ getScannerISBN }) => {
   const { devices } = useMediaDevices({ constraints });
-  const [deviceId, setDeviceId] = useState("");
+  const [deviceId, setDeviceId] = useState(2);
   const [loading, setLoading] = useState(true);
 
   const videoInputDevices =
