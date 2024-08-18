@@ -1,41 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
-const constraints = {
-  video: {
-    facingMode: {
-      exact: "environment"
-    }
-  },
-  audio: false
-};
-
 const BarcodeScanner = ({ getScannerISBN }) => {
-  const { devices } = useMediaDevices({ constraints });
-  // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
-  // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
-  // const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
-  let deviceId;
-  for (let i = 15; i >= 6; i--) {
-    const deviceIdd = devices?.[i]?.deviceId;
-    if (deviceIdd) {
-      deviceId = deviceIdd;
-      break;
-    }
-  }
-
-  // const deviceId = devices?.[5]?.deviceId || devices?.[2]?.deviceId || devices?.[1]?.deviceId || devices?.[0]?.deviceId;
-  const [result, setResult] = useState("");
+  const [deviceId, setDeviceId] = useState(null);
   const [showVideoFeed, setShowVideoFeed] = useState(true);
-  
+  const { devices } = useMediaDevices();
+
+  useEffect(() => {
+    if (devices) {
+      // Filter video input devices and try to find the telephoto camera
+      const videoInputDevices = devices.filter(device => device.kind === "videoinput");
+      
+      const telephotoCamera = videoInputDevices.find(device => 
+        device.label.toLowerCase().includes("telephoto") ||
+        device.label.toLowerCase().includes("zoom") || 
+        device.label.toLowerCase().includes("high resolution")
+      );
+      
+      setDeviceId(telephotoCamera?.deviceId || videoInputDevices[0]?.deviceId);
+    }
+  }, [devices]);
+
   const { ref } = useZxing({
     paused: !deviceId,
     deviceId,
     onDecodeResult(result) {
-      setResult(result.getText());
       setShowVideoFeed(false);
-      getScannerISBN(String(result));
+      getScannerISBN(result.getText());
     },
   });
 
@@ -52,9 +44,6 @@ const BarcodeScanner = ({ getScannerISBN }) => {
           }}
         />
       )}
-      {/* {permissionStatus === "denied" && <p>Camera access denied. Please enable camera permissions in your browser settings.</p>}
-      {permissionStatus === "prompt" && <p>Requesting camera access...</p>} */}
-      {/* {error && <p>Error accessing the camera</p>} */}
     </>
   );
 };
