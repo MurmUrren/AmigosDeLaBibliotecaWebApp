@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
+const constraints = {
+  video: {
+    facingMode: {
+      exact: "environment"
+    }
+  },
+  audio: false
+};
+
 const BarcodeScanner = ({ getScannerISBN }) => {
   const { devices } = useMediaDevices({ constraints });
   // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
