@@ -108,7 +108,7 @@ const AddBook = () => {
       console.log('Please fill out all fields(copies) before adding a book.');
       return;
     }
-    await updateBookCopies(isbn, Number(copies));
+    await updateBookCopies(isbn, Number(fetchedBook.Copies) + 1);
     setFetchedBook(null);
     setCopies(0);
     setBookExists(false);
@@ -138,21 +138,31 @@ const AddBook = () => {
       {bookExists && fetchedBook && (
         <div className='fetched-book-container'>
           <h3 className='fetched-book-title'>Ya existe "{fetchedBook.Title}"</h3>
-          <p>Actualizar copias</p>
-          <input
-            className='update-copies-input'
-            type="number"
-            value={copies}
-            onChange={handleCopiesChange}
-            placeholder="Copias"
-          />
+          <p>Se agregara una copia</p>
           <button
             className='update-copies-button'
             onClick={handleUpdateBookCopies}
           >
-            Actualizar Copias
+            Agregar Copia
           </button>
         </div>
+        // <div className='fetched-book-container'>
+        //   <h3 className='fetched-book-title'>Ya existe "{fetchedBook.Title}"</h3>
+        //   <p>Actualizar copias</p>
+        //   <input
+        //     className='update-copies-input'
+        //     type="number"
+        //     value={copies}
+        //     onChange={handleCopiesChange}
+        //     placeholder="Copias"
+        //   />
+        //   <button
+        //     className='update-copies-button'
+        //     onClick={handleUpdateBookCopies}
+        //   >
+        //     Actualizar Copias
+        //   </button>
+        // </div>
       )}
         {books?.map(book => (
           <ManualAddBook bookData={book} saveBookGenres={saveBookGenres} removeBook={removeBook}/>
