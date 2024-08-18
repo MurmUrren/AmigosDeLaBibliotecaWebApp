@@ -6,11 +6,15 @@ import { useState, useEffect } from "react";
 import useCollections from "@hooks/useCollections";
 import { createCollection, deleteCollection, updateCollection } from "./functs/collectionFunctions";
 import "./ManageCollections.css";
+import ConfirmDelete from "../../../../components/confirmDelete/ConfirmDelete";
 
 function ManageCollections() {
     const collections = useCollections();
     const [newCollections, setNewCollections] = useState([]);
     const [existingCollections, setExistingCollections] = useState([]);
+
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [collectionToDelete, setCollectionToDelete] = useState(null);
 
     useEffect(() => {
         setExistingCollections(collections);
@@ -61,6 +65,19 @@ function ManageCollections() {
         }
     };
 
+    const handleShowDeleteModal = (id, isNew) => {
+        setCollectionToDelete({ id, isNew });
+        setShowConfirmDelete(true);
+    };
+
+    const confirmDelete = async () => {
+        if (collectionToDelete) {
+            await handleDeleteCollection(collectionToDelete.id, collectionToDelete.isNew);
+        }
+        setShowConfirmDelete(false);
+        setCollectionToDelete(null);
+    };
+
     return (
         <div>
             <tr>
@@ -89,7 +106,7 @@ function ManageCollections() {
                                 />
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteCollection(collection.id, false)} className="collection-button delete-collection-button">Eliminar</button>
+                                <button onClick={() => handleShowDeleteModal(collection.id, false)} className="collection-button delete-collection-button">Eliminar</button>
                             </td>
                         </tr>
                     ))}
@@ -104,12 +121,18 @@ function ManageCollections() {
                                 />
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteCollection(collection.id, true)} className="collection-button delete-collection-button">Eliminar</button>
+                                <button onClick={() => handleShowDeleteModal(collection.id, true)} className="collection-button delete-collection-button">Eliminar</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <ConfirmDelete
+                show={showConfirmDelete}
+                handleClose={() => setShowConfirmDelete(false)}
+                handleConfirm={confirmDelete}
+                message="¿Estás seguro de que quieres eliminar esta colección?"
+            />
         </div>
     );
 }
