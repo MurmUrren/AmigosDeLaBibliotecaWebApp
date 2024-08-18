@@ -3,15 +3,20 @@ import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
 const constraints = {
-  video: { facingMode: "environment" },
+  video: {
+    facingMode: {
+      exact: "environment"
+    }
+  },
   audio: false
-}
+};
 
 const BarcodeScanner = ({ getScannerISBN }) => {
   const { devices } = useMediaDevices({ constraints });
   // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
-  const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
-  const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
+  // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
+  // const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
+  const deviceId = devices?.[0]?.deviceId;
   const [result, setResult] = useState("");
   const [showVideoFeed, setShowVideoFeed] = useState(true);
   const [permissionStatus, setPermissionStatus] = useState(null);
