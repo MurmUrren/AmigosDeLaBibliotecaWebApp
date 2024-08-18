@@ -43,6 +43,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   return (
     <>
     <h3>jciuewiu</h3>
+    <h3>jcihdhddhdhhdhgu</h3>
       {showVideoFeed && (
         <>
         <div>
