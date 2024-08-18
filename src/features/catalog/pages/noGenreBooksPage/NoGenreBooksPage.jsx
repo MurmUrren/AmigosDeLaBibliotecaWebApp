@@ -63,7 +63,7 @@ function NoGenreBooksPage() {
                 <div>
                     <ul className="no-genre-list">
                         {currentBooks.map((book) => (
-                            <li key={book.id} className="book-item">
+                            <li key={book.id} className="book-item" id='nogenre'>
                                 <input
                                     type="checkbox"
                                     checked={selectedBooks.includes(book.id)}
