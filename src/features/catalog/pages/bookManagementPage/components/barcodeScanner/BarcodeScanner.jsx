@@ -25,7 +25,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
       getScannerISBN(result.getText());
     },
   });
-
+ 
   return (
     <>
     <div>
