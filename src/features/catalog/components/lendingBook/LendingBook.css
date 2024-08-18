@@ -1,10 +1,13 @@
 /* Container styles */
-.container {
+.lending-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
     padding: 20px;
 }
+
+
 
 /* Input styles */
 .input {
@@ -14,6 +17,12 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.date-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 /* Button styles */
@@ -54,21 +63,92 @@ button:disabled#lending {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.remove-button{
+    align-self: flex-end;
+}
+
 /* Align center styles */
 .align-center {
     align-self: center;
 }
 
 /* Responsive design */
-@media (min-width: 768px) {
-    .container {
-        flex-direction: row;
+
+@media (max-width: 400px ) {
+    .lending-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .card {
+        flex: 1 1 calc(50% - 20px);
+        margin: 10px 10px 10px 0;
+    }
+
+    .date-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-lending-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .patron-lending-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card#patron {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .card#book {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .lending-container {
+        flex-direction: column;
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
     .card {
         flex: 1 1 calc(33.333% - 20px);
-        margin: 10px;
+        margin: 10px 10px 10px 0;
+    }
+    .date-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-lending-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .patron-lending-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card#patron {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .card#book {
+        display: flex;
+        flex-direction: column;
     }
 }
+

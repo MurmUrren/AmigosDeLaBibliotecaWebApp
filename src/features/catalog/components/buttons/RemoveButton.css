@@ -1,0 +1,32 @@
+.remove-button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    position: static;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.remove-button::before,
+.remove-button::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 16px;
+    background-color: black;
+}
+
+.remove-button::before {
+    transform: rotate(45deg);
+}
+
+.remove-button::after {
+    transform: rotate(-45deg);
+}

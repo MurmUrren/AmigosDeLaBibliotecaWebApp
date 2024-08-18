@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from "@assets/imgs/logo.png";
-import './NavBar.css'
+import logo from '@assets/imgs/logo.png';
+import './NavBar.css';
 
-// NavBar.jsx
 function NavBar() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <nav className='navbar'>
@@ -20,25 +25,20 @@ function NavBar() {
           )}
         </div>
         <h4 className='navbar-title'>Amigos de la Biblioteca de Rosarito</h4>
+        <button className='navbar-toggle' onClick={toggleMenu}>
+          &#9776;
+        </button>
       </div>
-      <ul className='navbar-links'>
-        <li className='list-style'>
-          {currentPath === '/inicio' ? (
-            <span style={{ color: '#ffff' }}>Inicio</span>
-          ) : (
-            <Link to='/inicio'>Inicio</Link>
-          )}
+      <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
+        <li className={`navbar-list-style ${currentPath === '/inicio' ? 'active' : ''}`}>
+          <Link to='/inicio'>Inicio</Link>
         </li>
-        <li className='list-style'>
-          {currentPath === '/manage' ? (
-            <span style={{ color: '#ffff' }}>Administrar</span>
-          ) : (
-            <Link to='/manage'>Administrar</Link>
-          )}
+        <li className={`navbar-list-style ${currentPath === '/manage' ? 'active' : ''}`}>
+          <Link to='/manage'>Administrar</Link>
         </li>
       </ul>
     </nav>
   );
-};
+}
 
 export default NavBar;
