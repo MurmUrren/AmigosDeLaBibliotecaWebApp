@@ -36,10 +36,16 @@ function NavBar() {
       </div>
       <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <li className={`navbar-list-style ${currentPath === '/inicio' ? 'active' : ''}`}>
-          <Link to='/inicio'>Inicio</Link>
+          <Link to='/inicio'>Home</Link>
         </li>
         <li className={`navbar-list-style ${currentPath === '/manage' ? 'active' : ''}`}>
           <Link to='/manage'>Administrar</Link>
+        </li>
+        <li className={`navbar-list-style ${currentPath === '/lending' ? 'active' : ''}`}>
+          <Link to='/lending'>Prestamos</Link>
+        </li>
+        <li className={`navbar-list-style ${currentPath === '/barcodes' ? 'active' : ''}`}>
+          <Link to='/barcodes'>Codigos QR</Link>
         </li>
       </ul>
     </nav>
