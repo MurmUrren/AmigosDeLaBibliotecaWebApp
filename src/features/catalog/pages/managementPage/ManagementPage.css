@@ -54,24 +54,24 @@
   /* Media Queries para Responsividad */
   @media (max-width: 768px) {
     .manage-options {
-      padding: 10px;
-      margin: 10px auto; /* Ajusta el margen para pantallas más pequeñas */
+        padding: 10px;
+        margin: 10px auto; 
     }
-  
+
     .manage-option button {
-      font-size: 14px;
-      padding: 8px 12px;
+        font-size: 18px; 
+        padding: 12px 18px; 
     }
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     .manage-options {
-      padding: 5px;
-      margin: 5px auto; /* Ajusta el margen para pantallas aún más pequeñas */
+        padding: 5px;
+        margin: 5px auto; 
     }
-  
+
     .manage-option button {
-      font-size: 12px;
-      padding: 6px 10px;
+        font-size: 20px; 
+        padding: 14px 20px; 
     }
-  }
+}

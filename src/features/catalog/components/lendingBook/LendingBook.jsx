@@ -2,23 +2,13 @@ import React, { useState } from 'react';
 import useBarcode from '@hooks/useBarcode';
 import usePatronBarcode from '@hooks/usePatronBarcode';
 import { registerLending, isBookAvailable, getBook, getPatron } from './functs/registerLendingFuncts';
+import RemoveButton from '../buttons/RemoveButton';
 // import useBookCover from '@hooks/useBookCover';
 // import noCover from '@assets/imgs/noCover.jpeg';
 // import BookCover from '@components/bookCover/BookCover';
 import './LendingBook.css';
 
 const LendingBook = () => {
-    const current = new Date();
-    const [bookBarcode, setBookBarcode] = useState('');
-    const [books, setBooks] = useState([]);
-    const [patronBarcode, setPatronBarcode] = useState('');
-    const [isPatronAdded, setIsPatronAdded] = useState(false);
-    const [bookLoading, setBookLoading] = useState(false);
-    const [patronData, setPatronData] = useState({});
-    const [patronLoading, setPatronLoading] = useState(false);
-
-    // const { bookData, loading: bookLoading } = useBarcode(bookBarcode);
-    // const { patronData, loading: patronLoading } = usePatronBarcode(patronBarcode);
 
     const formatDate = (date) => {
         const year = date.getFullYear();
@@ -27,36 +17,69 @@ const LendingBook = () => {
         return `${year}-${month}-${day}`;
     };
 
+    const current = new Date();
+    const maxDueDate = new Date(current.getTime() + 14 * 24 * 60 * 60 * 1000); // 2 weeks from now
+
+    const [bookBarcode, setBookBarcode] = useState('');
+    const [books, setBooks] = useState([]);
+    const [patronBarcode, setPatronBarcode] = useState('');
+    const [isPatronAdded, setIsPatronAdded] = useState(false);
+    const [bookLoading, setBookLoading] = useState(false);
+    const [patronData, setPatronData] = useState({});
+    const [patronLoading, setPatronLoading] = useState(false);
+    const [dueDate, setDueDate] = useState(formatDate(maxDueDate)); // Initialize due date to 2 weeks from today
+
     const checkoutDate = formatDate(current);
-    const dueDate = formatDate(new Date(current.setDate(current.getDate() + 14))); // Example due date: 1 day after checkout
+
+    const handleDueDateChange = (e) => {
+        const selectedDate = new Date(e.target.value);
+        if (selectedDate < current) {
+            setDueDate(formatDate(current));
+        } else if (selectedDate > maxDueDate) {
+            setDueDate(formatDate(maxDueDate));
+        } else {
+            setDueDate(e.target.value);
+        }
+    };
 
     const handleAddBook = async () => {
         setBookLoading(true);
         let availability = await isBookAvailable(bookBarcode);
         if (!availability) {
-            alert('Book is not available');
+            alert('Book is already lent out');
             setBookBarcode('');
             setBookLoading(false);
-            return
+            return;
         }
         const fetchedBookData = await getBook(bookBarcode);
         console.log('Fetched Book Data:', fetchedBookData);
-        if (fetchedBookData && fetchedBookData.barcode) {
+        if (fetchedBookData.length === 0) {
+            alert('Book not found');
+        } else if (fetchedBookData && fetchedBookData.barcode) {
             setBooks([...books, fetchedBookData]);
             setBookBarcode('');
         }
         setBookLoading(false);
     };
 
+    const handleRemoveBook = (barcode) => {
+        setBooks(books.filter((book) => book.barcode !== barcode));
+    };
+
     const handleAddPatron = async () => {
         const fetchedPatronData = await getPatron(patronBarcode);
-        // console.log('Fetched Patron Data:', fetchedPatronData);
         if (Object.keys(fetchedPatronData).length > 0) {
             setPatronData(fetchedPatronData);
             setIsPatronAdded(true);
         } else {
-            alert('Patron not found');
+            alert("Patron doesn't exist");
         }
+    };
+
+    const handleRemovePatron = () => {
+        setPatronData({});
+        setIsPatronAdded(false);
+        setPatronBarcode('');
     };
 
     const handleCheckout = async () => {
@@ -70,7 +93,6 @@ const LendingBook = () => {
             due_date: dueDate,
         }));
 
-        // Assuming registerLending can handle an array of lending objects
         for (let lending of lendingArray) {
             let status = await registerLending(lending);
             console.log('Lending status:', status);
@@ -78,8 +100,8 @@ const LendingBook = () => {
     };
 
     return (
-        <div className="container">
-            <div>
+        <div className="lending-container">
+            <div className="book-lending-container">
                 <h3>Add Book Barcode</h3>
                 <input
                     type="text"
@@ -91,9 +113,10 @@ const LendingBook = () => {
                 <button id="lending" onClick={handleAddBook} disabled={!bookBarcode}>
                     {bookLoading ? 'Loading...' : 'Add Book'}
                 </button>
-                <div>
+                <div className="book-lend-card-container">
                     {books.map((book, index) => (
                         <div key={index} className="card" id="book">
+                            <RemoveButton onClick={() => handleRemoveBook(book.barcode)}>×</RemoveButton>
                             {/* <BookCover url={book.coverURL || noCover} /> */}
                             <p>{book.title} by {book.creators}</p>
                             <p>ISBN: {book.ean_isbn13}</p>
@@ -101,7 +124,7 @@ const LendingBook = () => {
                     ))}
                 </div>
             </div>
-            <div>
+            <div className="patron-lending-container">
                 <h3>Patron Barcode</h3>
                 <input
                     type="text"
@@ -116,19 +139,28 @@ const LendingBook = () => {
                 </button>
                 {isPatronAdded && (
                     <div className="card" id="patron">
+                        <RemoveButton onClick={handleRemovePatron}></RemoveButton>
                         <p>{patronData.first_name} {patronData.last_name}</p>
                         <p>Email: {patronData.email || 'N/A'}</p>
                         <p>Barcode: {patronData.barcode}</p>
                     </div>
                 )}
             </div>
-            <div>
-                <h3>Checkout Date</h3>
-                {checkoutDate}
-            </div>
-            <div>
-                <h3>Due Date</h3>
-                {dueDate}
+            <div className='date-container'>
+                <div>
+                    <h3>Checkout Date</h3>
+                    {checkoutDate}
+                </div>
+                <div>
+                    <h3>Due Date</h3>
+                    <input
+                        type="date"
+                        value={dueDate}
+                        onChange={handleDueDateChange}
+                        min={checkoutDate}
+                        max={formatDate(maxDueDate)}
+                    />
+                </div>
             </div>
             <div className="align-center">
                 <button id="lending" onClick={handleCheckout} disabled={!isPatronAdded || books.length === 0}>

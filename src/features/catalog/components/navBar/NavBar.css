@@ -12,7 +12,7 @@
   padding: 0 20px;
 }
 
-.list-style {
+.navbar-list-style {
   list-style: none;
 }
 
@@ -25,14 +25,28 @@
   color: white;
   text-decoration: none;
   font-size: 16px;
+  transition: color 0.3s ease-in-out;
 }
 
 .navbar-links a.active {
   text-decoration: underline;
+  font-weight: bold;
+  
+}
+
+.navbar-links li.active {
+  text-decoration: underline;
+  font-weight: bold;
+  text-decoration-color: white;
 }
 
 .navbar-links a:hover {
-  text-decoration: underline;
+  color: #ffcc00; /* Change color on hover */
+}
+
+.navbar-links li:hover {
+  background-color: #444444; /* Illuminate background on hover */
+  border-radius: 4px;
 }
 
 .navbar-logo-title {
@@ -50,9 +64,26 @@
 .navbar-title {
   color: white;
   margin-left: 5px;
+  font-weight: bold;
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
+  .navbar-logo-title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .navbar-logo img {
     width: 120px;
   }
@@ -60,14 +91,66 @@
   .navbar-title {
     font-size: 20px;
   }
+
+  .navbar-links {
+    align-items: flex-end;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    margin: 0px;
+    right: 0;
+    background-color: #333333;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .navbar-links.active {
+    max-height: 200px; /* Adjust based on the number of links */
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
 }
 
 @media (max-width: 480px) {
+  .navbar-toggle {
+    font-size: 40px;
+  }
+
   .navbar-logo img {
-    width: 100px;
+    width: 130px;
   }
 
   .navbar-title {
     font-size: 10px;
+    display: none; /* Hide the title on small screens */
+  }
+
+  .navbar-list-style {
+    margin-right: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .navbar-list-style:focus {
+    background-color: #555555; /* Change background color on hover */
+  }
+
+  .navbar-links {
+    align-items: flex-end;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    margin: 0px;
+    right: 0;
+    background-color: #333333;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
   }
 }
