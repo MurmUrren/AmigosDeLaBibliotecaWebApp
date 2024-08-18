@@ -5,71 +5,76 @@ import { useMediaDevices } from "react-media-devices";
 const constraints = {
   video: {
     facingMode: {
-      exact: "environment"
-    }
+      exact: "environment",
+    },
   },
-  audio: false
+  audio: false,
 };
 
 const BarcodeScanner = ({ getScannerISBN }) => {
   const { devices } = useMediaDevices({ constraints });
-  // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
-  // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
-  // const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
-  let deviceId;
-  let arrDevicesId = [];
+  const [deviceId, setDeviceId] = useState("");
+  const [showVideoFeed, setShowVideoFeed] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  for (let i = 15; i >= 0; i--) {
-    const deviceIdd = devices?.[i]?.deviceId;
-    if (deviceIdd) {
-      arrDevicesId.push(deviceIdd);
-      break;
-    }
-  }
+  const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
+  const arrDevices = videoInputDevices.map((device) => ({
+    deviceId: device.deviceId,
+    label: device.label || `Camera ${device.deviceId}`,
+  }));
 
   const { ref } = useZxing({
-    paused: !selectedDeviceId,
-    deviceId: selectedDeviceId || deviceId,
+    paused: !deviceId,
+    deviceId: deviceId,
     onDecodeResult(result) {
       getScannerISBN(result.getText());
+      setLoading(false);
     },
   });
- 
+
+  useEffect(() => {
+    if (arrDevices.length > 0) {
+      setDeviceId(arrDevices[0].deviceId);
+      setShowVideoFeed(true);
+    }
+  }, [arrDevices]);
+
+  const handleDeviceChange = (e) => {
+    setLoading(true);
+    setDeviceId(e.target.value);
+    setShowVideoFeed(true);
+  };
+
   return (
-    <>
     <div>
-      {showVideoFeed && (
-        <video
-          ref={ref}
-          style={{
-            width: "100%",
-            maxWidth: "380px",
-            height: "100%",
-            maxHeight: "250px",
-          }}
-        />
-      )}
-      <button>
-        <select
-          value={deviceId}
-          onChange={(e) => {
-            setShowVideoFeed(true);
-            setResult("");
-            deviceId = e.target.value;
-          }}
-        >
-          {arrDevicesId?.map((deviceId) => (
+      <div>
+        <select value={deviceId} onChange={handleDeviceChange}>
+          {arrDevices.map(({ deviceId, label }) => (
             <option key={deviceId} value={deviceId}>
-              {deviceId}
+              {label}
             </option>
           ))}
         </select>
-      </button>
       </div>
-      {/* {permissionStatus === "denied" && <p>Camera access denied. Please enable camera permissions in your browser settings.</p>}
-      {permissionStatus === "prompt" && <p>Requesting camera access...</p>} */}
-      {/* {error && <p>Error accessing the camera</p>} */}
-    </>
+
+      {showVideoFeed ? (
+        loading ? (
+          <p>Loading camera...</p>
+        ) : (
+          <video
+            ref={ref}
+            style={{
+              width: "100%",
+              maxWidth: "380px",
+              height: "100%",
+              maxHeight: "250px",
+            }}
+          />
+        )
+      ) : (
+        <p>No camera feed available</p>
+      )}
+    </div>
   );
 };
 
