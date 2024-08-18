@@ -23,7 +23,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
     const deviceIdd = devices?.[i]?.deviceId;
     if (deviceIdd) {
       arrDevicesId.push(deviceIdd);
-      break;
+      
     }
   }
 
