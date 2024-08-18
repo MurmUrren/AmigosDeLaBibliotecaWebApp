@@ -123,6 +123,11 @@ function ManageBook() {
     const saveBook = async () => {
         setEnableButtons(false)
         saveBookGenres()
+        // set to default
+        setBookGenres([])
+        setSelectedGenres([])
+        setBook({})
+        setIsbn13('')
         setEnableButtons(true)
     };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useAllGenres from '@hooks/useAllGenres';
 import useCollections from '@hooks/useCollections';
 import { createGenre, deleteGenre, updateGenre } from './functs/genreFunctions';
@@ -9,10 +9,6 @@ const ManageGenres = () => {
     const collections = useCollections();
     const [newGenres, setNewGenres] = useState([]);
     const [updateGenres, setUpdateGenres] = useState([]);
-
-    useEffect(() => {
-        console.log("up: ", updateGenres);
-    }, [updateGenres]);
 
     const handleNewGenre = () => {
         setNewGenres([...newGenres, { Title: '', Collection_Id: '' }]);
@@ -109,7 +105,7 @@ const ManageGenres = () => {
                         </tr>
                     ) : (
                         <>
-                        {genres.length > 0 && genres.map(genre => (
+                        {genres.length > 0 && collections.length > 0 && genres.map(genre => (
                             <tr key={genre.id}>
                                 <td>
                                     <input
