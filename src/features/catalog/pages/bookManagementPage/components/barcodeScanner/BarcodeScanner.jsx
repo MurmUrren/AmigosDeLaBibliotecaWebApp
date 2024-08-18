@@ -25,8 +25,8 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   // console.log("MediaDevices supported:", navigator.mediaDevices.getUserMedia(constraints));
 
   const changeCamera = () => {
-    const deviceId = devices?.[cId]?.deviceId;
-    setCId((cId + 1) % devices.length);
+    setCId(cId + 1);
+    const deviceId = devices?.[cId + 1]?.deviceId;
     console.log("changeCamera", deviceId);
   };
 
