@@ -1,0 +1,13 @@
+.no-genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.book-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}

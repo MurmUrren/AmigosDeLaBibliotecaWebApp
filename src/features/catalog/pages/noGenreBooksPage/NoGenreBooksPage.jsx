@@ -3,6 +3,7 @@ import useNoGenreBooks from "@hooks/useNoGenreBooks";
 import useAllGenres from "@hooks/useAllGenres";
 import Pagination from "@components/pagination/Pagination";
 import { assignGenreToBook } from './functs';
+import './NoGenreBooksPage.css';
 
 function NoGenreBooksPage() {
     const {books, loading, error } = useNoGenreBooks();
@@ -60,16 +61,16 @@ function NoGenreBooksPage() {
             />
             <div>
                 <div>
-                    <ul>
+                    <ul className="no-genre-list">
                         {currentBooks.map((book) => (
-                            <li key={book.id}>
-                            <input
-                                type="checkbox"
-                                checked={selectedBooks.includes(book.id)}
-                                onChange={() => handleCheckboxChange(book.id)}
-                            />
-                            <h5>{book.Title}</h5>
-                        </li>
+                            <li key={book.id} className="book-item">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedBooks.includes(book.id)}
+                                    onChange={() => handleCheckboxChange(book.id)}
+                                />
+                                <h5>{book.Title}</h5>
+                            </li>
                         ))}
                     </ul>
                 </div>
