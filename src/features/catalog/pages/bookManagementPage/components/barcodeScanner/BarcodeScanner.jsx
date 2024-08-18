@@ -43,6 +43,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   return (
     <>
       {showVideoFeed && (
+        <>
         <div>
         <video
           ref={ref}
@@ -53,10 +54,13 @@ const BarcodeScanner = ({ getScannerISBN }) => {
             maxHeight: "250px",
           }}
         />
-        <button onClick={changeCamera}>
+        </div>
+        <div>
+          <button onClick={changeCamera}>
           bababa
         </button>
         </div>
+        </>
       )}
       {/* {permissionStatus === "denied" && <p>Camera access denied. Please enable camera permissions in your browser settings.</p>}
       {permissionStatus === "prompt" && <p>Requesting camera access...</p>} */}
