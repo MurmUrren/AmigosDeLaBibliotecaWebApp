@@ -16,7 +16,16 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
   // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
   // const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
-  const deviceId = devices?.[5]?.deviceId || devices?.[2]?.deviceId || devices?.[1]?.deviceId || devices?.[0]?.deviceId;
+  let deviceId;
+  for (let i = 10; i >= 0; i--) {
+    const deviceIdd = devices?.[i]?.deviceId;
+    if (deviceIdd) {
+      deviceId = deviceIdd;
+      break;
+    }
+  }
+
+  // const deviceId = devices?.[5]?.deviceId || devices?.[2]?.deviceId || devices?.[1]?.deviceId || devices?.[0]?.deviceId;
   const [result, setResult] = useState("");
   const [showVideoFeed, setShowVideoFeed] = useState(true);
   
