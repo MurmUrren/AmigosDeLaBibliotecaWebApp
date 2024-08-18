@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { deletePatron } from "./functs/patronFuncts";
 import SearchBar from "@components/searchBar/SearchBar";
 import "./PatronsManagementPage.css";
+import ConfirmDelete from "@components/confirmDelete/ConfirmDelete";
 
 const PatronsManagementPage = () => {
     const navigate = useNavigate();
@@ -13,6 +14,9 @@ const PatronsManagementPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const patronsPerPage = 20;
+
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [patronToDelete, setPatronToDelete] = useState(null);
 
     useEffect(() => {
         if (patrons) {
@@ -57,6 +61,25 @@ const PatronsManagementPage = () => {
             console.error('error deleting patron');
         }
         setPatronList(patronList.filter(patron => patron.id !== id));
+    };
+
+    const handleShowDeleteModal = (id) => {
+        setPatronToDelete(id);
+        setShowConfirmDelete(true);
+    };
+
+    const confirmDelete = async () => {
+        if (patronToDelete) {
+            const status = await deletePatron(patronToDelete);
+            if (status) {
+                console.log('Patron deleted');
+                setPatronList(patronList.filter(patron => patron.id !== patronToDelete));
+            } else {
+                console.error('Error deleting patron');
+            }
+        }
+        setShowConfirmDelete(false);
+        setPatronToDelete(null);
     };
 
     return (
@@ -120,12 +143,12 @@ const PatronsManagementPage = () => {
                                     >
                                         Editar
                                     </button>
-                                    {/* <button
-                                        onClick={() => {handleDelete(patron.id)}}
+                                    <button
+                                        onClick={() => handleShowDeleteModal(patron.id)}
                                         className="delete-patron-button"
                                     >
                                         Eliminar
-                                    </button> */}
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -137,6 +160,12 @@ const PatronsManagementPage = () => {
                 totalCount={filteredPatrons.length}
                 pageSize={patronsPerPage}
                 onPageChange={handlePageChange}
+            />
+            <ConfirmDelete
+                show={showConfirmDelete}
+                handleClose={() => setShowConfirmDelete(false)}
+                handleConfirm={confirmDelete}
+                message="¿Estás seguro de que quieres eliminar este patron?"
             />
         </div>
     );
