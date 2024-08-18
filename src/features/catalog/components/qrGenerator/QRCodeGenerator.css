@@ -1,4 +1,5 @@
 .labels-sheet {
+    visibility: hidden; /* Con esto las etiquetas se generan pero no se muestran hasta que las imprimes */
     display: grid;
     grid-template-columns: repeat(3, 2.625in);
     grid-template-rows: repeat(10, 1in);
@@ -51,7 +52,7 @@
 
 @media print {
     /* Hide everything except the QR code generator */
-    .navbar, .main-content, .barcodes-page, .book-qr-generator-wrapper, .button-group, .qr-code-container {
+    .navbar, .main-content, .date-filter, .barcodes-page, .book-qr-generator-wrapper, .button-group, .qr-code-container {
         visibility: hidden;
     }
 

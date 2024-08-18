@@ -126,6 +126,8 @@ const QRCodeGenerator = () => {
         }
 
         setQRCodes(qrList);
+
+        print(qrCodes);
     };
 
     return (
