@@ -11,7 +11,7 @@ function BookDataForm({
 }) {
     return (
         <div className='manual-add-book-wrapper'>
-            <div className='add-book-inputs'>
+            <div className='manual-add-book-inputs'>
                 <label htmlFor="bookTitleM">Título del libro</label>
                 <input
                     id="bookTitleM"

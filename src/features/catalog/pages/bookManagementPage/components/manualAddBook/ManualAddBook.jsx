@@ -62,9 +62,8 @@ const ManualAddBook = ({ bookData, saveBookGenres, removeBook }) => {
     <div className='manual-add-book-wrapper'>
       <h3>Verifica o modifica la información del libro</h3>
       <div className='manual-add-book-inputs'>
-        <label htmlFor="bookTitle">Título del libro</label>
-        <input 
-          id="bookTitle"
+        <label>Título del libro</label>
+        <input
           type="text" 
           value={bookTitle} 
           onChange={e => setBookTitle(e.target.value)} 
@@ -111,7 +110,6 @@ const ManualAddBook = ({ bookData, saveBookGenres, removeBook }) => {
         <label htmlFor="genres">Géneros</label>
         <div className="genres-container">
           <select
-            id="genres"
             multiple
             value={selectedGenres}
             onChange={handleGenreChange}
