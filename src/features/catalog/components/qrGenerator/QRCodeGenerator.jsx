@@ -6,10 +6,13 @@ import useAllBarCodes from '@hooks/useAllBarCodes';
 import './QRCodeGenerator.css';
 
 const QRCodeGenerator = () => {
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [qrCodes, setQRCodes] = useState([]);
     const { barcodes, refetch } = useAllBarCodes();
     const books = useAllBooks();
     const [lastBarcode, setLastBarcode] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchLastBarcode = async () => {
@@ -55,6 +58,7 @@ const QRCodeGenerator = () => {
     };
 
     const generateQRCodes = async () => {
+        setLoading(true);
         if (!lastBarcode) return;
 
         let currentSKU = lastBarcode;
@@ -127,15 +131,40 @@ const QRCodeGenerator = () => {
 
         setQRCodes(qrList);
 
-        print(qrCodes);
+        if (qrCodes) {
+            setLoading(false);
+            setTimeout(() => {
+                window.print();
+            }, 0); // Trigger print after a short delay to ensure rendering
+        }
+
     };
 
     return (
     <>
         <div class name="book-qr-generator-wrapper">
             <h1>QR Code Generator for Books</h1>
-            <button onClick={generateQRCodes}>Generate QR Codes</button>
-            <button onClick={() => {print(qrCodes)}}>Print</button>
+            <div className="date-filter">
+                <label>
+                    Start Date:
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </label>
+                <label>
+                    End Date:
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </label>
+            </div>
+            <button onClick={generateQRCodes} disabled={loading}>
+                {loading ? 'Generating...' : 'Generate QR Codes and Print'}
+            </button>
             <div className="labels-sheet">
                 {qrCodes.map((code) => (
                     <div key={`${code.id}-${code.sku}`} className="label">
