@@ -195,7 +195,7 @@ function ManageBook() {
                     disabled={!enableButtons}
                     className="delete-book-button"
                 >
-                    Delete Book
+                    Borrar Libro
                 </button>
             </div>
         </div>
