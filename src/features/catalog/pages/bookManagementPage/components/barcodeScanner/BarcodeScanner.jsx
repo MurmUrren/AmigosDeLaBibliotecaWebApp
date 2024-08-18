@@ -63,7 +63,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
         )}
       </div>
 
-      {true ? (
+      {deviceId && !loading ? (
         <video
           ref={ref}
           style={{
