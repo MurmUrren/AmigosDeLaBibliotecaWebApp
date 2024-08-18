@@ -96,6 +96,32 @@
     box-shadow: none;
   }
 
+  .reset-book-button {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff; 
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reset-book-button:hover {
+    background-color: #150699;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);;
+  }
+  
+  .reset-book-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
   .search-book-button{
     width: 100%;
   padding: 10px 15px;
@@ -114,6 +140,32 @@
   .search-book-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+  }
+
+  .add-book-button, .save-book-button {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 25px; /* Rounded borders */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .add-book-button:hover, .save-book-button:hover{
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+  }
+  
+  .add-book-button:disabled {
+    background-color: #cccccc; /* Gray background for disabled state */
+    cursor: not-allowed;
+    box-shadow: none;
   }
   
   @media (max-width: 768px) {

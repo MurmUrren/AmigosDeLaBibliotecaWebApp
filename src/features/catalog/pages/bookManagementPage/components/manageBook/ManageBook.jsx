@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useAllGenres from "@hooks/useAllGenres";
 import supabase from "@config/supabaseClient";
 import BookCard from "@components/bookCard/BookCard";
 import "./ManageBook.css";
 import GenreList from "../genreList/GenreList";
+import BarcodeScanner from '../barcodeScanner/BarcodeScanner';
+import BookDataForm from "./bookDataForm/BookDataForm";
+import { addGenreToBook, removeGenreFromBook, deleteBook } from "./functs/functs";
 
 function ManageBook() {
     const allGenres = useAllGenres();
@@ -12,13 +15,30 @@ function ManageBook() {
     const [bookGenres, setBookGenres] = useState([]);
     const [enableButtons, setEnableButtons] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
+    const [qrScannerActive, setQrScannerActive] = useState(false);
 
-    useEffect(() => {
-        console.log('selected genres', selectedGenres)
-    }, [selectedGenres])
+    const [bookTitle, setBookTitle] = useState('');
+    const [authorName, setAuthorName] = useState('');
+    const [description, setDescription] = useState('');
+    const [publisher, setPublisher] = useState('');
+    const [publishedDate, setPublishedDate] = useState('');
+    const [length, setLength] = useState('');
+
+    const setToDefault = () => {
+        setIsbn13('');
+        setBook({});
+        setBookGenres([]);
+        setSelectedGenres([]);
+        setEnableButtons(false);
+        setBookTitle('');
+        setAuthorName('');
+        setDescription('');
+        setPublisher('');
+        setPublishedDate('');
+        setLength('');
+    };
 
     const fetchBookGenres = async (bookId) => {
-        console.log('fetching book genres ', bookId)
         const { data, error } = await supabase
             .from('BookGenres')
             .select(`
@@ -26,34 +46,40 @@ function ManageBook() {
                     *
                 )
             `)
-            .eq('Book_Id', bookId)
-
+            .eq('Book_Id', bookId);
         if (error) {
-            console.error('error fetching book genres', error)
+            console.error('error fetching book genres', error);
         }
         if (data) {
-            console.log('book genres', data)
-            const genresForSet = data.map(entry => entry.Genres)
-            setBookGenres(genresForSet.map(genre => genre.id))
-            setSelectedGenres(genresForSet.map(genre => genre.id))
+            const genresForSet = data.map(entry => entry.Genres);
+            setBookGenres(genresForSet.map(genre => genre.id));
+            setSelectedGenres(genresForSet.map(genre => genre.id));
         }
-    }
+    };
 
     const fetchBook = async () => {
         const { data, error } = await supabase
             .from('Books')
             .select('*')
-            .eq('Ean_Isbn13', isbn13)
-
+            .eq('Ean_Isbn13', isbn13);
         if (error) {
-            console.error('error fetching book by isbn13', error)
+            console.error('error fetching book by isbn13', error);
         }
         if (data) {
-            if (data.length !== 0) {
-                setBook(data[0])
-                setEnableButtons(true)
+            if (data.length > 0) {
+                const bookData = data[0];
+                setBook(bookData);
+                setEnableButtons(true);
+                fetchBookGenres(bookData.id);
+                setBookTitle(bookData.Title);
+                setAuthorName(bookData.Creators);
+                setDescription(bookData.Description);
+                setPublisher(bookData.Publisher);
+                setPublishedDate(bookData.Publish_Date);
+                setLength(bookData.Length);
+            } else {
+                alert('No book found');
             }
-            fetchBookGenres(data[0].id)
         }
     };
 
@@ -66,90 +92,61 @@ function ManageBook() {
         );
     };
 
-    const removeGenreFromBook = async (genreId) => {
-        const { data, error } = await supabase
-            .from('BookGenres')
-            .delete()
-            .eq('Book_Id', book.id)
-            .eq('Genre_Id', genreId)
-            .select()
-
-        if (error) {
-            console.error('error removing genre from book', error)
-        }
-        if (data) {
-            console.log('genre removed from book', data)
-        }
-    };
-
-    const addGenreToBook = async (genreId) => {
-        console.log('ggg ', genreId, ' bbb ', book.id)
-        const { data, error } = await supabase
-            .from('BookGenres')
-            .insert([
-                {
-                    Book_Id: book.id,
-                    Genre_Id: genreId
-                }
-            ])
-            .select()
-        
-        if (error) {
-            console.error('error adding genre to book', error)
-        }
-        if (data) {
-            console.log('genre added to book', data)
-        }
-    };
-
     const saveBookGenres = async () => {
-        // remove genres that were deselected
         bookGenres.map(genreId => {
             if (!selectedGenres.includes(genreId)) {
-                removeGenreFromBook(genreId)
-                console.log('este no pls ')
+                removeGenreFromBook(book.id, genreId);
             }
         });
-
-        // add genres that were selected
         selectedGenres.map(genreId => {
             if (!bookGenres.includes(genreId)) {
-                addGenreToBook(genreId)
-                console.log('ucddsiuiu ')
+                addGenreToBook(book.id, genreId);
             }
         });
     };
 
     const saveBook = async () => {
-        setEnableButtons(false)
-        saveBookGenres()
-        // set to default
-        setBookGenres([])
-        setSelectedGenres([])
-        setBook({})
-        setIsbn13('')
-        setEnableButtons(true)
-    };
-
-    const deleteBook = async () => {
-        setEnableButtons(false)
+        setEnableButtons(false);
         const { data, error } = await supabase
             .from('Books')
-            .delete()
+            .update({
+                Title: bookTitle,
+                Creators: authorName,
+                Description: description,
+                Publisher: publisher,
+                Publish_Date: publishedDate,
+                Length: length
+            })
             .eq('Ean_Isbn13', isbn13)
-
+            .select();
         if (error) {
-            console.error('error deleting book by isbn13', error)
+            console.error('error updating book', error);
         }
         if (data) {
-            console.log('book deleted successfully', data)
+            console.log('book updated successfully', data);
+            saveBookGenres();
+            setToDefault();
         }
-        setEnableButtons(true)
+    };
+
+    const handleDeleteBook = async () => {
+        deleteBook(isbn13);
+        setToDefault();
+    };
+
+    const getScannerISBN = (isbn) => {
+        setIsbn13(isbn);
     };
 
     return (
         <div className="delete-book-container">
             <h1>Modificar libro</h1>
+            {qrScannerActive &&
+                <BarcodeScanner getScannerISBN={getScannerISBN} />
+            }
+            <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
+                {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
+            </button>
             <div className="delete-book-input-group">
                 <input
                     type="text"
@@ -157,14 +154,28 @@ function ManageBook() {
                     onChange={(e) => setIsbn13(e.target.value)}
                     className="delete-book-input"
                     placeholder="ISBN13"
-
                 />
                 <button onClick={fetchBook} className="search-book-button">Buscar Libro</button>
+                <button onClick={setToDefault} className="reset-book-button" disabled={!enableButtons}>Resetear</button>
             </div>
             <div className="delete-book-result">
                 {book && Object.keys(book).length > 0 ? (
                     <>
                         <BookCard book={book} />
+                        <BookDataForm
+                            bookTitle={bookTitle}
+                            setBookTitle={setBookTitle}
+                            authorName={authorName}
+                            setAuthorName={setAuthorName}
+                            description={description}
+                            setDescription={setDescription}
+                            publisher={publisher}
+                            setPublisher={setPublisher}
+                            publishedDate={publishedDate}
+                            setPublishedDate={setPublishedDate}
+                            length={length}
+                            setLength={setLength}
+                        />
                         <GenreList allGenres={allGenres} bookGenres={selectedGenres} handleSelectGenre={handleSelectGenre} />
                     </>
                 ) : (
@@ -180,7 +191,7 @@ function ManageBook() {
                     Guardar
                 </button>
                 <button
-                    onClick={deleteBook}
+                    onClick={handleDeleteBook}
                     disabled={!enableButtons}
                     className="delete-book-button"
                 >
