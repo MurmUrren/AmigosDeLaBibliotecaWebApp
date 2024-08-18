@@ -28,9 +28,9 @@ export const useBookList = () => {
     }
   }, []);
 
-  const removeBook = useCallback((isbn) => {
-    setBooks(prevBooks => prevBooks.filter(book => book.isbn !== isbn));
-  }, []);
+  const removeBook = (isbn) => {
+    setBooks(prevBooks => prevBooks.filter(book => book.isbn13 !== isbn));
+  };
 
   return { books, getBook, removeBook, loading, error };
 };

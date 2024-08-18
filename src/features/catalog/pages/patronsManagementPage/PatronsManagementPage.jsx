@@ -30,7 +30,9 @@ const PatronsManagementPage = () => {
             return patronList;
         }
         return patronList.filter(patron =>
-            patron.first_name && patron.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+            patron.first_name && patron.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            patron.last_name && patron.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            patron.patron_id && patron.patron_id.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [patronList, searchTerm]);
 
@@ -60,7 +62,7 @@ const PatronsManagementPage = () => {
     return (
         <div>
             <h1>Patrons Management Page</h1>
-            <SearchBar onSearch={handleSearch} message="Buscar patron"/>
+            <SearchBar onSearch={handleSearch} message="Buscar patron por patron_id, nombre o apellido"/>
             <Pagination
                 currentPage={currentPage}
                 totalCount={filteredPatrons.length}

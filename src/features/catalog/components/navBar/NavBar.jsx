@@ -31,9 +31,9 @@ function NavBar() {
         </li>
         <li className='list-style'>
           {currentPath === '/manage' ? (
-            <span style={{ color: '#ffff' }}>Manage Books</span>
+            <span style={{ color: '#ffff' }}>Administrar</span>
           ) : (
-            <Link to='/manage'>Manage Books</Link>
+            <Link to='/manage'>Administrar</Link>
           )}
         </li>
       </ul>
