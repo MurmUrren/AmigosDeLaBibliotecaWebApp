@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '@assets/imgs/logo.png';
 import './NavBar.css';
@@ -11,6 +11,11 @@ function NavBar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Reset menu state when the route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [currentPath]);
 
   return (
     <nav className='navbar'>

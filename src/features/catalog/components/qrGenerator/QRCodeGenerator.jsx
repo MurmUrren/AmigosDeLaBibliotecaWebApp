@@ -136,10 +136,15 @@ const QRCodeGenerator = () => {
 
         console.log('QR Codes:', qrList);
 
-        const filteredQrList = qrList.filter(qrCode => {
-            const createdAtDate = new Date(qrCode.created_at);
-            return createdAtDate >= new Date(startDate) && createdAtDate <= new Date(endDate);
-        });
+        let filteredQrList = qrList;
+
+        if (startDate && endDate) {
+            filteredQrList = qrList.filter(qrCode => {
+                const createdAtDate = new Date(qrCode.created_at);
+                return createdAtDate >= new Date(startDate) && createdAtDate <= new Date(endDate);
+            });
+        }
+
         
         console.log('Filtered QR Codes:', filteredQrList);
 
@@ -156,7 +161,7 @@ const QRCodeGenerator = () => {
 
     return (
     <>
-        <div class name="book-qr-generator-wrapper">
+        <div className="book-qr-generator-wrapper">
             <h1>QR Code Generator for Books</h1>
             <div className="date-filter">
                 <label>
@@ -176,7 +181,7 @@ const QRCodeGenerator = () => {
                     />
                 </label>
             </div>
-            <button onClick={generateQRCodes} disabled={loading}>
+            <button className='generateqr-button' onClick={generateQRCodes} disabled={loading}>
                 {loading ? 'Generating...' : 'Generate QR Codes and Print'}
             </button>
             <div className="labels-sheet">

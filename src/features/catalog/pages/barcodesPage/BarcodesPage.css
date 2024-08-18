@@ -1,0 +1,47 @@
+/* BarcodesPage.css */
+
+.button-group {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.button-group button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    flex: 1 1 auto;
+    max-width: 200px;
+}
+
+.button-group button:hover {
+    background-color: #0056b3;
+}
+
+.button-group button.active {
+    background-color: #0056b3;
+}
+
+.qr-code-container {
+    margin-top: 20px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+    .button-group button {
+        font-size: 20px;
+        padding: 20px;
+        max-width: none;
+        width: 100%;
+    }
+}

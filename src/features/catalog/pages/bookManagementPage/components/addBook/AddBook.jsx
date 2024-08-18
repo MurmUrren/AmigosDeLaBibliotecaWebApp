@@ -124,9 +124,11 @@ const AddBook = () => {
       {qrScannerActive &&
         <BarcodeScanner getScannerISBN={getScannerISBN}/>
       }
-      <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
-        {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
-      </button>
+      <div className='isbn-button-scanner'>
+        <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
+          {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
+        </button>
+      </div>
       <h2 className='modal-title'>Agregar Libro</h2>
       <div className='add-book-inputs'>
         {renderInput(isbn, setIsbn, "ISBN13")}

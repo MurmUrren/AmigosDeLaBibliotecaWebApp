@@ -144,9 +144,11 @@ function ManageBook() {
             {qrScannerActive &&
                 <BarcodeScanner getScannerISBN={getScannerISBN} />
             }
-            <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
-                {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
-            </button>
+            <div className='isbn-button-scanner'>
+                <button className='add-book-button' onClick={() => setQrScannerActive(!qrScannerActive)}>
+                    {qrScannerActive ? 'Cerrar Escaner' : 'Escanear ISBN'}
+                </button>
+            </div>
             <div className="delete-book-input-group">
                 <input
                     type="text"

@@ -45,7 +45,7 @@ const PatronQRCodeGenerator = () => {
                     />
                 </label>
             </div>
-            <button onClick={handleGenerateAndPrint} disabled={loading}>
+            <button className='generateqr-button' onClick={handleGenerateAndPrint} disabled={loading}>
                 {loading ? 'Generating...' : 'Generate QR Codes and Print'}
             </button>
             
