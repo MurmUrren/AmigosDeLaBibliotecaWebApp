@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAllCheckouts from "@hooks/useAllCheckouts";
 import { check_in } from "./functs/checkinFuncts";
-import "./CheckinsPage.css";
+import "./Checkins.css";
 const Checkins = () => {
     const checkouts = useAllCheckouts();
     

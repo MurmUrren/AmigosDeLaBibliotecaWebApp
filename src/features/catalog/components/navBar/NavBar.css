@@ -107,7 +107,7 @@
   }
 
   .navbar-links.active {
-    max-height: 200px; /* Adjust based on the number of links */
+    max-height: 400px; /* Adjust based on the number of links */
   }
 
   .navbar-toggle {

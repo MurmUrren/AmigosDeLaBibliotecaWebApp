@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import BarcodeScanner from '../../pages/bookManagementPage/components/barcodeScanner/BarcodeScanner' // Import the BarcodeScanner component
 import useBarcode from '@hooks/useBarcode';
 import usePatronBarcode from '@hooks/usePatronBarcode';
 import { registerLending, isBookAvailable, getBook, getPatron } from './functs/registerLendingFuncts';
 import RemoveButton from '../buttons/RemoveButton';
-// import useBookCover from '@hooks/useBookCover';
-// import noCover from '@assets/imgs/noCover.jpeg';
-// import BookCover from '@components/bookCover/BookCover';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBarcode, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './LendingBook.css';
 
 const LendingBook = () => {
-
     const formatDate = (date) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -27,7 +26,9 @@ const LendingBook = () => {
     const [bookLoading, setBookLoading] = useState(false);
     const [patronData, setPatronData] = useState({});
     const [patronLoading, setPatronLoading] = useState(false);
-    const [dueDate, setDueDate] = useState(formatDate(maxDueDate)); // Initialize due date to 2 weeks from today
+    const [dueDate, setDueDate] = useState(formatDate(maxDueDate));
+    const [showBookScanner, setShowBookScanner] = useState(false);
+    const [showPatronScanner, setShowPatronScanner] = useState(false);
 
     const checkoutDate = formatDate(current);
 
@@ -99,20 +100,38 @@ const LendingBook = () => {
         }
     };
 
+    const handleScanBookBarcode = (barcode) => {
+        setBookBarcode(barcode);
+        setShowBookScanner(false);
+    };
+
+    const handleScanPatronBarcode = (barcode) => {
+        setPatronBarcode(barcode);
+        setShowPatronScanner(false);
+    };
+
     return (
         <div className="lending-container">
             <div className="book-lending-container">
                 <h3>Add Book Barcode</h3>
-                <input
-                    type="text"
-                    value={bookBarcode}
-                    onChange={(e) => setBookBarcode(e.target.value)}
-                    placeholder="Enter book barcode"
-                    className="input"
-                />
+                <div className="barcode-manual-and-scan">
+                    <input
+                        type="text"
+                        value={bookBarcode}
+                        onChange={(e) => setBookBarcode(e.target.value)}
+                        placeholder="Enter book barcode"
+                        className="input"
+                    />
+                    <button className='lend-book-scan' onClick={() => setShowBookScanner(!showBookScanner)}>
+                    {showBookScanner ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBarcode} />}
+                </button>
+                </div>
+                
                 <button id="lending" onClick={handleAddBook} disabled={!bookBarcode}>
                     {bookLoading ? 'Loading...' : 'Add Book'}
                 </button>
+                
+                {showBookScanner && <BarcodeScanner getScannerISBN={handleScanBookBarcode} />}
                 <div className="book-lend-card-container">
                     {books.map((book, index) => (
                         <div key={index} className="card" id="book">
@@ -126,17 +145,25 @@ const LendingBook = () => {
             </div>
             <div className="patron-lending-container">
                 <h3>Patron Barcode</h3>
-                <input
-                    type="text"
-                    value={patronBarcode}
-                    onChange={(e) => setPatronBarcode(e.target.value)}
-                    placeholder="Enter patron barcode"
-                    className="input"
-                    disabled={isPatronAdded}
-                />
+                <div className="barcode-manual-and-scan">
+                    <input
+                        type="text"
+                        value={patronBarcode}
+                        onChange={(e) => setPatronBarcode(e.target.value)}
+                        placeholder="Enter patron barcode"
+                        className="input"
+                        disabled={isPatronAdded}
+                    />
+                    <button className='patron-scan' onClick={() => setShowPatronScanner(!showPatronScanner)}>
+                    {showPatronScanner ? <FontAwesomeIcon icon={faTimes} /> :  <FontAwesomeIcon icon={faBarcode} />}
+                    </button>
+                </div>
+               
                 <button id="lending" onClick={handleAddPatron} disabled={!patronBarcode || isPatronAdded || patronLoading}>
                     {patronLoading ? 'Loading...' : 'Add Patron'}
                 </button>
+                
+                {showPatronScanner && <BarcodeScanner getScannerISBN={handleScanPatronBarcode} />}
                 {isPatronAdded && (
                     <div className="card" id="patron">
                         <RemoveButton onClick={handleRemovePatron}></RemoveButton>
