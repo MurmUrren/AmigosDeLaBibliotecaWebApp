@@ -9,8 +9,9 @@ const constraints = {
 
 const BarcodeScanner = ({ getScannerISBN }) => {
   const { devices } = useMediaDevices({ constraints });
-//  const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
-  const deviceId = devices?.[0]?.deviceId;
+  // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
+  const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
+  const deviceId = videoInputDevices?.[1]?.deviceId;
   const [result, setResult] = useState("");
   const [showVideoFeed, setShowVideoFeed] = useState(true);
   const [permissionStatus, setPermissionStatus] = useState(null);
