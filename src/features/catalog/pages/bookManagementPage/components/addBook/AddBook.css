@@ -99,7 +99,7 @@
 }
 
 .genre-list {
-  list-style-type: none; /* Elimina los puntos de la lista */
+  list-style-type: none;
   padding: 0;
   margin: 0;
 }
@@ -115,16 +115,16 @@
 
 .select-multiple {
   width: 100%;
-  max-width: 400px; /* Ancho máximo para el select */
-  height: 150px; /* Altura del select */
+  max-width: 400px;
+  height: 150px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   color: #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  overflow-y: auto; /* Habilita el scroll vertical */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .select-multiple option {
@@ -134,15 +134,97 @@
 }
 
 .select-multiple option:hover {
-  background-color: #f1f1f1; /* Fondo gris claro al pasar el cursor */
+  background-color: #f1f1f1;
 }
 
 .select-multiple option:checked {
-  background-color: #007bff; /* Fondo azul para las opciones seleccionadas */
-  color: #fff; /* Texto blanco para las opciones seleccionadas */
+  background-color: #007bff;
+  color: #fff;
 }
 
-/* Media Queries for Responsiveness */
+.fetched-book-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.fetched-book-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.update-copies-input {
+  width: 100%;
+  padding: 10px;
+  max-width: 100%;
+  /* margin: 10px; */
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.update-copies-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.update-copies-button {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.update-copies-button:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .fetched-book-container {
+    padding: 15px;
+    margin: 10px 0;
+  }
+
+  .update-copies-input, .update-copies-button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fetched-book-container {
+    padding: 10px;
+  }
+
+  .update-copies-input, .update-copies-button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .manage-books-wrapper {
     padding: 10px;

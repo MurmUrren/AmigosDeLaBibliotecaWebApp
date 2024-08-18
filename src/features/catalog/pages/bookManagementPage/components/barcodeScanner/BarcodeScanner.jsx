@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 

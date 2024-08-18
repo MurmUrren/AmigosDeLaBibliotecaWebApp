@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useBookList } from '@hooks/useBookList';
-import useAllGenres from '@hooks/useAllGenres';
 import supabase from '@config/supabaseClient';
 import './AddBook.css';
 import ManualAddBook from '../manualAddBook/ManualAddBook';
 import BarcodeScanner from '../barcodeScanner/BarcodeScanner';
+import { bookExistsF, fetchBook, updateBookCopies } from './functs/functs';
 
 const AddBook = () => {
   const { books, getBook, removeBook, loading, error } = useBookList();
@@ -13,6 +13,11 @@ const AddBook = () => {
   const [isbn, setIsbn] = useState('');
   const [booksToAdd, setBooksToAdd] = useState({});
   const [qrScannerActive, setQrScannerActive] = useState(false);
+  const [bookExists, setBookExists] = useState(false);
+
+  // lo siento
+  const [fetchedBook, setFetchedBook] = useState(null);
+  const [copies, setCopies] = useState(0);
 
   useEffect(() => {
     setBooksToAdd(prevBooksToAdd => {
@@ -39,10 +44,19 @@ const AddBook = () => {
       console.log('Please fill out all fields(isbn) before adding a book.');
       return;
     }
-    await getBook({ title: bookTitle, author: authorName, isbn });
-    setBookTitle('');
-    setAuthorName('');
-    setIsbn('');
+    const bookExists = await bookExistsF(isbn);
+    if (bookExists) {
+      setBookExists(true);
+      const fetchedBook = await fetchBook(isbn);
+      setFetchedBook(fetchedBook);
+      setCopies(fetchedBook.Copies);
+    } 
+    else {
+      await getBook({ title: bookTitle, author: authorName, isbn });
+      setBookTitle('');
+      setAuthorName('');
+      setIsbn('');
+    }
   };
 
   const removeGenreFromBook = async (isbn, genreId) => {
@@ -89,6 +103,22 @@ const AddBook = () => {
     setIsbn(isbn);
   };
 
+  const handleUpdateBookCopies = async () => {
+    if (copies === 0) {
+      console.log('Please fill out all fields(copies) before adding a book.');
+      return;
+    }
+    await updateBookCopies(isbn, Number(fetchedBook.Copies) + 1);
+    setFetchedBook(null);
+    setCopies(0);
+    setBookExists(false);
+    setIsbn('');
+  };
+
+  const handleCopiesChange = (e) => {
+    setCopies(e.target.value);
+  };
+
   return (
     <div className='manage-books-wrapper' id="navbar">
       {qrScannerActive &&
@@ -105,6 +135,35 @@ const AddBook = () => {
         </button>
       </div>
       {error && <p>Error: {error.message}</p>}
+      {bookExists && fetchedBook && (
+        <div className='fetched-book-container'>
+          <h3 className='fetched-book-title'>Ya existe "{fetchedBook.Title}"</h3>
+          <p>Se agregara una copia</p>
+          <button
+            className='update-copies-button'
+            onClick={handleUpdateBookCopies}
+          >
+            Agregar Copia
+          </button>
+        </div>
+        // <div className='fetched-book-container'>
+        //   <h3 className='fetched-book-title'>Ya existe "{fetchedBook.Title}"</h3>
+        //   <p>Actualizar copias</p>
+        //   <input
+        //     className='update-copies-input'
+        //     type="number"
+        //     value={copies}
+        //     onChange={handleCopiesChange}
+        //     placeholder="Copias"
+        //   />
+        //   <button
+        //     className='update-copies-button'
+        //     onClick={handleUpdateBookCopies}
+        //   >
+        //     Actualizar Copias
+        //   </button>
+        // </div>
+      )}
         {books?.map(book => (
           <ManualAddBook bookData={book} saveBookGenres={saveBookGenres} removeBook={removeBook}/>
         ))}
