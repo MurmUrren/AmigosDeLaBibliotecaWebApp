@@ -3,6 +3,7 @@ import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
 const BarcodeScanner = ({ getScannerISBN }) => {
+<<<<<<< HEAD
   const [deviceId, setDeviceId] = useState(null);
   const { devices } = useMediaDevices();
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
