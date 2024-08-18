@@ -34,7 +34,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
 
   useEffect(() => {
     if (arrDevices.length > 0) {
-      setDeviceId(arrDevices[0].deviceId);
+      setDeviceId(arrDevices[3].deviceId);
       setShowVideoFeed(true);
     }
   }, [arrDevices]);
