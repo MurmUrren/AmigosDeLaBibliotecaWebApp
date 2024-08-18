@@ -3,14 +3,17 @@ import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
 const constraints = {
-  video: { facingMode: "environment" },
+  video: {
+    facingMode: {
+      exact: "environment",
+    },
+  },
   audio: false,
 };
 
 const BarcodeScanner = ({ getScannerISBN }) => {
-  const { devices } = useMediaDevices();
+  const { devices } = useMediaDevices({ constraints });
   const [deviceId, setDeviceId] = useState("");
-  const [showVideoFeed, setShowVideoFeed] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const videoInputDevices =
@@ -21,7 +24,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
     label: device.label || `Camera ${index + 1}`,
   }));
 
-  const { ref } = useZxing({
+  const { ref, reset } = useZxing({
     paused: !deviceId,
     deviceId: deviceId,
     onDecodeResult(result) {
@@ -31,19 +34,17 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   });
 
   useEffect(() => {
-    if (arrDevices.length > 0) {
+    if (arrDevices.length > 0 && deviceId === "") {
       setDeviceId(arrDevices[0].deviceId);
-      setShowVideoFeed(true);
-      setLoading(false);
-    } else {
       setLoading(false);
     }
   }, [arrDevices]);
 
   const handleDeviceChange = (e) => {
+    const selectedDeviceId = e.target.value;
     setLoading(true);
-    setDeviceId(e.target.value);
-    setShowVideoFeed(true);
+    setDeviceId(selectedDeviceId);
+    reset(); // Ensure the video feed is reset when the device changes
   };
 
   return (
@@ -62,20 +63,18 @@ const BarcodeScanner = ({ getScannerISBN }) => {
         )}
       </div>
 
-      {showVideoFeed ? (
-        loading ? (
-          <p>Loading camera...</p>
-        ) : (
-          <video
-            ref={ref}
-            style={{
-              width: "100%",
-              maxWidth: "380px",
-              height: "100%",
-              maxHeight: "250px",
-            }}
-          />
-        )
+      {deviceId && !loading ? (
+        <video
+          ref={ref}
+          style={{
+            width: "100%",
+            maxWidth: "380px",
+            height: "100%",
+            maxHeight: "250px",
+          }}
+        />
+      ) : loading ? (
+        <p>Loading camera...</p>
       ) : (
         <p>No camera feed available</p>
       )}
