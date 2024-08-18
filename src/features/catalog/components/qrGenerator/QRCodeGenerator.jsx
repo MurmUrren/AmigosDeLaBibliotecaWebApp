@@ -9,7 +9,7 @@ const QRCodeGenerator = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [qrCodes, setQRCodes] = useState([]);
-    const { barcodes, refetch } = useAllBarCodes();
+    const { barcodes, refetch } = useAllBarCodes(startDate);
     const books = useAllBooks();
     const [lastBarcode, setLastBarcode] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -78,6 +78,7 @@ const QRCodeGenerator = () => {
                             sku: existingBarcode.barcode,
                             title: existingBarcode.title,
                             creators: existingBarcode.creators,
+                            created_at: existingBarcode.created_at,
                         };
                     } else {
                         currentSKU = incrementSKU(currentSKU);
@@ -86,12 +87,14 @@ const QRCodeGenerator = () => {
                             sku: currentSKU,
                             title: book.Title,
                             creators: book.Creators,
+                            created_at: book.created_at,
                         };
                         newBarcodesToInsert.push({
                             ean_isbn13: book.Ean_Isbn13,
                             barcode: newBarcode.sku,
                             title: newBarcode.title,
                             creators: newBarcode.creators,
+                            created_at: newBarcode.created_at,
                         });
                         return newBarcode;
                     }
@@ -104,12 +107,14 @@ const QRCodeGenerator = () => {
                         sku: currentSKU,
                         title: book.Title,
                         creators: book.Creators,
+                        created_at: book.created_at,
                     };
                     newBarcodesToInsert.push({
                         ean_isbn13: book.Ean_Isbn13,
                         barcode: newBarcode.sku,
                         title: newBarcode.title,
                         creators: newBarcode.creators,
+                        created_at: newBarcode.created_at,
                     });
                     return newBarcode;
                 });
@@ -125,11 +130,20 @@ const QRCodeGenerator = () => {
             if (error) {
                 console.error('Error inserting new barcodes:', error);
             } else {
-                refetch();
+                refetch(startDate, endDate);
             }
         }
 
-        setQRCodes(qrList);
+        console.log('QR Codes:', qrList);
+
+        const filteredQrList = qrList.filter(qrCode => {
+            const createdAtDate = new Date(qrCode.created_at);
+            return createdAtDate >= new Date(startDate) && createdAtDate <= new Date(endDate);
+        });
+        
+        console.log('Filtered QR Codes:', filteredQrList);
+
+        setQRCodes(filteredQrList);
 
         if (qrCodes) {
             setLoading(false);

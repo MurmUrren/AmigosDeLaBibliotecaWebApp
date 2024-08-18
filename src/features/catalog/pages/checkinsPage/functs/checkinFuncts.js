@@ -18,7 +18,7 @@ export const check_in = async (checkout) => {
     }
     if (data) {
         console.log('checked in', data)
-        // const status = await _removeCheckout(checkout);
+        const status = await _removeCheckout(checkout); // lo hace instantaneamente, revisar
         return data[0];
     }
 };
