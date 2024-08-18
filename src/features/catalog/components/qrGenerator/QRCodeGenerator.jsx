@@ -129,7 +129,8 @@ const QRCodeGenerator = () => {
     };
 
     return (
-        <div>
+    <>
+        <div class name="book-qr-generator-wrapper">
             <h1>QR Code Generator for Books</h1>
             <button onClick={generateQRCodes}>Generate QR Codes</button>
             <button onClick={() => {print(qrCodes)}}>Print</button>
@@ -146,6 +147,7 @@ const QRCodeGenerator = () => {
                 ))}
             </div>
         </div>
+    </>
     );
 };
 

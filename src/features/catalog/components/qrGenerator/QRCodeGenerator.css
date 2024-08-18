@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 2.625in);
     grid-template-rows: repeat(10, 1in);
-    gap: 0.125in;
+    gap: 0.4in;
     width: 8.5in;
     height: 11in;
     padding: 0.5in;
@@ -12,43 +12,77 @@
 .label {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 2.625in;
     height: 1in;
     border: 1px solid transparent;
     overflow: hidden;
     page-break-inside: avoid; /* Avoid breaking the label between pages */
     break-inside: avoid-column; /* This helps in modern browsers */
+    text-align: center;
 }
 
 .book-info {
     font-size: 10px;
-    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.book-info p{
-    margin: 2px;
+.book-info p {
+    margin: 0;
+    line-height: 1.2;
+}
+
+
+.patron-info {
+    font-size: 10px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.patron-info p {
+    margin: 0;
+    line-height: 1.2;
 }
 
 @media print {
-    body {
-        margin: 0;
-        padding: 0;
+    /* Hide everything except the QR code generator */
+    .navbar, .main-content, .barcodes-page, .book-qr-generator-wrapper, .button-group, .qr-code-container {
+        visibility: hidden;
     }
 
-    .labels-sheet {
-        display: grid;
-        grid-template-columns: repeat(3, 2.625in);
-        grid-template-rows: repeat(10, 1in);
-        gap: 0.125in;
-        width: 8.5in;
-        height: 11in;
-        padding: 0.5in;
-        box-sizing: border-box;
-    }
-
+    .labels-sheet,
     .label {
-        margin: 5mm; /* Margin to avoid cutting off content */
-        page-break-inside: avoid; /* Avoid breaking the label between pages */
+        visibility: visible !important; /* Ensure visibility */
+        position: relative;
+        overflow: visible;
+        break-inside: avoid;
+    }
+
+    .patron-qr-generator-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Ensure no content is cut off by adjusting margins */
+    .labels-sheet {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Optional: hide the header or buttons if present */
+    .patron-qr-generator-wrapper h1,
+    .patron-qr-generator-wrapper button {
+        display: none;
     }
 }
