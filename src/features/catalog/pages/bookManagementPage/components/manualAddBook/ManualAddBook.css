@@ -12,25 +12,26 @@
   margin-bottom: 20px;
 }
 
-.add-book-inputs {
+.manual-add-book-inputs input, .manual-add-book-inputs textarea {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-}
-
-.add-book-inputs input, .add-book-inputs textarea {
-  width: 100%;
-  padding: 8px 12px;
-  margin: 8px 0;
+  padding: 10px 15px;
+  margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 16px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: none;
+  background-color: #f9f9f9;
 }
 
-.add-book-inputs input:focus, .add-book-inputs textarea:focus {
+.manual-add-book-inputs textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.manual-add-book-inputs input:focus, .manual-add-book-inputs textarea:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
@@ -79,7 +80,7 @@
     padding: 10px;
   }
 
-  .add-book-inputs input, .add-book-inputs textarea {
+  .manual-add-book-inputs input, .manual-add-book-inputs textarea {
     font-size: 12px;
   }
 

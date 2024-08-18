@@ -61,7 +61,7 @@ const ManualAddBook = ({ bookData, saveBookGenres, removeBook }) => {
   return (
     <div className='manual-add-book-wrapper'>
       <h3>Verifica o modifica la información del libro</h3>
-      <div className='add-book-inputs'>
+      <div className='manual-add-book-inputs'>
         <label htmlFor="bookTitle">Título del libro</label>
         <input 
           id="bookTitle"
