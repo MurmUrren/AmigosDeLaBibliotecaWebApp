@@ -17,6 +17,7 @@ const BarcodeScanner = ({ getScannerISBN }) => {
   // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
   // const deviceId = videoInputDevices?.[1]?.deviceId || videoInputDevices?.[0]?.deviceId;
   let deviceId;
+  
   for (let i = 4; i >= 0; i--) {
     const deviceIdd = devices?.[i]?.deviceId;
     if (deviceIdd) {
