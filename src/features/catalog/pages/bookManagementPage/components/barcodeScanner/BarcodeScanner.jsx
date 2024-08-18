@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useZxing } from "react-zxing";
 import { useMediaDevices } from "react-media-devices";
 
-const constraints = {
-  video: {
-    facingMode: {
-      exact: "environment"
-    }
-  },
-  audio: false
-};
-
 const BarcodeScanner = ({ getScannerISBN }) => {
+<<<<<<< HEAD
   const { devices } = useMediaDevices({ constraints });
   // const deviceId = devices?.find((device) => device.kind === "videoinput")?.deviceId; 
   // const videoInputDevices = devices?.filter((device) => device.kind === "videoinput") || [];
@@ -26,23 +18,34 @@ const BarcodeScanner = ({ getScannerISBN }) => {
       break;
     }
   }
+=======
+  const [deviceId, setDeviceId] = useState(null);
+  const { devices } = useMediaDevices();
+  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
 
-  // const deviceId = devices?.[5]?.deviceId || devices?.[2]?.deviceId || devices?.[1]?.deviceId || devices?.[0]?.deviceId;
-  const [result, setResult] = useState("");
-  const [showVideoFeed, setShowVideoFeed] = useState(true);
-  
+  useEffect(() => {
+    if (devices) {
+      const videoInputDevices = devices.filter(device => device.kind === "videoinput");
+      setDeviceId(videoInputDevices[0]?.deviceId);
+    }
+  }, [devices]);
+
+  const handleDeviceChange = (event) => {
+    setSelectedDeviceId(event.target.value);
+  };
+>>>>>>> b03c3527c1240ed79bcf8dd597c3e62707cfd1fb
+
   const { ref } = useZxing({
-    paused: !deviceId,
-    deviceId,
+    paused: !selectedDeviceId,
+    deviceId: selectedDeviceId || deviceId,
     onDecodeResult(result) {
-      setResult(result.getText());
-      setShowVideoFeed(false);
-      getScannerISBN(String(result));
+      getScannerISBN(result.getText());
     },
   });
 
   return (
     <>
+<<<<<<< HEAD
     <div>
       {showVideoFeed && (
         <video
@@ -75,6 +78,28 @@ const BarcodeScanner = ({ getScannerISBN }) => {
       {/* {permissionStatus === "denied" && <p>Camera access denied. Please enable camera permissions in your browser settings.</p>}
       {permissionStatus === "prompt" && <p>Requesting camera access...</p>} */}
       {/* {error && <p>Error accessing the camera</p>} */}
+=======
+      {devices && (
+        <select onChange={handleDeviceChange} value={selectedDeviceId || deviceId}>
+          {devices
+            .filter(device => device.kind === "videoinput")
+            .map(device => (
+              <option key={device.deviceId} value={device.deviceId}>
+                {device.label || `Camera ${device.deviceId}`}
+              </option>
+            ))}
+        </select>
+      )}
+      <video
+        ref={ref}
+        style={{
+          width: "100%",
+          maxWidth: "380px",
+          height: "100%",
+          maxHeight: "250px",
+        }}
+      />
+>>>>>>> b03c3527c1240ed79bcf8dd597c3e62707cfd1fb
     </>
   );
 };
