@@ -36,7 +36,7 @@ function NavBar() {
       </div>
       <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
         <li className={`navbar-list-style ${currentPath === '/inicio' ? 'active' : ''}`}>
-          <Link to='/inicio'>Home</Link>
+          <Link to='/inicio'>Inicio</Link>
         </li>
         <li className={`navbar-list-style ${currentPath === '/manage' ? 'active' : ''}`}>
           <Link to='/manage'>Administrar</Link>
