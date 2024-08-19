@@ -45,6 +45,15 @@ const LendingBook = () => {
 
     const handleAddBook = async () => {
         setBookLoading(true);
+
+        const isAlreadyAddedLocally = books.some(book => book.barcode === bookBarcode);
+        if (isAlreadyAddedLocally) {
+            alert('Book is already added locally');
+            setBookBarcode('');
+            setBookLoading(false);
+            return;
+        }
+
         let availability = await isBookAvailable(bookBarcode);
         if (!availability) {
             alert('Book is already lent out');
@@ -102,7 +111,6 @@ const LendingBook = () => {
 
     const handleScanBookBarcode = (barcode) => {
         setBookBarcode(barcode);
-        setShowBookScanner(false);
     };
 
     const handleScanPatronBarcode = (barcode) => {
