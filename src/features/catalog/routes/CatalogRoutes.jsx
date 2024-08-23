@@ -13,10 +13,17 @@ import PatronEditPage from '@pages/patronEditPage/PatronEditPage';
 import CreatePatronPage from '@pages/createPatronPage/CreatePatronPage';
 import BarcodesPage from '@pages/barcodesPage/BarcodesPage';
 import LendingPage from '@pages/lendingPage/LendingPage';
+import Login from '@pages/login/Login';
 
 const CatalogRoutes = () => {
     return (
         <Routes>
+            <Route
+                path='/login'
+                element={
+                    <Login />
+                }
+            />
             <Route
                 path="/catalog/:genreId"
                 element={
