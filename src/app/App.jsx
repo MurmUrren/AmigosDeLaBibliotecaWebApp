@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
+import './index.css';
 
 import CatalogRoutes from '@routes/CatalogRoutes.jsx';
 import CollectionPage from '@pages/collectionPage/CollectionPage.jsx';
@@ -10,10 +10,9 @@ function App() {
   return (
     <div>
       <NavBar />
-      <div className='main-content'>
+      <div className='main-content mt-24'>
         <Routes>
-          <Route path="/" element={<Navigate to="/inicio" />} />
-          <Route path="/inicio" element={<CollectionPage />} />
+          <Route path="/" element={<CollectionPage />} />
           <Route path="/*" element={<CatalogRoutes />} />
         </Routes>
       </div>

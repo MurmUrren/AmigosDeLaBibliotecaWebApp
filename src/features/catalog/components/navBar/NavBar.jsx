@@ -17,36 +17,31 @@ function NavBar() {
     setIsMenuOpen(false);
   }, [currentPath]);
 
+  let links = [
+    {"name": "Inicio", "path": "/"},
+    {"name": "Literatura", "path": "/collection/literatura/1"},
+    {"name": "Informativos", "path": "collection/literatura/2"}
+  ]
+
   return (
-    <nav className='navbar'>
-      <div className='navbar-logo-title'>
-        <div className='navbar-logo'>
-          {currentPath === '/inicio' ? (
-            <img src={logo} alt='logo' />
-          ) : (
-            <Link to='/inicio'>
-              <img src={logo} alt='logo' />
+    <nav className='navbar p-4 pl-8 pr-8'>
+      <div className='flex flex-row justify-center items-center gap-3'>
+        <div>
+            <Link to='/'>
+              <img className='w-24' src={logo} alt='logo' />
             </Link>
-          )}
         </div>
-        <h4 className='navbar-title'>Amigos de la Biblioteca de Rosarito</h4>
-        <button className='navbar-toggle' onClick={toggleMenu}>
+        <h4 className=''>Amigos de la Biblioteca de Rosarito</h4>
+        <button className='hidden' onClick={toggleMenu}>
           &#9776;
         </button>
       </div>
-      <ul className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
-        <li className={`navbar-list-style ${currentPath === '/inicio' ? 'active' : ''}`}>
-          <Link to='/inicio'>Inicio</Link>
-        </li>
-        <li className={`navbar-list-style ${currentPath === '/manage' ? 'active' : ''}`}>
-          <Link to='/manage'>Administrar</Link>
-        </li>
-        <li className={`navbar-list-style ${currentPath === '/lending' ? 'active' : ''}`}>
-          <Link to='/lending'>Prestamos</Link>
-        </li>
-        <li className={`navbar-list-style ${currentPath === '/barcodes' ? 'active' : ''}`}>
-          <Link to='/barcodes'>Codigos QR</Link>
-        </li>
+      <ul className="flex gap-3">
+        {links.map((link, index) => (
+          <li className='hover:bg-white hover:text-gray-900 transition-all rounded-xl p-2' key={index}>
+            <Link to={link.path}>{link.name}</Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
