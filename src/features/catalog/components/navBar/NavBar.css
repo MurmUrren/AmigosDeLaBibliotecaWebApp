@@ -3,6 +3,12 @@
     @apply bg-gray-100;
     @apply dark:bg-gray-900;
     @apply w-full;
-    @apply z-50;
-    @apply flex flex-row justify-between items-center top-0 left-0;
+    @apply z-30;
+    @apply flex flex-col md:flex-row md:justify-between md:items-center top-0 left-0;
+}
+
+.show{
+    transition: all 2s ease;
+    height: auto;
+    opacity: 1;
 }

@@ -6,7 +6,6 @@ const BOOKCOVER_URL = 'https://bookcover.longitood.com/bookcover';
 const fetchCoverFromLongitood = async (isbn) => {
   try {
     const response = await axios.get(`${BOOKCOVER_URL}/${isbn}`);
-    console.log("Respuesta de Longitood: ", response.data);
     // Ensure response has the expected structure
     if (response.data && response.data.url) {
       return response.data.url;
@@ -23,7 +22,6 @@ const fetchCoverFromLongitood = async (isbn) => {
 const fetchBookData = async (query, isbn) => {
   try {
     const { data } = await axios.get(GOOGLE_BOOKS_URL, { params: { q: query } });
-    console.log("Respuesta de Google Books: ", data);
     const book = data.items?.[0];
 
     if (book) {

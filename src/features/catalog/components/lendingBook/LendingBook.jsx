@@ -62,7 +62,6 @@ const LendingBook = () => {
             return;
         }
         const fetchedBookData = await getBook(bookBarcode);
-        console.log('Fetched Book Data:', fetchedBookData);
         if (fetchedBookData.length === 0) {
             alert('Book not found');
         } else if (fetchedBookData && fetchedBookData.barcode) {
@@ -93,8 +92,6 @@ const LendingBook = () => {
     };
 
     const handleCheckout = async () => {
-        console.log('Books to Checkout:', books);
-        console.log('Patron Data:', patronData);
 
         const lendingArray = books.map((book) => ({
             patron_barcode: patronData.barcode,
@@ -105,7 +102,6 @@ const LendingBook = () => {
 
         for (let lending of lendingArray) {
             let status = await registerLending(lending);
-            console.log('Lending status:', status);
         }
     };
 

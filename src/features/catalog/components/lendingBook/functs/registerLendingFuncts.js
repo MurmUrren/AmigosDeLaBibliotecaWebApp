@@ -7,8 +7,6 @@ export const getBook = async (bookBarcode) => {
             .select('*')
             .eq('barcode', bookBarcode);
 
-            console.log('data:', data)
-
         if (error) {
             console.error('Error fetching book data based on barcode', error);
         } else if (data && data.length > 0) {
@@ -35,31 +33,25 @@ export const registerLending = async (lending) => {
         return false;
     }
     if (data) {
-        console.log('patron created', data)
         return true;
     }
 };
 
 export const isBookAvailable = async (bookBarcode) => {
-    console.log('bookBarcodehhh :', bookBarcode)
     const { data, error } = await supabase
         .from("Checkouts")
         .select('*')
         .eq('book_barcode', bookBarcode)
 
-    // console.log('data:', data)
     if (error) {
         console.error('error checking book availability', error)
         return false;
     }
     if (data) {
-        console.log('datinha :', data)
         if (data.length === 0) {
-            console.log('Book is available')
             return true;
         }
         else {
-            console.log('Book is not available')
             return false;
         }
     }

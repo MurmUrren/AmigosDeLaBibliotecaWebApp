@@ -1,23 +1,18 @@
-import React from "react";
-import useGenres from "@hooks/useGenres";
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './GenresPage.css';
 import CarrouselTopGenRes from "@components/CarrouselTopGenRes/CarrouselTopGenRes";
-
-import CollectionCard from "@components/collectionCard/CollectionCard";
+import GenresPList from "@components/genresPList/GenresPList";
 
 function GenresPage() {
     const navigate = useNavigate();
     const { title, collectionId } = useParams();
-    const genres = useGenres.useGenres(collectionId);
 
-    const handleClick = async (event) => {
-        let id = event.currentTarget.id;
-        //with supabase increment the views of the genre
-        await useGenres.updateViews(id);
-        navigate(`/catalog/${id}`)
+    useEffect(() => {
+        console.log(collectionId);
     }
+    , [navigate]);
 
     return (
         <div className="genresP-wrapper">
@@ -35,21 +30,7 @@ function GenresPage() {
                 }
             </div>
 
-            <div className="genresP-list">
-                {genres?.length > 0 ?
-                    genres.map((genre, index) => (
-                        <div classname="genresP-box" key={index}>
-                            <CollectionCard
-                                title={genre.Title}
-                                img={genre.Img}
-                                genre={genre}
-                                onClick={handleClick}
-                            />
-                        </div>
-                    )) : (
-                        <h1>No se encontraron generos</h1>
-                    )}
-            </div>
+            <GenresPList id={collectionId} />
         </div>
 
     );
